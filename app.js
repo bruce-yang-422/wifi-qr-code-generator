@@ -76,6 +76,8 @@ document.addEventListener('DOMContentLoaded', () => {
         // 如果有 config.js 且有密碼，將密碼填入輸入框（讓畫面也看得到），供預先得知狀態
         if (window.WIFI_CONFIG && window.WIFI_CONFIG[type] && window.WIFI_CONFIG[type].password) {
             document.getElementById(networks[type].passwordId).value = window.WIFI_CONFIG[type].password;
+            // 自動為使用者預先產生 QR Code，讓瀏覽與預覽列印體驗最佳化
+            setTimeout(() => generateQR(type), 100);
         }
     });
 
