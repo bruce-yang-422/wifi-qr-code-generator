@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Company WiFi QR Codes</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-    <link <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
         href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&family=Space+Mono:wght@400;700&display=swap"
@@ -426,8 +426,13 @@
             }
 
             header {
-                margin-bottom: 1.5cm;
+                margin-bottom: 1cm;
                 page-break-after: avoid;
+                text-align: center;
+            }
+
+            .company-input-container {
+                display: none !important;
             }
 
             h1 {
@@ -435,6 +440,7 @@
                 color: #000 !important;
                 background: none !important;
                 -webkit-text-fill-color: initial !important;
+                margin-bottom: 0.2rem;
             }
 
             .subtitle {
@@ -442,9 +448,7 @@
             }
 
             .grid {
-                display: grid;
-                grid-template-columns: repeat(3, 1fr);
-                gap: 1.5cm;
+                display: block;
                 margin-bottom: 0;
             }
 
@@ -457,20 +461,25 @@
 
             .input-group {
                 display: block !important;
-                margin-bottom: 0.8cm !important;
+                margin-bottom: 1cm !important;
             }
 
             .input-group label {
                 color: #333 !important;
-                font-size: 0.8rem !important;
+                font-size: 1rem !important;
+                margin-bottom: 0.5rem !important;
+                display: block;
             }
 
             input[type="text"] {
-                background: #f5f5f5 !important;
-                border: 1px solid #ddd !important;
+                background: transparent !important;
+                border: none !important;
+                border-bottom: 2px solid #ccc !important;
                 color: #000 !important;
-                font-size: 1rem !important;
-                padding: 0.6rem 1rem !important;
+                font-size: 1.2rem !important;
+                padding: 0.4rem 0 !important;
+                border-radius: 0 !important;
+                width: 100%;
             }
 
             .wifi-card {
@@ -480,14 +489,10 @@
                 background: white !important;
                 backdrop-filter: none !important;
                 -webkit-backdrop-filter: none !important;
-                padding: 1.2cm !important;
-                margin: 0;
+                padding: 1.5cm !important;
+                margin-bottom: 1.5cm;
                 box-shadow: none !important;
-                page-break-after: always;
-            }
-
-            .wifi-card:last-child {
-                page-break-after: auto;
+                border-radius: 16px !important;
             }
 
             .wifi-card::before {
@@ -501,11 +506,12 @@
             .icon {
                 background: #f0f0f0 !important;
                 box-shadow: none !important;
+                border: 1px solid #ddd;
             }
 
             .card-title h2 {
                 color: #000 !important;
-                font-size: 1.4rem;
+                font-size: 1.5rem;
             }
 
             .card-title .tag {
@@ -513,11 +519,12 @@
             }
 
             .ssid-display {
-                background: #f5f5f5 !important;
+                background: #f9f9f9 !important;
                 border: 1px solid #ddd !important;
-                margin-bottom: 0.8cm;
+                margin-bottom: 1cm;
                 color: #333 !important;
-                font-size: 1rem !important;
+                font-size: 1.2rem !important;
+                padding: 1rem !important;
             }
 
             .ssid-name {
@@ -526,28 +533,30 @@
             }
 
             .qr-container {
-                display: block !important;
                 margin-top: 1cm;
-                padding: 1.2cm !important;
+                padding: 0 !important;
                 background: white !important;
-                border: 1px solid #ddd !important;
+                border: none !important;
                 box-shadow: none !important;
+                text-align: center;
             }
 
             .qr-code {
                 background: white !important;
+                display: flex;
+                justify-content: center;
             }
 
             .qr-code canvas,
             .qr-code img {
-                max-width: 100%;
+                max-width: 6cm;
                 height: auto;
             }
 
             .qr-info {
                 color: #666 !important;
                 margin-top: 0.8cm;
-                font-size: 0.85rem;
+                font-size: 0.9rem;
             }
         }
 
