@@ -1,0 +1,898 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yichai WiFi QR Codes</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Outfit:wght@300;500;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #0a84ff;
+            --secondary: #ff375f;
+            --accent: #30d158;
+            --bg-dark: #0d1117;
+            --bg-card: rgba(22, 27, 34, 0.8);
+            --text-primary: #f0f6fc;
+            --text-secondary: #8b949e;
+            --border: rgba(48, 54, 61, 0.5);
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: linear-gradient(135deg, #0d1117 0%, #1a1f2e 50%, #0d1117 100%);
+            min-height: 100vh;
+            color: var(--text-primary);
+            padding: 2rem;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(10, 132, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(255, 55, 95, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 50% 50%, rgba(48, 209, 88, 0.05) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 4rem;
+            animation: fadeInDown 0.8s ease-out;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+            letter-spacing: -0.02em;
+        }
+
+        .subtitle {
+            font-family: 'Space Mono', monospace;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .wifi-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            padding: 2.5rem;
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            animation: fadeInUp 0.8s ease-out backwards;
+        }
+
+        .wifi-card:nth-child(1) { animation-delay: 0.1s; }
+        .wifi-card:nth-child(2) { animation-delay: 0.2s; }
+        .wifi-card:nth-child(3) { animation-delay: 0.3s; }
+
+        .wifi-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--card-color) 0%, transparent 100%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .wifi-card:hover::before {
+            opacity: 1;
+        }
+
+        .wifi-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--card-color);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4), 0 0 0 1px var(--card-color);
+        }
+
+        .wifi-card.guest { --card-color: var(--accent); }
+        .wifi-card.office { --card-color: var(--primary); }
+        .wifi-card.boss { --card-color: var(--secondary); }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            background: linear-gradient(135deg, var(--card-color), rgba(255, 255, 255, 0.1));
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        .card-title {
+            flex: 1;
+        }
+
+        .card-title h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.25rem;
+            color: var(--text-primary);
+        }
+
+        .card-title .tag {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.75rem;
+            color: var(--card-color);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .ssid-display {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+            font-family: 'Space Mono', monospace;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        .ssid-name {
+            color: var(--text-primary);
+            font-weight: 700;
+        }
+
+        .input-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .input-group label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+            letter-spacing: 0.02em;
+        }
+
+        .input-wrapper {
+            position: relative;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 0.875rem 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            color: var(--text-primary);
+            font-family: 'Space Mono', monospace;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: var(--card-color);
+            background: rgba(255, 255, 255, 0.08);
+            box-shadow: 0 0 0 3px rgba(var(--card-color-rgb), 0.1);
+        }
+
+        .generate-btn {
+            width: 100%;
+            padding: 1rem;
+            background: linear-gradient(135deg, var(--card-color), rgba(255, 255, 255, 0.1));
+            border: none;
+            border-radius: 12px;
+            color: white;
+            font-weight: 700;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .generate-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .generate-btn:active {
+            transform: translateY(0);
+        }
+
+        .download-btn {
+            margin-top: 1rem;
+            padding: 0.875rem 1.5rem;
+            background: linear-gradient(135deg, #34c759, #30d158);
+            border: none;
+            border-radius: 10px;
+            color: white;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(52, 199, 89, 0.3);
+        }
+
+        .download-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(52, 199, 89, 0.4);
+            background: linear-gradient(135deg, #30d158, #34c759);
+        }
+
+        .download-btn:active {
+            transform: translateY(0);
+        }
+
+        .qr-container {
+            margin-top: 2rem;
+            padding: 2rem;
+            background: white;
+            border-radius: 16px;
+            display: none;
+            text-align: center;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+        }
+
+        .qr-container.show {
+            display: block;
+            animation: scaleIn 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .qr-code {
+            display: inline-block;
+            padding: 1rem;
+            background: white;
+            border-radius: 12px;
+        }
+
+        .qr-info {
+            margin-top: 1rem;
+            font-family: 'Space Mono', monospace;
+            font-size: 0.8rem;
+            color: #666;
+        }
+
+        .print-section {
+            text-align: center;
+            margin-top: 3rem;
+            animation: fadeIn 1s ease-out 0.6s backwards;
+        }
+
+        .print-btn {
+            padding: 1.25rem 3rem;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            border: none;
+            border-radius: 16px;
+            color: white;
+            font-weight: 700;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            box-shadow: 0 8px 24px rgba(10, 132, 255, 0.3);
+        }
+
+        .print-btn:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 32px rgba(10, 132, 255, 0.4);
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @page {
+            size: A4 portrait;
+            margin: 1.5cm;
+        }
+
+        @media print {
+            * {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+
+            body {
+                background: white !important;
+                padding: 0 !important;
+                min-height: auto;
+            }
+            
+            body::before {
+                display: none;
+            }
+
+            .container {
+                max-width: 100%;
+                padding: 0;
+            }
+
+            header {
+                margin-bottom: 1.5cm;
+                page-break-after: avoid;
+            }
+
+            h1 {
+                font-size: 2.2rem;
+                color: #000 !important;
+                background: none !important;
+                -webkit-text-fill-color: initial !important;
+            }
+
+            .subtitle {
+                color: #666 !important;
+            }
+
+            .grid {
+                display: flex;
+                flex-direction: column;
+                gap: 1.5cm;
+                margin-bottom: 0;
+            }
+            
+            .print-btn,
+            .print-section,
+            .generate-btn,
+            .download-btn {
+                display: none !important;
+            }
+
+            .input-group {
+                display: block !important;
+                margin-bottom: 0.8cm !important;
+            }
+
+            .input-group label {
+                color: #333 !important;
+                font-size: 0.8rem !important;
+            }
+
+            input[type="text"] {
+                background: #f5f5f5 !important;
+                border: 1px solid #ddd !important;
+                color: #000 !important;
+                font-size: 1rem !important;
+                padding: 0.6rem 1rem !important;
+            }
+            
+            .wifi-card {
+                break-inside: avoid;
+                page-break-inside: avoid;
+                border: 2px solid #333 !important;
+                background: white !important;
+                backdrop-filter: none !important;
+                -webkit-backdrop-filter: none !important;
+                padding: 1.2cm !important;
+                margin: 0;
+                box-shadow: none !important;
+                page-break-after: always;
+            }
+
+            .wifi-card:last-child {
+                page-break-after: auto;
+            }
+
+            .wifi-card::before {
+                display: none;
+            }
+
+            .card-header {
+                margin-bottom: 0.8cm;
+            }
+
+            .icon {
+                background: #f0f0f0 !important;
+                box-shadow: none !important;
+            }
+
+            .card-title h2 {
+                color: #000 !important;
+                font-size: 1.4rem;
+            }
+
+            .card-title .tag {
+                color: #666 !important;
+            }
+
+            .ssid-display {
+                background: #f5f5f5 !important;
+                border: 1px solid #ddd !important;
+                margin-bottom: 0.8cm;
+                color: #333 !important;
+                font-size: 1rem !important;
+            }
+
+            .ssid-name {
+                color: #000 !important;
+                font-weight: 700 !important;
+            }
+            
+            .qr-container {
+                display: block !important;
+                margin-top: 1cm;
+                padding: 1.2cm !important;
+                background: white !important;
+                border: 1px solid #ddd !important;
+                box-shadow: none !important;
+            }
+
+            .qr-code {
+                background: white !important;
+            }
+
+            .qr-code canvas,
+            .qr-code img {
+                max-width: 100%;
+                height: auto;
+            }
+
+            .qr-info {
+                color: #666 !important;
+                margin-top: 0.8cm;
+                font-size: 0.85rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            .grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>WiFi Access</h1>
+            <p class="subtitle">Yichai Network QR Codes</p>
+        </header>
+
+        <div class="grid">
+            <!-- Guest WiFi Card -->
+            <div class="wifi-card guest">
+                <div class="card-header">
+                    <div class="icon">🌐</div>
+                    <div class="card-title">
+                        <h2>訪客網路</h2>
+                        <div class="tag">Guest Network</div>
+                    </div>
+                </div>
+                
+                <div class="ssid-display">
+                    SSID: <span class="ssid-name">Yichai-Guest</span>
+                </div>
+
+                <div class="input-group">
+                    <label for="guest-password">網路密碼</label>
+                    <div class="input-wrapper">
+                        <input type="text" id="guest-password" placeholder="輸入密碼">
+                    </div>
+                </div>
+
+                <button class="generate-btn" onclick="generateQR('guest')">
+                    生成 QR Code
+                </button>
+
+                <div class="qr-container" id="guest-qr">
+                    <div class="qr-code" id="guest-qr-code"></div>
+                    <div class="qr-info">掃描此 QR Code 連接訪客網路</div>
+                    <button class="download-btn" onclick="downloadQRImage('guest')">
+                        📥 下載圖片
+                    </button>
+                </div>
+            </div>
+
+            <!-- Office WiFi Card -->
+            <div class="wifi-card office">
+                <div class="card-header">
+                    <div class="icon">🏢</div>
+                    <div class="card-title">
+                        <h2>辦公室網路</h2>
+                        <div class="tag">Office Network</div>
+                    </div>
+                </div>
+                
+                <div class="ssid-display">
+                    SSID: <span class="ssid-name">Yichai-Office</span>
+                </div>
+
+                <div class="input-group">
+                    <label for="office-password">網路密碼</label>
+                    <div class="input-wrapper">
+                        <input type="text" id="office-password" placeholder="輸入密碼">
+                    </div>
+                </div>
+
+                <button class="generate-btn" onclick="generateQR('office')">
+                    生成 QR Code
+                </button>
+
+                <div class="qr-container" id="office-qr">
+                    <div class="qr-code" id="office-qr-code"></div>
+                    <div class="qr-info">掃描此 QR Code 連接辦公室網路</div>
+                    <button class="download-btn" onclick="downloadQRImage('office')">
+                        📥 下載圖片
+                    </button>
+                </div>
+            </div>
+
+            <!-- Boss Office WiFi Card -->
+            <div class="wifi-card boss">
+                <div class="card-header">
+                    <div class="icon">👔</div>
+                    <div class="card-title">
+                        <h2>老闆辦公室</h2>
+                        <div class="tag">Executive Network</div>
+                    </div>
+                </div>
+                
+                <div class="ssid-display">
+                    SSID: <span class="ssid-name">Yichai-Jimmy-Office</span>
+                </div>
+
+                <div class="input-group">
+                    <label for="boss-password">網路密碼</label>
+                    <div class="input-wrapper">
+                        <input type="text" id="boss-password" placeholder="輸入密碼">
+                    </div>
+                </div>
+
+                <button class="generate-btn" onclick="generateQR('boss')">
+                    生成 QR Code
+                </button>
+
+                <div class="qr-container" id="boss-qr">
+                    <div class="qr-code" id="boss-qr-code"></div>
+                    <div class="qr-info">掃描此 QR Code 連接老闆辦公室網路</div>
+                    <button class="download-btn" onclick="downloadQRImage('boss')">
+                        📥 下載圖片
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="print-section">
+            <button class="print-btn" onclick="window.print()">
+                🖨️ 列印所有 QR Codes
+            </button>
+        </div>
+    </div>
+
+    <script>
+        const networks = {
+            guest: {
+                ssid: 'Yichai-Guest',
+                passwordId: 'guest-password',
+                qrContainerId: 'guest-qr',
+                qrCodeId: 'guest-qr-code'
+            },
+            office: {
+                ssid: 'Yichai-Office',
+                passwordId: 'office-password',
+                qrContainerId: 'office-qr',
+                qrCodeId: 'office-qr-code'
+            },
+            boss: {
+                ssid: 'Yichai-Jimmy-Office',
+                passwordId: 'boss-password',
+                qrContainerId: 'boss-qr',
+                qrCodeId: 'boss-qr-code'
+            }
+        };
+
+        // Helper function to draw rounded rectangle
+        function drawRoundedRect(ctx, x, y, width, height, radius) {
+            ctx.beginPath();
+            ctx.moveTo(x + radius, y);
+            ctx.lineTo(x + width - radius, y);
+            ctx.quadraticCurveTo(x + width, y, x + width, y + radius);
+            ctx.lineTo(x + width, y + height - radius);
+            ctx.quadraticCurveTo(x + width, y + height, x + width - radius, y + height);
+            ctx.lineTo(x + radius, y + height);
+            ctx.quadraticCurveTo(x, y + height, x, y + height - radius);
+            ctx.lineTo(x, y + radius);
+            ctx.quadraticCurveTo(x, y, x + radius, y);
+            ctx.closePath();
+        }
+
+        function generateQR(networkType) {
+            const network = networks[networkType];
+            const password = document.getElementById(network.passwordId).value;
+            
+            if (!password) {
+                alert('請輸入密碼！');
+                return;
+            }
+
+            // WiFi QR Code format: WIFI:T:WPA;S:<SSID>;P:<password>;H:false;;
+            const wifiString = `WIFI:T:WPA;S:${network.ssid};P:${password};H:false;;`;
+            
+            // Clear previous QR code
+            const qrCodeElement = document.getElementById(network.qrCodeId);
+            qrCodeElement.innerHTML = '';
+            
+            // Generate new QR code
+            new QRCode(qrCodeElement, {
+                text: wifiString,
+                width: 256,
+                height: 256,
+                colorDark: "#000000",
+                colorLight: "#ffffff",
+                correctLevel: QRCode.CorrectLevel.Q
+            });
+            
+            // Show QR container with animation
+            document.getElementById(network.qrContainerId).classList.add('show');
+        }
+
+        // Add keyboard support for Enter key
+        document.querySelectorAll('input[type="text"]').forEach(input => {
+            input.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    const card = input.closest('.wifi-card');
+                    const btn = card.querySelector('.generate-btn');
+                    btn.click();
+                }
+            });
+        });
+
+        function downloadQRImage(networkType) {
+            const network = networks[networkType];
+            const password = document.getElementById(network.passwordId).value;
+            
+            if (!password) {
+                alert('請先生成 QR Code！');
+                return;
+            }
+
+            // 獲取 QR code canvas
+            const qrCodeElement = document.getElementById(network.qrCodeId);
+            const qrCanvas = qrCodeElement.querySelector('canvas');
+            
+            if (!qrCanvas) {
+                alert('請先生成 QR Code！');
+                return;
+            }
+
+            // 設定網路標題和顏色
+            const networkInfo = {
+                guest: { 
+                    title: '訪客網路',
+                    subtitle: 'GUEST NETWORK',
+                    icon: '🌐',
+                    color: '#30d158'
+                },
+                office: { 
+                    title: '辦公室網路',
+                    subtitle: 'OFFICE NETWORK',
+                    icon: '🏢',
+                    color: '#0a84ff'
+                },
+                boss: { 
+                    title: '老闆辦公室',
+                    subtitle: 'EXECUTIVE NETWORK',
+                    icon: '👔',
+                    color: '#ff375f'
+                }
+            };
+
+            const info = networkInfo[networkType];
+
+            // 創建新的 canvas
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+            
+            // 設定畫布大小 (1080x1920 適合手機分享)
+            canvas.width = 1080;
+            canvas.height = 1920;
+
+            // 背景漸變
+            const gradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
+            gradient.addColorStop(0, '#0d1117');
+            gradient.addColorStop(0.5, '#1a1f2e');
+            gradient.addColorStop(1, '#0d1117');
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            // 添加光暈效果
+            const glowGradient = ctx.createRadialGradient(540, 400, 0, 540, 400, 600);
+            glowGradient.addColorStop(0, info.color + '33');
+            glowGradient.addColorStop(1, 'transparent');
+            ctx.fillStyle = glowGradient;
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            // 繪製標題
+            ctx.fillStyle = '#ffffff';
+            ctx.font = 'bold 80px "Outfit", sans-serif';
+            ctx.textAlign = 'center';
+            ctx.fillText('WiFi Access', 540, 200);
+
+            // 繪製副標題
+            ctx.fillStyle = '#8b949e';
+            ctx.font = '32px "Space Mono", monospace';
+            ctx.fillText('YICHAI NETWORK', 540, 260);
+
+            // 繪製圖示和網路名稱卡片
+            ctx.fillStyle = 'rgba(22, 27, 34, 0.9)';
+            ctx.strokeStyle = info.color;
+            ctx.lineWidth = 4;
+            const cardY = 360;
+            const cardHeight = 1300;
+            drawRoundedRect(ctx, 90, cardY, 900, cardHeight, 40);
+            ctx.fill();
+            ctx.stroke();
+
+            // 繪製圖示背景
+            ctx.fillStyle = info.color + '33';
+            ctx.beginPath();
+            ctx.arc(540, cardY + 100, 60, 0, Math.PI * 2);
+            ctx.fill();
+
+            // 繪製圖示 (使用文字)
+            ctx.font = '64px Arial';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText(info.icon, 540, cardY + 100);
+
+            // 繪製網路名稱
+            ctx.fillStyle = '#ffffff';
+            ctx.font = 'bold 64px "Outfit", sans-serif';
+            ctx.textBaseline = 'alphabetic';
+            ctx.fillText(info.title, 540, cardY + 230);
+
+            ctx.fillStyle = info.color;
+            ctx.font = '28px "Space Mono", monospace';
+            ctx.fillText(info.subtitle, 540, cardY + 280);
+
+            // SSID 區塊
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.05)';
+            ctx.strokeStyle = 'rgba(255, 255, 255, 0.1)';
+            ctx.lineWidth = 2;
+            drawRoundedRect(ctx, 140, cardY + 340, 800, 100, 20);
+            ctx.fill();
+            ctx.stroke();
+
+            ctx.fillStyle = '#8b949e';
+            ctx.font = '28px "Space Mono", monospace';
+            ctx.textAlign = 'left';
+            ctx.fillText('SSID:', 180, cardY + 395);
+
+            ctx.fillStyle = '#ffffff';
+            ctx.font = 'bold 32px "Space Mono", monospace';
+            ctx.fillText(network.ssid, 180, cardY + 430);
+
+            // 密碼區塊
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.05)';
+            ctx.strokeStyle = 'rgba(255, 255, 255, 0.1)';
+            drawRoundedRect(ctx, 140, cardY + 470, 800, 100, 20);
+            ctx.fill();
+            ctx.stroke();
+
+            ctx.fillStyle = '#8b949e';
+            ctx.font = '28px "Space Mono", monospace';
+            ctx.fillText('密碼:', 180, cardY + 525);
+
+            ctx.fillStyle = '#ffffff';
+            ctx.font = 'bold 32px "Space Mono", monospace';
+            ctx.fillText(password, 180, cardY + 560);
+
+            // QR Code 背景
+            ctx.fillStyle = '#ffffff';
+            drawRoundedRect(ctx, 240, cardY + 620, 600, 600, 20);
+            ctx.fill();
+
+            // 繪製 QR Code
+            ctx.drawImage(qrCanvas, 270, cardY + 650, 540, 540);
+
+            // 提示文字
+            ctx.fillStyle = '#8b949e';
+            ctx.font = '28px "Space Mono", monospace';
+            ctx.textAlign = 'center';
+            ctx.fillText('掃描此 QR Code 連接網路', 540, cardY + 1260);
+
+            // 底部資訊
+            ctx.fillStyle = '#555';
+            ctx.font = '24px "Space Mono", monospace';
+            ctx.fillText('Yichai WiFi Network', 540, 1800);
+
+            // 轉換為圖片並下載
+            canvas.toBlob(function(blob) {
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `Yichai-WiFi-${network.ssid}.png`;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+            }, 'image/png');
+        }
+    </script>
+</body>
+</html>
