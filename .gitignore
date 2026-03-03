@@ -82,7 +82,7 @@ pnpm-lock.yaml
 # Optional Generated Assets
 ##################################
 
-# Uncomment if you don't want generated QR exports tracked
-# exports/
-# *.png
-# *.pdf
+# Ignore generated QR exports and print previews
+exports/
+*.png
+*.pdf
