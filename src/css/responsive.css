@@ -1,0 +1,129 @@
+/* ─── Tablet / Narrow Desktop ───────────────────────────────────────────── */
+
+@media (max-width: 1180px) {
+    .preview-stage {
+        --preview-scale: 0.64;
+    }
+
+    .workspace {
+        grid-template-columns: 1fr;
+    }
+
+    .control-panel {
+        position: static;
+    }
+
+    .preview-wrap {
+        overflow: hidden;
+    }
+}
+
+/* ─── Mobile ────────────────────────────────────────────────────────────── */
+
+@media (max-width: 780px) {
+    .preview-stage {
+        --preview-scale: 0.46;
+        height: calc(297mm * var(--preview-scale));
+    }
+
+    body {
+        padding: 18px 12px 36px;
+    }
+
+    .control-panel,
+    .preview-wrap {
+        border-radius: 22px;
+    }
+
+    .control-panel {
+        padding: 22px;
+    }
+
+    .quick-preview {
+        grid-template-columns: 1fr;
+    }
+
+    .password-mode-toggle,
+    .pw-split {
+        grid-template-columns: 1fr;
+    }
+
+    .preview-note {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .wifi-cards,
+    .wifi-cards[data-count] {
+        grid-template-columns: 1fr;
+        max-width: none;
+        gap: 18px;
+    }
+
+    .wifi-card {
+        max-width: none;
+    }
+
+    .password-section {
+        margin: 0;
+    }
+}
+
+/* ─── Print ─────────────────────────────────────────────────────────────── */
+
+@media print {
+    @page {
+        size: A4 portrait;
+        margin: 0;
+    }
+
+    body {
+        padding: 0;
+        background: #fff;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+
+    .hero,
+    .control-panel,
+    .preview-note {
+        display: none !important;
+    }
+
+    .workspace,
+    .preview-wrap {
+        display: block;
+        max-width: none;
+        margin: 0;
+        padding: 0;
+        border: none;
+        background: transparent;
+        box-shadow: none;
+    }
+
+    .preview-stage {
+        position: static;
+        height: auto;
+        overflow: visible;
+        border-radius: 0;
+    }
+
+    .print-page {
+        position: relative;
+        left: 0;
+        width: 210mm;
+        min-height: 297mm;
+        margin: 0;
+        border-radius: 0;
+        box-shadow: none;
+        transform: none;
+    }
+
+    .wifi-cards {
+        gap: 3mm;
+    }
+
+    .btn-print {
+        display: none !important;
+    }
+}
