@@ -17,13 +17,21 @@
 <body>
     <div class="app-shell">
         <header class="hero">
-            <div class="eyebrow">Printable WiFi Sheet</div>
+            <div class="eyebrow">macOS-style printable utility</div>
             <h1>WiFi QR Code 產生器</h1>
-            <p>輸入 2.4 GHz、5 GHz 與 MLO 三組 SSID，並選擇密碼要共用或分開設定；右側名稱與密碼資訊會即時同步，產生後即可列印或另存 PDF。</p>
+            <p>以 macOS 風格整理 WiFi 管理面板，支援 2.4 GHz、5 GHz、MLO、訪客網路與 A4 列印預覽。</p>
         </header>
 
         <main class="workspace">
             <section class="control-panel">
+                <div class="panel-chrome">
+                    <div class="traffic-lights" aria-hidden="true">
+                        <span class="traffic-dot traffic-close"></span>
+                        <span class="traffic-dot traffic-minimize"></span>
+                        <span class="traffic-dot traffic-zoom"></span>
+                    </div>
+                    <div class="chrome-title">WiFi Control Center</div>
+                </div>
                 <div class="control-title">連線資訊設定</div>
                 <div class="control-sub">現在可自由切換 2.4 GHz、5 GHz 與 MLO 使用相同密碼或分開密碼。這裡只負責輸入資料，右側專心做列印預覽。</div>
 
@@ -167,6 +175,14 @@
             </section>
 
             <section class="preview-wrap">
+                <div class="panel-chrome">
+                    <div class="traffic-lights" aria-hidden="true">
+                        <span class="traffic-dot traffic-close"></span>
+                        <span class="traffic-dot traffic-minimize"></span>
+                        <span class="traffic-dot traffic-zoom"></span>
+                    </div>
+                    <div class="chrome-title">Preview</div>
+                </div>
                 <div class="preview-note">
                     <strong>右側是 A4 列印預覽</strong>
                     <span>名稱即時同步，QR Code 會在按下「產生 QR Code」後建立。</span>

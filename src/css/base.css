@@ -1,15 +1,22 @@
 /* ─── Variables & Reset ─────────────────────────────────────────────────── */
 
 :root {
-    --bg: #faf7f2;
-    --bg-accent: #f6ede1;
-    --accent: #e8833a;
-    --accent-dark: #d4742e;
-    --accent-light: #fef0e5;
-    --text: #2c2420;
-    --text-muted: #8a7e76;
-    --border: #e8e0d8;
-    --shadow: 0 18px 50px rgba(44, 36, 32, 0.08);
+    --bg: #eef3fb;
+    --bg-accent: #e6eef9;
+    --panel: rgba(255, 255, 255, 0.72);
+    --panel-strong: rgba(255, 255, 255, 0.88);
+    --accent: #0a84ff;
+    --accent-dark: #0066d6;
+    --accent-light: rgba(10, 132, 255, 0.12);
+    --text: #1f2633;
+    --text-muted: #667085;
+    --border: rgba(148, 163, 184, 0.24);
+    --border-strong: rgba(148, 163, 184, 0.4);
+    --shadow: 0 24px 60px rgba(15, 23, 42, 0.12);
+    --shadow-soft: 0 10px 24px rgba(15, 23, 42, 0.08);
+    --red-dot: #ff5f57;
+    --yellow-dot: #febc2e;
+    --green-dot: #28c840;
 }
 
 * {
@@ -19,14 +26,15 @@
 }
 
 body {
-    font-family: 'Outfit', sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', sans-serif;
     background:
-        radial-gradient(circle at top left, rgba(232, 131, 58, 0.08), transparent 35%),
-        radial-gradient(circle at bottom right, rgba(44, 36, 32, 0.06), transparent 30%),
+        radial-gradient(circle at top left, rgba(10, 132, 255, 0.18), transparent 28%),
+        radial-gradient(circle at top right, rgba(94, 92, 230, 0.14), transparent 24%),
+        radial-gradient(circle at bottom left, rgba(52, 199, 89, 0.12), transparent 24%),
         linear-gradient(180deg, var(--bg) 0%, var(--bg-accent) 100%);
     color: var(--text);
     min-height: 100vh;
-    padding: 28px 20px 56px;
+    padding: 30px 22px 56px;
 }
 
 /* ─── App Shell & Hero ──────────────────────────────────────────────────── */
@@ -38,34 +46,40 @@ body {
 
 .hero {
     text-align: center;
-    margin-bottom: 24px;
+    margin-bottom: 28px;
 }
 
 .eyebrow {
     display: inline-block;
-    padding: 7px 14px;
+    padding: 8px 14px;
     border-radius: 999px;
-    background: rgba(232, 131, 58, 0.12);
-    color: var(--accent-dark);
-    font-size: 12px;
-    font-weight: 800;
-    letter-spacing: 0.14em;
+    background: rgba(255, 255, 255, 0.72);
+    border: 1px solid rgba(255, 255, 255, 0.9);
+    color: var(--accent);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
     text-transform: uppercase;
     margin-bottom: 12px;
+    box-shadow: var(--shadow-soft);
+    backdrop-filter: blur(14px);
 }
 
 .hero h1 {
-    font-family: 'Fraunces', serif;
-    font-size: clamp(2.25rem, 6vw, 4.1rem);
-    line-height: 1.05;
-    margin-bottom: 12px;
+    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', sans-serif;
+    font-size: clamp(2.35rem, 6vw, 4.5rem);
+    font-weight: 700;
+    letter-spacing: -0.04em;
+    line-height: 1.02;
+    margin-bottom: 10px;
 }
 
 .hero p {
-    max-width: 640px;
+    max-width: 720px;
     margin: 0 auto;
     color: var(--text-muted);
     line-height: 1.7;
+    font-size: 1rem;
 }
 
 /* ─── Utility ───────────────────────────────────────────────────────────── */
