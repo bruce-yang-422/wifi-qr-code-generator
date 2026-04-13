@@ -1,59 +1,52 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512" fill="none">
   <defs>
-    <linearGradient id="bg" x1="64" y1="48" x2="448" y2="464" gradientUnits="userSpaceOnUse">
-      <stop offset="0" stop-color="#6EC8FF"/>
-      <stop offset="1" stop-color="#1F7BFF"/>
+    <linearGradient id="bgGradient" x1="0" y1="0" x2="512" y2="512">
+      <stop offset="0%" stop-color="#6EB5FF"/>
+      <stop offset="100%" stop-color="#1E7FFF"/>
     </linearGradient>
-    <linearGradient id="glass" x1="120" y1="96" x2="392" y2="384" gradientUnits="userSpaceOnUse">
-      <stop offset="0" stop-color="#FFFFFF" stop-opacity="0.34"/>
-      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0.10"/>
-    </linearGradient>
-    <filter id="shadow" x="20" y="20" width="472" height="472" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
-      <feDropShadow dx="0" dy="16" stdDeviation="18" flood-color="#0B3A7A" flood-opacity="0.18"/>
-    </filter>
   </defs>
 
-  <g filter="url(#shadow)">
-    <rect x="44" y="44" width="424" height="424" rx="104" fill="url(#bg)"/>
-    <rect x="44" y="44" width="424" height="424" rx="104" fill="url(#glass)"/>
-    <path d="M86 128C86 104.804 104.804 86 128 86H330C341.141 86 351.826 90.425 359.704 98.301L413.699 152.296C421.575 160.174 426 170.859 426 182V384C426 407.196 407.196 426 384 426H128C104.804 426 86 407.196 86 384V128Z" fill="white" fill-opacity="0.14" stroke="white" stroke-opacity="0.20" stroke-width="2"/>
+  <!-- Background with gradient -->
+  <rect width="512" height="512" rx="120" fill="url(#bgGradient)"/>
+
+  <!-- Main container (rounded square background) -->
+  <rect x="80" y="80" width="352" height="352" rx="80" fill="rgba(255, 255, 255, 0.15)" stroke="rgba(255, 255, 255, 0.3)" stroke-width="2"/>
+
+  <!-- Top-left QR locator (white frame) -->
+  <rect x="120" y="120" width="100" height="100" rx="16" fill="white" fill-opacity="0.9"/>
+  <!-- Top-left QR locator (inner blue) -->
+  <rect x="140" y="140" width="60" height="60" rx="10" fill="#2979FF"/>
+  <!-- Top-left QR locator (center white) -->
+  <rect x="156" y="156" width="28" height="28" rx="4" fill="white"/>
+
+  <!-- Top-right QR locator (white frame) -->
+  <rect x="292" y="120" width="100" height="100" rx="16" fill="white" fill-opacity="0.9"/>
+  <!-- Top-right QR locator (inner blue) -->
+  <rect x="312" y="140" width="60" height="60" rx="10" fill="#2979FF"/>
+  <!-- Top-right QR locator (center white) -->
+  <rect x="328" y="156" width="28" height="28" rx="4" fill="white"/>
+
+  <!-- Bottom-left QR locator (white frame) -->
+  <rect x="120" y="292" width="100" height="100" rx="16" fill="white" fill-opacity="0.9"/>
+  <!-- Bottom-left QR locator (inner blue) -->
+  <rect x="140" y="312" width="60" height="60" rx="10" fill="#2979FF"/>
+  <!-- Bottom-left QR locator (center white) -->
+  <rect x="156" y="328" width="28" height="28" rx="4" fill="white"/>
+
+  <!-- WiFi symbol center -->
+  <!-- WiFi curves -->
+  <path d="M 222 268 Q 256 238 290 268" stroke="white" stroke-width="18" stroke-linecap="round" fill="none" opacity="0.95"/>
+  <path d="M 244 310 Q 256 296 268 310" stroke="white" stroke-width="16" stroke-linecap="round" fill="none" opacity="0.95"/>
+  
+  <!-- WiFi dot -->
+  <circle cx="256" cy="350" r="14" fill="white" opacity="0.95"/>
+
+  <!-- QR data modules (right-center area) -->
+  <g fill="white" opacity="0.85">
+    <rect x="280" y="280" width="16" height="16" rx="3"/>
+    <rect x="310" y="280" width="16" height="16" rx="3"/>
+    <rect x="280" y="310" width="16" height="16" rx="3"/>
+    <rect x="340" y="310" width="16" height="16" rx="3"/>
+    <rect x="310" y="340" width="16" height="16" rx="3"/>
   </g>
-
-  <!-- QR locator blocks -->
-  <g fill="#FFFFFF">
-    <rect x="124" y="156" width="88" height="88" rx="16" fill-opacity="0.96"/>
-    <rect x="140" y="172" width="56" height="56" rx="10" fill="#2E8FFF"/>
-    <rect x="152" y="184" width="32" height="32" rx="6" fill="#FFFFFF"/>
-
-    <rect x="300" y="156" width="88" height="88" rx="16" fill-opacity="0.96"/>
-    <rect x="316" y="172" width="56" height="56" rx="10" fill="#2E8FFF"/>
-    <rect x="328" y="184" width="32" height="32" rx="6" fill="#FFFFFF"/>
-
-    <rect x="124" y="292" width="88" height="88" rx="16" fill-opacity="0.96"/>
-    <rect x="140" y="308" width="56" height="56" rx="10" fill="#2E8FFF"/>
-    <rect x="152" y="320" width="32" height="32" rx="6" fill="#FFFFFF"/>
-  </g>
-
-  <!-- QR inner modules -->
-  <g fill="#FFFFFF" fill-opacity="0.92">
-    <rect x="246" y="280" width="18" height="18" rx="4"/>
-    <rect x="272" y="280" width="18" height="18" rx="4"/>
-    <rect x="298" y="280" width="18" height="18" rx="4"/>
-    <rect x="246" y="306" width="18" height="18" rx="4"/>
-    <rect x="298" y="306" width="18" height="18" rx="4"/>
-    <rect x="324" y="306" width="18" height="18" rx="4"/>
-    <rect x="246" y="332" width="18" height="18" rx="4"/>
-    <rect x="272" y="332" width="18" height="18" rx="4"/>
-    <rect x="324" y="332" width="18" height="18" rx="4"/>
-    <rect x="272" y="358" width="18" height="18" rx="4"/>
-    <rect x="298" y="358" width="18" height="18" rx="4"/>
-  </g>
-
-  <!-- WiFi symbol -->
-  <g stroke="#FFFFFF" stroke-linecap="round" stroke-width="16" opacity="0.98">
-    <path d="M168 268C215 225 297 225 344 268"/>
-    <path d="M198 301C229 274 283 274 314 301"/>
-    <path d="M229 334C246 320 266 320 283 334"/>
-  </g>
-  <circle cx="256" cy="362" r="12" fill="#FFFFFF"/>
 </svg>
