@@ -93,9 +93,7 @@ function updatePreviewText() {
     elements.footerText.textContent = footerParts.length
         ? footerParts.join(' / ')
         : 'WiFi Network Sheet';
-    document.title = footerParts.length
-        ? `${footerParts[0]} WiFi QR Code`
-        : 'WiFi QR Code';
+    document.title = 'WiFi QR Code 產生器';
 
     syncModeVisibility();
     updateCardVisibility();
