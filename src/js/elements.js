@@ -19,6 +19,7 @@ const elements = {
 
     // Password inputs
     passwordModeInputs: Array.from(document.querySelectorAll('input[name="passwordMode"]')),
+    passwordModeToggle:     document.getElementById('passwordModeToggle'),
     sharedPasswordGroup:    document.getElementById('sharedPasswordGroup'),
     separatePasswordGroup:  document.getElementById('separatePasswordGroup'),
     guestPasswordGroup:     document.getElementById('guestPasswordGroup'),
