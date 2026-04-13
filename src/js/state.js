@@ -74,7 +74,12 @@ function getInitialValues() {
             password24:     stored.password24 || '',
             password5:      stored.password5 || '',
             passwordMlo:    stored.passwordMlo || '',
-            passwordGuest:  stored.passwordGuest || ''
+            passwordGuest:  stored.passwordGuest || '',
+            enable24:       stored.enable24 !== undefined ? stored.enable24 : true,
+            enable5:        stored.enable5 !== undefined ? stored.enable5 : true,
+            enableMlo:      stored.enableMlo !== undefined ? stored.enableMlo : false,
+            enableGuest:    stored.enableGuest !== undefined ? stored.enableGuest : false,
+            bandSteering:   stored.bandSteering !== undefined ? stored.bandSteering : false
         };
     }
 
@@ -96,7 +101,12 @@ function getInitialValues() {
         password24,
         password5,
         passwordMlo,
-        passwordGuest: config.guestNet?.password || ''
+        passwordGuest: config.guestNet?.password || '',
+        enable24:      true,
+        enable5:       true,
+        enableMlo:     false,
+        enableGuest:   false,
+        bandSteering:  config.bandSteering || false
     };
 }
 
@@ -119,6 +129,11 @@ function getState() {
         ssid5:     isBandSteering() ? ssid24 : elements.ssid5Input.value.trim(),
         ssidMlo:   elements.ssidMloInput.value.trim(),
         ssidGuest: elements.ssidGuestInput.value.trim(),
-        ...getPasswordsByMode()
+        ...getPasswordsByMode(),
+        enable24:     elements.enable24.checked,
+        enable5:      elements.enable5.checked,
+        enableMlo:    elements.enableMlo.checked,
+        enableGuest:  elements.enableGuest.checked,
+        bandSteering: elements.bandSteering.checked
     };
 }
