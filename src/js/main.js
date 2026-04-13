@@ -89,8 +89,12 @@ function applyInitialValues() {
     elements.passwordMloInput.value     = v.passwordMlo;
     elements.passwordGuestInput.value   = v.passwordGuest;
 
-    if (v.ssidGuest)            elements.enableGuest.checked = true;
-    if (getConfig().bandSteering) elements.bandSteering.checked = true;
+    // Apply toggle switch states
+    elements.enable24.checked      = v.enable24;
+    elements.enable5.checked       = v.enable5;
+    elements.enableMlo.checked     = v.enableMlo;
+    elements.enableGuest.checked   = v.enableGuest;
+    elements.bandSteering.checked  = v.bandSteering;
 
     updatePreviewText();
 
