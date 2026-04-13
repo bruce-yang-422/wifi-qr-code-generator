@@ -1,89 +1,113 @@
 # WiFi QR Code 產生器
 
-純前端網頁應用，為辦公室或個人環境產生 WiFi 連線 QR Code，支援多頻段、智慧混合（Band Steering）及訪客網路，列印輸出為 A4 直式。
+[![GitHub](https://img.shields.io/badge/GitHub-bruce--yang--422%2Fwifi--qr--code--generator-blue?style=flat&logo=github)](https://github.com/bruce-yang-422/wifi-qr-code-generator)
+[![License](https://img.shields.io/badge/License-MIT-green?style=flat)](LICENSE)
 
-## 功能特色
+純前端網頁工具，用來產生 `2.4 GHz`、`5 GHz`、`MLO` 三組 WiFi QR Code，並即時預覽 A4 列印版面。
 
-- **多頻段支援**：2.4 GHz、5 GHz、MLO、訪客網路，各自獨立開關
-- **智慧混合（Band Steering）**：開啟後 2.4 / 5 GHz 合併為單一 QR Code
-- **密碼模式**：共用密碼或各頻段分開設定
-- **即時預覽**：右側同步顯示 A4 列印版面，所見即所得
-- **列印 / PDF 輸出**：內建 A4 列印樣式，密碼顯示於各卡片下方
-- **本地設定檔**：透過 `config.js` 預填 SSID 與密碼，不提交至 Git
-- **零依賴後端**：純 HTML / CSS / JS，直接開啟 `index.html` 即可使用
+🌐 **[立即使用](https://bruce-yang-422.github.io/wifi-qr-code-generator/)** | 📚 **[GitHub 倉庫](https://github.com/bruce-yang-422/wifi-qr-code-generator)**
 
-## 快速開始
+## ✨ 設計風格
 
-### 1. 直接使用（手動輸入）
+採用 **macOS Big Sur+ 設計語言**：
+- **毛玻璃效果** (Glassmorphism)：半透明面板搭配背景模糊
+- **流暢動畫**：按鈕互動、開關切換的細膩過渡
+- **系統字體**：使用 SF Pro Display (macOS 原生字體) 降級至 SF Pro Rounded
+- **Traffic Lights**：仿 macOS 視窗控制按鈕 (紅、黃、綠)
+- **色彩系統**：淡藍漸層背景、柔和陰影、精準的色彩層級
 
-用瀏覽器開啟 `index.html`，在左側控制面板輸入 SSID 與密碼，按「產生 QR Code」。
+## 🎯 功能特色
 
-### 2. 使用設定檔（推薦）
+- **三組網路支援**：同時管理 `2.4 GHz`、`5 GHz`、`MLO`
+- **密碼模式切換**：可選擇三組網路共用同一密碼，或分開設定各自密碼
+- **即時預覽**：左側輸入後，右側 A4 預覽會同步更新名稱與密碼資訊
+- **QR Code 生成**：按下按鈕後一次產生三組 QR Code
+- **列印 / PDF 輸出**：內建 A4 直式列印樣式，可直接列印或另存 PDF
+- **本機設定檔**：支援 `config.js` 預填 SSID 與密碼，避免每次手動輸入
+- **純前端**：不需要後端或建置工具，直接開啟 `index.html` 即可使用
+- **響應式設計**：支援桌面與平板裝置的自適應版面
 
-在專案根目錄建立 `config.js`（已列入 `.gitignore`，不會進版本控制）：
+## 使用方式
+
+### 1. 直接使用
+
+1. 用瀏覽器開啟 `index.html`
+2. 輸入 `2.4 GHz`、`5 GHz`、`MLO` 三組 SSID
+3. 選擇密碼要 `相同` 或 `分開設定`
+4. 輸入密碼後按下「產生 QR Code」
+5. 需要輸出時按「列印 / 儲存為 PDF」
+
+### 2. 使用本機設定檔
+
+在專案根目錄建立 `config.js`，此檔案已列入 `.gitignore`，不會進版本控制。
+
+範例：
 
 ```js
-// config.js — 本機使用，不提交至 Git
+// config.js
+// 本機使用，不提交至 Git
 
 window.WIFI_CONFIG = Object.freeze({
-    companyName: "MyCompany",
-    bandSteering: true,          // 2.4 / 5 GHz 智慧混合
-
-    net24: Object.freeze({
-        ssid: "Company-Office",
-        password: ""             // 填入實際密碼
-    }),
-    net5: Object.freeze({
-        ssid: "Company-Office",  // Band Steering 時與 2.4 GHz 相同
+    guest: Object.freeze({
+        ssid: "Company-2.4G",
         password: ""
     }),
-    // mlo: Object.freeze({ ssid: "Company-MLO", password: "" }),
-    guestNet: Object.freeze({
-        ssid: "Company-Guest",
+    office: Object.freeze({
+        ssid: "Company-5G",
+        password: ""
+    }),
+    mlo: Object.freeze({
+        ssid: "Company-MLO",
         password: ""
     })
 });
 ```
 
-重新整理頁面後自動套用。若 `config.js` 不存在則退回手動輸入模式，不影響使用。
+規則：
+
+- 若三組密碼相同，畫面會自動以「密碼相同」模式載入
+- 若任兩組以上密碼不同，畫面會自動切換成「分開設定」模式
+- 若 `config.js` 不存在，系統會退回手動輸入模式
 
 ## 專案結構
 
 ```text
-wifi_qr_code_generator/
-├── index.html
-├── config.js              ← 本機設定（.gitignore 排除）
-├── src/ㄇ
-│   ├── css/
-│   │   ├── base.css       — 變數、reset、body、hero
-│   │   ├── layout.css     — workspace、panels、preview stage
-│   │   ├── control.css    — 控制面板、輸入、開關、按鈕
-│   │   ├── print-page.css — 列印頁面卡片、密碼、頻段說明
-│   │   └── responsive.css — 響應式 + @media print
-│   └── js/
-│       ├── elements.js    — DOM 元素參考
-│       ├── state.js       — config / 狀態 getters
-│       ├── ui.js          — 畫面更新
-│       ├── qr.js          — QR Code 產生
-│       ├── validate.js    — 欄位驗證
-│       └── main.js        — 事件綁定、init
-└── README.md
+wifi-qr-code-generator/
+├── index.html              # HTML 頁面與結構
+├── config.js               # 本機設定（.gitignore 排除）
+├── README.md
+├── LICENSE
+├── .gitignore
+└── src/
+    ├── css/
+    │   ├── base.css        # 根樣式、字型、配色
+    │   ├── layout.css      # 主佈局、面板設計
+    │   ├── control.css     # 輸入控制項樣式
+    │   ├── print-page.css  # 列印頁面樣式
+    │   └── responsive.css  # 響應式設計
+    └── js/
+        ├── main.js         # 應用程式進入點
+        ├── elements.js     # DOM 元素選擇器
+        ├── state.js        # 狀態管理
+        ├── validate.js     # 驗證邏輯
+        ├── ui.js           # UI 更新
+        └── qr.js           # QR Code 生成
 ```
 
 ## 技術堆疊
 
-| 項目 | 說明 |
-| --- | --- |
-| HTML5 / CSS3 / Vanilla JS | 無框架，無建置工具 |
-| [qrcode.js](https://davidshimjs.github.io/qrcodejs/) | 前端 QR Code 產生 |
-| [Outfit](https://fonts.google.com/specimen/Outfit) | UI 字體 |
-| [Fraunces](https://fonts.google.com/specimen/Fraunces) | 列印標題 / 密碼字體 |
+- HTML5
+- CSS3
+- Vanilla JavaScript
+- [qrcode.js](https://davidshimjs.github.io/qrcodejs/)
+- [Outfit](https://fonts.google.com/specimen/Outfit)
+- [Fraunces](https://fonts.google.com/specimen/Fraunces)
 
 ## 安全性
 
-- 密碼只在本機瀏覽器處理，不傳送至任何伺服器
-- `config.js` 已列入 `.gitignore`，防止密碼誤提交至版本控制
+- 密碼只在本機瀏覽器處理，不會傳送到任何伺服器
+- `config.js` 已列入 `.gitignore`，避免密碼誤提交
 
 ## 授權
 
-MIT — 詳見 [LICENSE](LICENSE)
+MIT，詳見 [LICENSE](LICENSE)
