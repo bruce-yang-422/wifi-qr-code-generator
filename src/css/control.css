@@ -1,0 +1,305 @@
+/* ─── Control Panel Content ─────────────────────────────────────────────── */
+
+.control-title {
+    font-family: 'Fraunces', serif;
+    font-size: 1.65rem;
+    margin-bottom: 8px;
+}
+
+.control-sub,
+.security-note,
+.preview-note span,
+.tagline,
+.scan-hint {
+    color: var(--text-muted);
+}
+
+.control-sub,
+.security-note {
+    line-height: 1.7;
+}
+
+.control-sub {
+    margin-bottom: 24px;
+}
+
+/* ─── Input Groups ──────────────────────────────────────────────────────── */
+
+.input-group {
+    margin-bottom: 18px;
+}
+
+.input-group > label,
+.network-header > label:first-child {
+    display: block;
+    font-size: 0.78rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+}
+
+.input-group > label {
+    margin-bottom: 8px;
+}
+
+.network-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 8px;
+}
+
+/* ─── Network Toggle Switch ─────────────────────────────────────────────── */
+
+.network-switch {
+    position: relative;
+    cursor: pointer;
+    flex-shrink: 0;
+}
+
+.network-switch input {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.switch-track {
+    display: block;
+    width: 36px;
+    height: 20px;
+    border-radius: 10px;
+    background: var(--border);
+    position: relative;
+    transition: background 0.2s ease;
+}
+
+.switch-track::after {
+    content: '';
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: #fff;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.18);
+    transition: transform 0.2s ease;
+}
+
+.network-switch input:checked + .switch-track {
+    background: var(--accent);
+}
+
+.network-switch input:checked + .switch-track::after {
+    transform: translateX(16px);
+}
+
+/* ─── Inputs ────────────────────────────────────────────────────────────── */
+
+.input-row {
+    display: flex;
+    gap: 10px;
+}
+
+.input-group input,
+.input-row input {
+    width: 100%;
+    padding: 14px 16px;
+    border: 2px solid var(--border);
+    border-radius: 14px;
+    background: rgba(250, 247, 242, 0.9);
+    color: var(--text);
+    font: 600 1rem 'Outfit', sans-serif;
+    outline: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+.input-group input:focus,
+.input-row input:focus {
+    border-color: var(--accent);
+    background: #fff;
+    box-shadow: 0 0 0 4px rgba(232, 131, 58, 0.12);
+}
+
+.input-error {
+    border-color: #d14a38 !important;
+    box-shadow: 0 0 0 4px rgba(209, 74, 56, 0.12) !important;
+}
+
+.toggle-vis {
+    width: 52px;
+    flex-shrink: 0;
+    border: 2px solid var(--border);
+    border-radius: 14px;
+    background: rgba(250, 247, 242, 0.9);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.15rem;
+    transition: all 0.2s ease;
+}
+
+.toggle-vis:hover {
+    border-color: var(--accent);
+    background: var(--accent-light);
+}
+
+/* ─── Password Mode Toggle ──────────────────────────────────────────────── */
+
+.password-mode-toggle {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+}
+
+.mode-option {
+    position: relative;
+    cursor: pointer;
+}
+
+.mode-option input {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.mode-option span {
+    display: block;
+    padding: 13px 14px;
+    border: 2px solid var(--border);
+    border-radius: 14px;
+    background: rgba(250, 247, 242, 0.9);
+    color: var(--text-muted);
+    text-align: center;
+    font-size: 0.92rem;
+    font-weight: 800;
+    transition: all 0.2s ease;
+}
+
+.mode-option input:checked + span {
+    border-color: var(--accent);
+    background: var(--accent-light);
+    color: var(--accent-dark);
+    box-shadow: 0 0 0 4px rgba(232, 131, 58, 0.12);
+}
+
+/* ─── Band Steering ─────────────────────────────────────────────────────── */
+
+.band-steering-group {
+    margin-top: -6px;
+}
+
+.band-steering-desc {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    line-height: 1.5;
+}
+
+/* ─── Password Panels ───────────────────────────────────────────────────── */
+
+.password-split-group {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0;
+}
+
+.password-panel {
+    margin-bottom: 18px;
+}
+
+/* ─── Quick Preview Chips ───────────────────────────────────────────────── */
+
+.quick-preview {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    margin: 22px 0 24px;
+}
+
+.quick-chip {
+    padding: 10px 12px;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.95), rgba(250, 247, 242, 0.95));
+    min-width: 0;
+}
+
+.quick-chip strong,
+.ssid-label,
+.pw-label {
+    display: block;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-muted);
+}
+
+.quick-chip strong,
+.pw-label {
+    font-size: 0.75rem;
+    font-weight: 800;
+}
+
+.quick-chip span,
+.ssid-name,
+.pw-value,
+.print-header h2 {
+    font-family: 'Fraunces', serif;
+}
+
+.quick-chip span {
+    display: block;
+    font-size: 0.92rem;
+    line-height: 1.25;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+/* ─── Action Buttons ────────────────────────────────────────────────────── */
+
+.btn-generate,
+.btn-print {
+    width: 100%;
+    border: none;
+    border-radius: 16px;
+    color: #fff;
+    font-family: 'Outfit', sans-serif;
+    font-weight: 900;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+.btn-generate {
+    padding: 16px;
+    background: linear-gradient(135deg, var(--accent) 0%, #f09d58 100%);
+    font-size: 1rem;
+    letter-spacing: 0.03em;
+    box-shadow: 0 16px 28px rgba(232, 131, 58, 0.26);
+}
+
+.btn-generate:hover {
+    transform: translateY(-1px);
+    background: linear-gradient(135deg, var(--accent-dark) 0%, #eb9550 100%);
+    box-shadow: 0 18px 30px rgba(232, 131, 58, 0.32);
+}
+
+.btn-print {
+    margin-top: 12px;
+    padding: 15px;
+    background: var(--text);
+    font-size: 0.98rem;
+}
+
+.btn-print:hover {
+    transform: translateY(-1px);
+    background: #1a1410;
+}
+
+.security-note {
+    margin-top: 14px;
+    font-size: 0.8rem;
+    text-align: center;
+}

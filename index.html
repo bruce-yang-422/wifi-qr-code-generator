@@ -1,728 +1,331 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Company WiFi QR Codes</title>
+    <title>WiFi QR Code</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-    <link <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&family=Space+Mono:wght@400;700&display=swap"
-        rel="stylesheet">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        :root {
-            --primary: #0a84ff;
-            --secondary: #ff375f;
-            --accent: #30d158;
-            --bg-dark: #0d1117;
-            --bg-card: rgba(22, 27, 34, 0.8);
-            --text-primary: #f0f6fc;
-            --text-secondary: #8b949e;
-            --border: rgba(48, 54, 61, 0.5);
-        }
-
-        body {
-            font-family: 'Noto Sans TC', 'Outfit', sans-serif;
-            background: linear-gradient(135deg, #0d1117 0%, #1a1f2e 50%, #0d1117 100%);
-            min-height: 100vh;
-            color: var(--text-primary);
-            padding: 2rem;
-            position: relative;
-            overflow-x: hidden;
-        }
-
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background:
-                radial-gradient(circle at 20% 30%, rgba(10, 132, 255, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 80% 70%, rgba(255, 55, 95, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 50% 50%, rgba(48, 209, 88, 0.05) 0%, transparent 50%);
-            pointer-events: none;
-            z-index: 0;
-        }
-
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-            position: relative;
-            z-index: 1;
-        }
-
-        header {
-            text-align: center;
-            margin-bottom: 4rem;
-            animation: fadeInDown 0.8s ease-out;
-        }
-
-        h1 {
-            font-size: 3.5rem;
-            font-weight: 700;
-            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 0.5rem;
-            letter-spacing: -0.02em;
-        }
-
-        .subtitle {
-            font-family: 'Noto Sans TC', 'Space Mono', monospace;
-            color: var(--text-secondary);
-            font-size: 0.95rem;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-        }
-
-        .company-input-container {
-            max-width: 400px;
-            margin: 2rem auto 0;
-            text-align: left;
-            animation: fadeIn 0.8s ease-out 0.2s backwards;
-        }
-
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 2rem;
-            margin-bottom: 3rem;
-        }
-
-        .wifi-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 24px;
-            padding: 2.5rem;
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
-            overflow: hidden;
-            animation: fadeInUp 0.8s ease-out backwards;
-        }
-
-        .wifi-card:nth-child(1) {
-            animation-delay: 0.1s;
-        }
-
-        .wifi-card:nth-child(2) {
-            animation-delay: 0.2s;
-        }
-
-        .wifi-card:nth-child(3) {
-            animation-delay: 0.3s;
-        }
-
-        .wifi-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: linear-gradient(90deg, var(--card-color) 0%, transparent 100%);
-            opacity: 0;
-            transition: opacity 0.4s ease;
-        }
-
-        .wifi-card:hover::before {
-            opacity: 1;
-        }
-
-        .wifi-card:hover {
-            transform: translateY(-8px);
-            border-color: var(--card-color);
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4), 0 0 0 1px var(--card-color);
-        }
-
-        .wifi-card.guest {
-            --card-color: var(--accent);
-        }
-
-        .wifi-card.office {
-            --card-color: var(--primary);
-        }
-
-        .wifi-card.boss {
-            --card-color: var(--secondary);
-        }
-
-        .card-header {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .icon {
-            width: 48px;
-            height: 48px;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            background: linear-gradient(135deg, var(--card-color), rgba(255, 255, 255, 0.1));
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-        }
-
-        .card-title {
-            flex: 1;
-        }
-
-        .card-title h2 {
-            font-size: 1.5rem;
-            font-weight: 700;
-            margin-bottom: 0.25rem;
-            color: var(--text-primary);
-        }
-
-        .card-title .tag {
-            font-family: 'Noto Sans TC', 'Space Mono', monospace;
-            font-size: 0.75rem;
-            color: var(--card-color);
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
-
-        .ssid-display {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 12px;
-            padding: 1rem;
-            margin-bottom: 1.5rem;
-            font-family: 'Noto Sans TC', 'Space Mono', monospace;
-            font-size: 0.9rem;
-            color: var(--text-secondary);
-        }
-
-        .ssid-name {
-            color: var(--text-primary);
-            font-weight: 700;
-        }
-
-        .input-group {
-            margin-bottom: 1.5rem;
-        }
-
-        .input-group label {
-            display: block;
-            font-size: 0.85rem;
-            font-weight: 500;
-            color: var(--text-secondary);
-            margin-bottom: 0.5rem;
-            letter-spacing: 0.02em;
-        }
-
-        .input-wrapper {
-            position: relative;
-        }
-
-        input[type="text"] {
-            width: 100%;
-            padding: 0.875rem 1rem;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            color: var(--text-primary);
-            font-family: 'Noto Sans TC', 'Space Mono', monospace;
-            font-size: 0.9rem;
-            transition: all 0.3s ease;
-        }
-
-        input:focus {
-            outline: none;
-            border-color: var(--card-color);
-            background: rgba(255, 255, 255, 0.08);
-            box-shadow: 0 0 0 3px rgba(var(--card-color-rgb), 0.1);
-        }
-
-        .generate-btn {
-            width: 100%;
-            padding: 1rem;
-            background: linear-gradient(135deg, var(--card-color), rgba(255, 255, 255, 0.1));
-            border: none;
-            border-radius: 12px;
-            color: white;
-            font-weight: 700;
-            font-size: 0.95rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-        }
-
-        .generate-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
-        }
-
-        .generate-btn:active {
-            transform: translateY(0);
-        }
-
-        .download-btn {
-            margin-top: 1rem;
-            padding: 0.875rem 1.5rem;
-            background: linear-gradient(135deg, #34c759, #30d158);
-            border: none;
-            border-radius: 10px;
-            color: white;
-            font-weight: 600;
-            font-size: 0.9rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 12px rgba(52, 199, 89, 0.3);
-        }
-
-        .download-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 16px rgba(52, 199, 89, 0.4);
-            background: linear-gradient(135deg, #30d158, #34c759);
-        }
-
-        .download-btn:active {
-            transform: translateY(0);
-        }
-
-        .qr-container {
-            margin-top: 2rem;
-            padding: 2rem;
-            background: white;
-            border-radius: 16px;
-            display: none;
-            text-align: center;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
-        }
-
-        .qr-container.show {
-            display: block;
-            animation: scaleIn 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .qr-code {
-            display: inline-block;
-            padding: 1rem;
-            background: white;
-            border-radius: 12px;
-        }
-
-        .qr-info {
-            margin-top: 1rem;
-            font-family: 'Noto Sans TC', 'Space Mono', monospace;
-            font-size: 0.8rem;
-            color: #666;
-        }
-
-        .print-section {
-            text-align: center;
-            margin-top: 3rem;
-            animation: fadeIn 1s ease-out 0.6s backwards;
-        }
-
-        .print-btn {
-            padding: 1.25rem 3rem;
-            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
-            border: none;
-            border-radius: 16px;
-            color: white;
-            font-weight: 700;
-            font-size: 1.1rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            box-shadow: 0 8px 24px rgba(10, 132, 255, 0.3);
-        }
-
-        .print-btn:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 12px 32px rgba(10, 132, 255, 0.4);
-        }
-
-        @keyframes fadeInDown {
-            from {
-                opacity: 0;
-                transform: translateY(-30px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-
-            to {
-                opacity: 1;
-            }
-        }
-
-        @keyframes scaleIn {
-            from {
-                opacity: 0;
-                transform: scale(0.9);
-            }
-
-            to {
-                opacity: 1;
-                transform: scale(1);
-            }
-        }
-
-        @page {
-            size: A4 portrait;
-            margin: 1.5cm;
-        }
-
-        @media print {
-            * {
-                -webkit-print-color-adjust: exact;
-                print-color-adjust: exact;
-            }
-
-            body {
-                background: white !important;
-                padding: 0 !important;
-                min-height: auto;
-            }
-
-            body::before {
-                display: none;
-            }
-
-            .container {
-                max-width: 100%;
-                padding: 0;
-            }
-
-            header {
-                margin-bottom: 1.5cm;
-                page-break-after: avoid;
-            }
-
-            h1 {
-                font-size: 2.2rem;
-                color: #000 !important;
-                background: none !important;
-                -webkit-text-fill-color: initial !important;
-            }
-
-            .subtitle {
-                color: #666 !important;
-            }
-
-            .grid {
-                display: flex;
-                flex-direction: column;
-                gap: 0;
-                margin-bottom: 0;
-            }
-
-            .company-input-container {
-                display: none !important;
-            }
-
-            .print-btn,
-            .print-section,
-            .generate-btn,
-            .download-btn {
-                display: none !important;
-            }
-
-            .input-group {
-                display: block !important;
-                margin-bottom: 0.8cm !important;
-            }
-
-            .input-group label {
-                color: #333 !important;
-                font-size: 0.8rem !important;
-            }
-
-            input[type="text"] {
-                background: #f5f5f5 !important;
-                border: 1px solid #ddd !important;
-                color: #000 !important;
-                font-size: 1rem !important;
-                padding: 0.6rem 1rem !important;
-            }
-
-            header {
-                display: none !important;
-            }
-
-            .wifi-card::before {
-                content: 'WiFi Access' !important;
-                display: block !important;
-                position: absolute;
-                top: -80px;
-                left: 0 !important;
-                right: 0 !important;
-                height: auto !important;
-                text-align: center;
-                font-size: 2rem;
-                font-weight: 700;
-                color: #000;
-                font-family: 'Noto Sans TC', sans-serif;
-                background: none !important;
-                opacity: 1 !important;
-                transition: none !important;
-                border: none !important;
-                box-shadow: none !important;
-            }
-
-            .wifi-card {
-                break-inside: avoid;
-                page-break-inside: avoid;
-                border: 2px solid #333 !important;
-                background: white !important;
-                backdrop-filter: none !important;
-                -webkit-backdrop-filter: none !important;
-                padding: 1.2cm !important;
-                margin: 0;
-                margin-top: 100px !important;
-                box-shadow: none !important;
-                page-break-after: always;
-                position: relative;
-                overflow: visible !important;
-            }
-
-            .wifi-card:last-child {
-                page-break-after: auto;
-            }
-
-            .wifi-card::before {
-                display: none;
-            }
-
-            .card-header {
-                margin-bottom: 0.8cm;
-            }
-
-            .icon {
-                background: #f0f0f0 !important;
-                box-shadow: none !important;
-            }
-
-            .card-title h2 {
-                color: #000 !important;
-                font-size: 1.4rem;
-            }
-
-            .card-title .tag {
-                color: #666 !important;
-            }
-
-            .ssid-display {
-                background: #f5f5f5 !important;
-                border: 1px solid #ddd !important;
-                margin-bottom: 0.8cm;
-                color: #333 !important;
-                font-size: 1rem !important;
-            }
-
-            .ssid-name {
-                color: #000 !important;
-                font-weight: 700 !important;
-            }
-
-            .qr-container {
-                display: block !important;
-                margin-top: 1cm;
-                padding: 1.2cm !important;
-                background: white !important;
-                border: 1px solid #ddd !important;
-                box-shadow: none !important;
-            }
-
-            .qr-code {
-                background: white !important;
-            }
-
-            .qr-code canvas,
-            .qr-code img {
-                max-width: 100%;
-                height: auto;
-            }
-
-            .qr-info {
-                color: #666 !important;
-                margin-top: 0.8cm;
-                font-size: 0.85rem;
-            }
-        }
-
-        @media (max-width: 768px) {
-            h1 {
-                font-size: 2.5rem;
-            }
-
-            .grid {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Fraunces:wght@700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="src/css/base.css">
+    <link rel="stylesheet" href="src/css/layout.css">
+    <link rel="stylesheet" href="src/css/control.css">
+    <link rel="stylesheet" href="src/css/print-page.css">
+    <link rel="stylesheet" href="src/css/responsive.css">
 </head>
-
 <body>
-    <div class="container">
-        <header>
-            <h1>WiFi Access</h1>
-            <p class="subtitle">Company Network QR Codes</p>
-
-            <div class="company-input-container">
-                <div class="input-group">
-                    <label for="company-name">公司/組織名稱 (顯示於圖片上)</label>
-                    <div class="input-wrapper">
-                        <input type="text" id="company-name" placeholder="例如：我的公司">
-                    </div>
-                </div>
-            </div>
+    <div class="app-shell">
+        <header class="hero">
+            <div class="eyebrow">Printable WiFi Sheet</div>
+            <h1>WiFi QR Code 產生器</h1>
+            <p>輸入 2.4 GHz、5 GHz 與 MLO 三組 SSID，並選擇密碼要共用或分開設定；右側名稱與密碼資訊會即時同步，產生後即可列印或另存 PDF。</p>
         </header>
 
-        <div class="grid">
-            <!-- Guest WiFi Card -->
-            <div class="wifi-card guest">
-                <div class="card-header">
-                    <div class="icon">🌐</div>
-                    <div class="card-title">
-                        <h2>訪客網路</h2>
-                        <div class="tag">Guest Network</div>
+        <main class="workspace">
+            <section class="control-panel">
+                <div class="control-title">連線資訊設定</div>
+                <div class="control-sub">現在可自由切換 2.4 GHz、5 GHz 與 MLO 使用相同密碼或分開密碼。這裡只負責輸入資料，右側專心做列印預覽。</div>
+
+                <div class="input-group">
+                    <div class="network-header">
+                        <label for="ssid24Input">2.4 GHz SSID</label>
+                        <label class="network-switch" title="啟用 2.4 GHz">
+                            <input type="checkbox" id="enable24" class="network-enable" checked>
+                            <span class="switch-track"></span>
+                        </label>
+                    </div>
+                    <input type="text" id="ssid24Input" placeholder="例如：MyWiFi">
+                </div>
+
+                <div id="net5Group">
+                    <div class="input-group">
+                        <div class="network-header">
+                            <label for="ssid5Input">5 GHz SSID</label>
+                            <label class="network-switch" title="啟用 5 GHz">
+                                <input type="checkbox" id="enable5" class="network-enable" checked>
+                                <span class="switch-track"></span>
+                            </label>
+                        </div>
+                        <input type="text" id="ssid5Input" placeholder="例如：MyWiFi_5G">
                     </div>
                 </div>
 
-                <div class="ssid-display">
-                    SSID: <span class="ssid-name">Yichai-Guest</span>
+                <div class="input-group band-steering-group">
+                    <div class="network-header">
+                        <label>智慧混合（Band Steering）</label>
+                        <label class="network-switch" title="啟用智慧混合">
+                            <input type="checkbox" id="bandSteering">
+                            <span class="switch-track"></span>
+                        </label>
+                    </div>
+                    <div class="band-steering-desc">開啟後 2.4 / 5 GHz 共用同一 SSID，只產生一個 QR Code</div>
                 </div>
 
                 <div class="input-group">
-                    <label for="guest-password">網路密碼</label>
-                    <div class="input-wrapper">
-                        <input type="text" id="guest-password" placeholder="輸入密碼">
+                    <div class="network-header">
+                        <label for="ssidMloInput">MLO SSID</label>
+                        <label class="network-switch" title="啟用 MLO">
+                            <input type="checkbox" id="enableMlo" class="network-enable">
+                            <span class="switch-track"></span>
+                        </label>
                     </div>
-                </div>
-
-                <button class="generate-btn" onclick="generateQR('guest')">
-                    生成 QR Code
-                </button>
-
-                <div class="qr-container" id="guest-qr">
-                    <div class="qr-code" id="guest-qr-code"></div>
-                    <div class="qr-info">掃描此 QR Code 連接訪客網路</div>
-                    <button class="download-btn" onclick="downloadQRImage('guest')">
-                        📥 下載圖片
-                    </button>
-                </div>
-            </div>
-
-            <!-- Office WiFi Card -->
-            <div class="wifi-card office">
-                <div class="card-header">
-                    <div class="icon">🏢</div>
-                    <div class="card-title">
-                        <h2>辦公室網路</h2>
-                        <div class="tag">Office Network</div>
-                    </div>
-                </div>
-
-                <div class="ssid-display">
-                    SSID: <span class="ssid-name">Yichai-Office</span>
+                    <input type="text" id="ssidMloInput" placeholder="例如：MyWiFi_MLO">
                 </div>
 
                 <div class="input-group">
-                    <label for="office-password">網路密碼</label>
-                    <div class="input-wrapper">
-                        <input type="text" id="office-password" placeholder="輸入密碼">
+                    <div class="network-header">
+                        <label for="ssidGuestInput">訪客 SSID</label>
+                        <label class="network-switch" title="啟用訪客網路">
+                            <input type="checkbox" id="enableGuest" class="network-enable">
+                            <span class="switch-track"></span>
+                        </label>
                     </div>
-                </div>
-
-                <button class="generate-btn" onclick="generateQR('office')">
-                    生成 QR Code
-                </button>
-
-                <div class="qr-container" id="office-qr">
-                    <div class="qr-code" id="office-qr-code"></div>
-                    <div class="qr-info">掃描此 QR Code 連接辦公室網路</div>
-                    <button class="download-btn" onclick="downloadQRImage('office')">
-                        📥 下載圖片
-                    </button>
-                </div>
-            </div>
-
-            <!-- Boss Office WiFi Card -->
-            <div class="wifi-card boss">
-                <div class="card-header">
-                    <div class="icon">👔</div>
-                    <div class="card-title">
-                        <h2>老闆辦公室</h2>
-                        <div class="tag">Executive Network</div>
-                    </div>
-                </div>
-
-                <div class="ssid-display">
-                    SSID: <span class="ssid-name">Yichai-Jimmy-Office</span>
+                    <input type="text" id="ssidGuestInput" placeholder="例如：MyWiFi_Guest">
                 </div>
 
                 <div class="input-group">
-                    <label for="boss-password">網路密碼</label>
-                    <div class="input-wrapper">
-                        <input type="text" id="boss-password" placeholder="輸入密碼">
+                    <label>密碼設定方式</label>
+                    <div class="password-mode-toggle" id="passwordModeToggle">
+                        <label class="mode-option">
+                            <input type="radio" name="passwordMode" value="shared" checked>
+                            <span>密碼相同</span>
+                        </label>
+                        <label class="mode-option">
+                            <input type="radio" name="passwordMode" value="separate">
+                            <span>分開設定</span>
+                        </label>
                     </div>
                 </div>
 
-                <button class="generate-btn" onclick="generateQR('boss')">
-                    生成 QR Code
-                </button>
-
-                <div class="qr-container" id="boss-qr">
-                    <div class="qr-code" id="boss-qr-code"></div>
-                    <div class="qr-info">掃描此 QR Code 連接老闆辦公室網路</div>
-                    <button class="download-btn" onclick="downloadQRImage('boss')">
-                        📥 下載圖片
-                    </button>
+                <div class="input-group password-panel" id="sharedPasswordGroup">
+                    <label for="sharedPwInput">共用 WiFi 密碼</label>
+                    <div class="input-row">
+                        <input type="password" id="sharedPwInput" placeholder="輸入三組 WiFi 共用密碼" autocomplete="off" spellcheck="false">
+                        <button type="button" class="toggle-vis" id="toggleSharedBtn" aria-label="顯示或隱藏共用密碼">👁</button>
+                    </div>
                 </div>
-            </div>
-        </div>
 
-        <div class="print-section">
-            <button class="print-btn" onclick="window.print()">
-                🖨️ 列印所有 QR Codes
-            </button>
-        </div>
+                <div class="password-split-group hidden" id="separatePasswordGroup">
+                    <div class="input-group password-panel">
+                        <label for="pw24Input">2.4 GHz 密碼</label>
+                        <div class="input-row">
+                            <input type="password" id="pw24Input" placeholder="輸入 2.4 GHz 密碼" autocomplete="off" spellcheck="false">
+                            <button type="button" class="toggle-vis" id="toggle24Btn" aria-label="顯示或隱藏 2.4 GHz 密碼">👁</button>
+                        </div>
+                    </div>
+
+                    <div class="input-group password-panel">
+                        <label for="pw5Input">5 GHz 密碼</label>
+                        <div class="input-row">
+                            <input type="password" id="pw5Input" placeholder="輸入 5 GHz 密碼" autocomplete="off" spellcheck="false">
+                            <button type="button" class="toggle-vis" id="toggle5Btn" aria-label="顯示或隱藏 5 GHz 密碼">👁</button>
+                        </div>
+                    </div>
+
+                    <div class="input-group password-panel">
+                        <label for="pwMloInput">MLO 密碼</label>
+                        <div class="input-row">
+                            <input type="password" id="pwMloInput" placeholder="輸入 MLO 密碼" autocomplete="off" spellcheck="false">
+                            <button type="button" class="toggle-vis" id="toggleMloBtn" aria-label="顯示或隱藏 MLO 密碼">👁</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="input-group password-panel hidden" id="guestPasswordGroup">
+                    <label for="pwGuestInput">訪客密碼</label>
+                    <div class="input-row">
+                        <input type="password" id="pwGuestInput" placeholder="訪客 WiFi 密碼" autocomplete="off" spellcheck="false">
+                        <button type="button" class="toggle-vis" id="toggleGuestBtn" aria-label="顯示或隱藏訪客密碼">👁</button>
+                    </div>
+                </div>
+
+                <div class="quick-preview" id="quickPreview">
+                    <div class="quick-chip" id="quickChip24">
+                        <strong id="quickLabel24">2.4 GHz</strong>
+                        <span id="quick24">未填寫 SSID</span>
+                    </div>
+                    <div class="quick-chip" id="quickChip5">
+                        <strong>5 GHz</strong>
+                        <span id="quick5">未填寫 SSID</span>
+                    </div>
+                    <div class="quick-chip" id="quickChipMlo">
+                        <strong>MLO</strong>
+                        <span id="quickMlo">未填寫 SSID</span>
+                    </div>
+                    <div class="quick-chip hidden" id="quickChipGuest">
+                        <strong>訪客</strong>
+                        <span id="quickGuest">未填寫 SSID</span>
+                    </div>
+                </div>
+
+                <button type="button" class="btn-generate" id="genBtn">產生 QR Code</button>
+                <button type="button" class="btn-print" id="printBtn">🖨️ 列印 / 儲存為 PDF</button>
+
+                <div class="security-note">🔒 密碼只在本機瀏覽器處理，不會送到伺服器。若已產生 QR Code，後續修改 SSID 或密碼也會同步更新。</div>
+
+            </section>
+
+            <section class="preview-wrap">
+                <div class="preview-note">
+                    <strong>右側是 A4 列印預覽</strong>
+                    <span>名稱即時同步，QR Code 會在按下「產生 QR Code」後建立。</span>
+                </div>
+
+                <div class="preview-stage">
+                    <div class="print-page" id="printPage">
+                        <div class="print-header">
+                            <div class="print-wifi-icon">
+                                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M12 18c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm-4.24-3.66a.996.996 0 1 0 1.41 1.41 4.48 4.48 0 0 1 6.36-.32l.32.32a.996.996 0 1 0 1.41-1.41 6.49 6.49 0 0 0-9.5 0zm-2.83-2.83a.996.996 0 1 0 1.41 1.41 7.89 7.89 0 0 1 11.32 0 .996.996 0 1 0 1.41-1.41 9.9 9.9 0 0 0-14.14 0zm-2.83-2.83a.996.996 0 1 0 1.41 1.41c4.49-4.49 11.76-4.49 16.24 0a.996.996 0 1 0 1.41-1.41C15.56 3.08 6.69 3.08 2.1 8.68z"/>
+                                </svg>
+                            </div>
+                            <div class="print-header-text">
+                                <h2>WiFi Access</h2>
+                                <div class="tagline">Scan to Connect</div>
+                            </div>
+                        </div>
+
+                        <div class="divider"></div>
+
+                        <div class="wifi-cards" id="wifiCards">
+                            <article class="wifi-card" id="card24">
+                                <div class="band-tag" id="bandTag24">2.4 GHz</div>
+                                <div class="ssid-label">SSID</div>
+                                <div class="ssid-name" id="ssid24Name">未填寫 SSID</div>
+                                <div class="qr-frame" id="frame24">
+                                    <div class="qr-code" id="qr24">
+                                        <div class="qr-placeholder">輸入 SSID 與密碼後，按下產生 QR Code</div>
+                                    </div>
+                                    <div class="wifi-icon-overlay" aria-hidden="true">
+                                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M12 18c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm-4.24-3.66a.996.996 0 1 0 1.41 1.41 4.48 4.48 0 0 1 6.36-.32l.32.32a.996.996 0 1 0 1.41-1.41 6.49 6.49 0 0 0-9.5 0zm-2.83-2.83a.996.996 0 1 0 1.41 1.41 7.89 7.89 0 0 1 11.32 0 .996.996 0 1 0 1.41-1.41 9.9 9.9 0 0 0-14.14 0zm-2.83-2.83a.996.996 0 1 0 1.41 1.41c4.49-4.49 11.76-4.49 16.24 0a.996.996 0 1 0 1.41-1.41C15.56 3.08 6.69 3.08 2.1 8.68z"/>
+                                        </svg>
+                                    </div>
+                                </div>
+                                <div class="scan-hint" id="hint24">等待產生 2.4 GHz QR Code</div>
+                                <div class="card-pw-section">
+                                    <div class="card-pw-label">Password</div>
+                                    <div class="card-pw-value" id="cardPw24">••••••••</div>
+                                </div>
+                            </article>
+
+                            <article class="wifi-card" id="card5">
+                                <div class="band-tag five-g">5 GHz</div>
+                                <div class="ssid-label">SSID</div>
+                                <div class="ssid-name" id="ssid5Name">未填寫 SSID</div>
+                                <div class="qr-frame" id="frame5">
+                                    <div class="qr-code" id="qr5">
+                                        <div class="qr-placeholder">輸入 SSID 與密碼後，按下產生 QR Code</div>
+                                    </div>
+                                    <div class="wifi-icon-overlay" aria-hidden="true">
+                                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M12 18c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm-4.24-3.66a.996.996 0 1 0 1.41 1.41 4.48 4.48 0 0 1 6.36-.32l.32.32a.996.996 0 1 0 1.41-1.41 6.49 6.49 0 0 0-9.5 0zm-2.83-2.83a.996.996 0 1 0 1.41 1.41 7.89 7.89 0 0 1 11.32 0 .996.996 0 1 0 1.41-1.41 9.9 9.9 0 0 0-14.14 0zm-2.83-2.83a.996.996 0 1 0 1.41 1.41c4.49-4.49 11.76-4.49 16.24 0a.996.996 0 1 0 1.41-1.41C15.56 3.08 6.69 3.08 2.1 8.68z"/>
+                                        </svg>
+                                    </div>
+                                </div>
+                                <div class="scan-hint" id="hint5">等待產生 5 GHz QR Code</div>
+                                <div class="card-pw-section">
+                                    <div class="card-pw-label">Password</div>
+                                    <div class="card-pw-value" id="cardPw5">••••••••</div>
+                                </div>
+                            </article>
+
+                            <article class="wifi-card" id="cardMlo">
+                                <div class="band-tag mlo">MLO</div>
+                                <div class="ssid-label">SSID</div>
+                                <div class="ssid-name" id="ssidMloName">未填寫 SSID</div>
+                                <div class="qr-frame" id="frameMlo">
+                                    <div class="qr-code" id="qrMlo">
+                                        <div class="qr-placeholder">輸入 SSID 與密碼後，按下產生 QR Code</div>
+                                    </div>
+                                    <div class="wifi-icon-overlay" aria-hidden="true">
+                                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M12 18c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm-4.24-3.66a.996.996 0 1 0 1.41 1.41 4.48 4.48 0 0 1 6.36-.32l.32.32a.996.996 0 1 0 1.41-1.41 6.49 6.49 0 0 0-9.5 0zm-2.83-2.83a.996.996 0 1 0 1.41 1.41 7.89 7.89 0 0 1 11.32 0 .996.996 0 1 0 1.41-1.41 9.9 9.9 0 0 0-14.14 0zm-2.83-2.83a.996.996 0 1 0 1.41 1.41c4.49-4.49 11.76-4.49 16.24 0a.996.996 0 1 0 1.41-1.41C15.56 3.08 6.69 3.08 2.1 8.68z"/>
+                                        </svg>
+                                    </div>
+                                </div>
+                                <div class="scan-hint" id="hintMlo">等待產生 MLO QR Code</div>
+                                <div class="card-pw-section">
+                                    <div class="card-pw-label">Password</div>
+                                    <div class="card-pw-value" id="cardPwMlo">••••••••</div>
+                                </div>
+                            </article>
+
+                            <article class="wifi-card hidden" id="cardGuest">
+                                <div class="band-tag guest">訪客</div>
+                                <div class="ssid-label">SSID</div>
+                                <div class="ssid-name" id="ssidGuestName">未填寫 SSID</div>
+                                <div class="qr-frame" id="frameGuest">
+                                    <div class="qr-code" id="qrGuest">
+                                        <div class="qr-placeholder">輸入 SSID 與密碼後，按下產生 QR Code</div>
+                                    </div>
+                                    <div class="wifi-icon-overlay" aria-hidden="true">
+                                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M12 18c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm-4.24-3.66a.996.996 0 1 0 1.41 1.41 4.48 4.48 0 0 1 6.36-.32l.32.32a.996.996 0 1 0 1.41-1.41 6.49 6.49 0 0 0-9.5 0zm-2.83-2.83a.996.996 0 1 0 1.41 1.41 7.89 7.89 0 0 1 11.32 0 .996.996 0 1 0 1.41-1.41 9.9 9.9 0 0 0-14.14 0zm-2.83-2.83a.996.996 0 1 0 1.41 1.41c4.49-4.49 11.76-4.49 16.24 0a.996.996 0 1 0 1.41-1.41C15.56 3.08 6.69 3.08 2.1 8.68z"/>
+                                        </svg>
+                                    </div>
+                                </div>
+                                <div class="scan-hint" id="hintGuest">等待產生訪客 QR Code</div>
+                                <div class="card-pw-section">
+                                    <div class="card-pw-label">Password</div>
+                                    <div class="card-pw-value" id="cardPwGuest">••••••••</div>
+                                </div>
+                            </article>
+                        </div>
+
+                        <!-- removed password-section: passwords now live inside each card -->
+                        <div class="password-section" style="display:none">
+                            <div class="pw-grid" id="pwGrid">
+                                <div class="pw-item" id="pwSharedItem"></div>
+                                <div class="pw-item hidden" id="pwItem24"></div>
+                                <div class="pw-item hidden" id="pwItem5"></div>
+                                <div class="pw-item hidden" id="pwItemMlo">
+                                    <div class="pw-label">MLO</div>
+                                    <div class="pw-value pw-value-split" id="pwMloDisplay">••••••••</div>
+                                </div>
+                                <div class="pw-item hidden" id="pwItemGuest">
+                                    <div class="pw-label">訪客 Guest</div>
+                                    <div class="pw-value pw-value-split" id="pwGuestDisplay">••••••••</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="print-band-guide">
+                            <div class="pbg-title">頻段說明 Band Guide</div>
+                            <div class="pbg-grid">
+                                <div class="pbg-item" id="pbg24">
+                                    <span class="pbg-tag t24" id="pbgTag24">2.4 GHz</span>
+                                    <span class="pbg-desc" id="pbgDesc24">穿牆力強、覆蓋廣，速度較慢</span>
+                                </div>
+                                <div class="pbg-item" id="pbg5">
+                                    <span class="pbg-tag t5">5 GHz</span>
+                                    <span class="pbg-desc">速度快、干擾少，穿牆稍弱</span>
+                                </div>
+                                <div class="pbg-item" id="pbgMlo">
+                                    <span class="pbg-tag tmlo">MLO</span>
+                                    <span class="pbg-desc">多頻聚合，需 Wi-Fi 7 裝置</span>
+                                </div>
+                                <div class="pbg-item" id="pbgGuest">
+                                    <span class="pbg-tag tguest">訪客</span>
+                                    <span class="pbg-desc">獨立隔離，不共享主網路</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="print-footer" id="footerText">WiFi Network Sheet</div>
+                    </div>
+                </div>
+            </section>
+        </main>
     </div>
 
     <script src="config.js" onerror="console.log('未偵測到 config.js，將退回手動輸入模式');"></script>
-    <script src="app.js"></script>
+    <script src="src/js/elements.js"></script>
+    <script src="src/js/state.js"></script>
+    <script src="src/js/ui.js"></script>
+    <script src="src/js/qr.js"></script>
+    <script src="src/js/validate.js"></script>
+    <script src="src/js/main.js"></script>
 </body>
-
 </html>
