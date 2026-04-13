@@ -38,6 +38,7 @@ const elements = {
     // Action buttons
     generateButton:     document.getElementById('genBtn'),
     printButton:        document.getElementById('printBtn'),
+    clearMemoryButton:  document.getElementById('clearMemoryBtn'),
     printPage:          document.getElementById('printPage'),
 
     // Quick-preview chips

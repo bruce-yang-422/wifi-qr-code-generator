@@ -1,6 +1,5 @@
 # WiFi QR Code 產生器
 
-[![GitHub](https://img.shields.io/badge/GitHub-bruce--yang--422%2Fwifi--qr--code--generator-blue?style=flat&logo=github)](https://github.com/bruce-yang-422/wifi-qr-code-generator)
 [![License](https://img.shields.io/badge/License-MIT-green?style=flat)](LICENSE)
 
 純前端網頁工具，用來產生 `2.4 GHz`、`5 GHz`、`MLO` 三組 WiFi QR Code，並即時預覽 A4 列印版面。

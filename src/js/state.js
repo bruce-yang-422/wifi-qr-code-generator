@@ -1,3 +1,35 @@
+/* ─── Local Storage Keys ────────────────────────────────────────────────── */
+
+const STORAGE_KEY = 'wifi-qr-state';
+
+/* ─── LocalStorage Functions ────────────────────────────────────────────── */
+
+function saveStateToStorage(state) {
+    try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    } catch (e) {
+        console.warn('Failed to save state to localStorage:', e);
+    }
+}
+
+function loadStateFromStorage() {
+    try {
+        const stored = localStorage.getItem(STORAGE_KEY);
+        return stored ? JSON.parse(stored) : null;
+    } catch (e) {
+        console.warn('Failed to load state from localStorage:', e);
+        return null;
+    }
+}
+
+function clearStoredState() {
+    try {
+        localStorage.removeItem(STORAGE_KEY);
+    } catch (e) {
+        console.warn('Failed to clear localStorage:', e);
+    }
+}
+
 /* ─── Config & State Getters ────────────────────────────────────────────── */
 
 function getConfig() {
@@ -29,6 +61,24 @@ function getEnabledNetworks() {
 }
 
 function getInitialValues() {
+    // Try loading from localStorage first
+    const stored = loadStateFromStorage();
+    if (stored) {
+        return {
+            ssid24:         stored.ssid24 || '',
+            ssid5:          stored.ssid5 || '',
+            ssidMlo:        stored.ssidMlo || '',
+            ssidGuest:      stored.ssidGuest || '',
+            passwordMode:   stored.passwordMode || 'shared',
+            sharedPassword: stored.sharedPassword || '',
+            password24:     stored.password24 || '',
+            password5:      stored.password5 || '',
+            passwordMlo:    stored.passwordMlo || '',
+            passwordGuest:  stored.passwordGuest || ''
+        };
+    }
+
+    // Fall back to config.js
     const config = getConfig();
     const password24    = config.net24?.password    || '';
     const password5     = config.net5?.password     || '';
