@@ -307,6 +307,31 @@
     background: linear-gradient(180deg, #27303f 0%, #151a23 100%);
 }
 
+.btn-clear-memory {
+    width: 100%;
+    margin-top: 8px;
+    padding: 11px 14px;
+    border: 1px solid var(--border-strong);
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.72);
+    color: var(--text-muted);
+    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', sans-serif;
+    font-weight: 600;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-clear-memory:hover {
+    border-color: var(--accent);
+    background: rgba(10, 132, 255, 0.08);
+    color: var(--accent);
+}
+
+.btn-clear-memory:active {
+    transform: scale(0.98);
+}
+
 .security-note {
     margin-top: 14px;
     font-size: 0.8rem;

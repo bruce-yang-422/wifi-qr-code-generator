@@ -13,12 +13,16 @@ function handleInputChange() {
     updatePreviewText();
     clearInputErrors();
     refreshGeneratedState();
+    // Save to localStorage
+    saveStateToStorage(getState());
 }
 
 function handleEnableChange() {
     updatePreviewText();
     clearInputErrors();
     refreshGeneratedState();
+    // Save to localStorage
+    saveStateToStorage(getState());
 }
 
 function syncPasswordsOnModeChange(nextMode) {
@@ -41,6 +45,8 @@ function handleModeChange(event) {
     updatePreviewText();
     clearInputErrors();
     refreshGeneratedState();
+    // Save to localStorage
+    saveStateToStorage(getState());
 }
 
 function handleGenerate() {
@@ -112,6 +118,12 @@ function init() {
     // Generate & print
     elements.generateButton.addEventListener('click', handleGenerate);
     elements.printButton.addEventListener('click', handlePrint);
+    elements.clearMemoryButton.addEventListener('click', () => {
+        if (confirm('確定要清除所有記憶的輸入嗎？此操作無法復原。')) {
+            clearStoredState();
+            location.reload();
+        }
+    });
 
     // Password mode radio
     elements.passwordModeInputs.forEach((input) =>
