@@ -39,11 +39,21 @@ function updateCardVisibility() {
 
 function syncModeVisibility() {
     const isShared = getPasswordMode() === 'shared';
+    const bs = isBandSteering();
     const { enabled24, enabled5, enabledMlo, enabledGuest } = getEnabledNetworks();
     const anyMainEnabled = enabled24 || enabled5 || enabledMlo;
 
+    // When Band Steering is ON, always use shared password mode
+    if (bs) {
+        setPasswordMode('shared');
+    }
+
+    // Hide password mode toggle when Band Steering is on or no main network is enabled
+    const showModeToggle = !bs && anyMainEnabled;
+    elements.passwordModeToggle.classList.toggle('hidden', !showModeToggle);
+
     elements.sharedPasswordGroup.classList.toggle('hidden', !isShared || !anyMainEnabled);
-    elements.separatePasswordGroup.classList.toggle('hidden', isShared || !anyMainEnabled);
+    elements.separatePasswordGroup.classList.toggle('hidden', isShared || !anyMainEnabled || bs);
     elements.guestPasswordGroup.classList.toggle('hidden', !enabledGuest);
 }
 
