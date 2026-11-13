@@ -179,7 +179,7 @@ function wifiPngFilename(title, ssid, band) {
             ctx.fillStyle = '#fff'; ctx.beginPath(); ctx.arc(64, 92, 5, 0, Math.PI * 2); ctx.fill();
             ctx.restore();
             const state = getState();
-            text(state.wifiTitle || 'WiFi Access', 280, 60, sans, '#1d1d1f', 1);
+            text(state.wifiTitle || t('WiFi 連線'), 280, 60, sans, '#1d1d1f', 1);
             text(t('掃描連線'), 344, 32, sans, '#667085');
             const networkTop = state.wifiNote ? 550 : 420;
             if (state.wifiNote) text(state.wifiNote, 400, 32, sans, '#6e6e73', 4);
@@ -218,11 +218,16 @@ function wifiPngFilename(title, ssid, band) {
             text(network.password, 1472, 48, mono, '#1d1d1f', 2);
             const blob = await new Promise(resolve => canvas.toBlob(resolve, 'image/png'));
             if (!blob) throw new Error('PNG export failed');
+            const band = { '24': isBandSteering() ? '2.4G-5G' : '2.4G', '5': '5G', Mlo: 'MLO', Guest: 'Guest' }[key];
+            const filename = wifiPngFilename(state.wifiTitle, network.ssid, band);
+            if (offerWifiImageShare(blob, filename, `[data-key="${key}"][data-format="png"]`)) {
+                status.textContent = t('圖片已準備，可分享或下載。');
+                return;
+            }
             const url = URL.createObjectURL(blob);
             const link = document.createElement('a');
             link.href = url;
-            const band = { '24': isBandSteering() ? '2.4G-5G' : '2.4G', '5': '5G', Mlo: 'MLO', Guest: 'Guest' }[key];
-            link.download = wifiPngFilename(state.wifiTitle, network.ssid, band);
+            link.download = filename;
             document.body.append(link);
             link.click();
             link.remove();
@@ -239,5 +244,13 @@ function wifiPngFilename(title, ssid, band) {
     document.querySelector('.control-panel').addEventListener('change', update);
     window.addEventListener('languagechange', () => { status.textContent = ''; update(); });
     window.addEventListener('settingsloaded', update);
+    // SVG/EPS are for designers; keep them behind a remembered switch on every screen size.
+    const vectorSwitch = document.getElementById('showVectors');
+    try { vectorSwitch.checked = localStorage.getItem('wifi-show-vectors') === 'true'; } catch (_) { /* Optional storage. */ }
+    document.body.classList.toggle('show-vectors', vectorSwitch.checked);
+    vectorSwitch.addEventListener('change', () => {
+        document.body.classList.toggle('show-vectors', vectorSwitch.checked);
+        try { localStorage.setItem('wifi-show-vectors', String(vectorSwitch.checked)); } catch (_) { /* Optional storage. */ }
+    });
     update();
 })();

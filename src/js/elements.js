@@ -21,7 +21,6 @@ const elements = {
     passwordModeInputs: Array.from(document.querySelectorAll('input[name="passwordMode"]')),
     passwordModeToggle:     document.getElementById('passwordModeToggle'),
     sharedPasswordGroup:    document.getElementById('sharedPasswordGroup'),
-    separatePasswordGroup:  document.getElementById('separatePasswordGroup'),
     guestPasswordGroup:     document.getElementById('guestPasswordGroup'),
     sharedPasswordInput:    document.getElementById('sharedPwInput'),
     password24Input:        document.getElementById('pw24Input'),
@@ -42,17 +41,8 @@ const elements = {
     clearMemoryButton:  document.getElementById('clearMemoryBtn'),
     printPage:          document.getElementById('printPage'),
 
-    // Quick-preview chips
+    // Print page — card grid
     wifiCards:          document.getElementById('wifiCards'),
-    quick24:            document.getElementById('quick24'),
-    quick5:             document.getElementById('quick5'),
-    quickMlo:           document.getElementById('quickMlo'),
-    quickGuest:         document.getElementById('quickGuest'),
-    quickChip24:        document.getElementById('quickChip24'),
-    quickChip5:         document.getElementById('quickChip5'),
-    quickChipMlo:       document.getElementById('quickChipMlo'),
-    quickChipGuest:     document.getElementById('quickChipGuest'),
-    quickLabel24:       document.getElementById('quickLabel24'),
 
     // Print page — SSID names
     ssid24Name:         document.getElementById('ssid24Name'),
@@ -65,13 +55,6 @@ const elements = {
     cardPw5:                document.getElementById('cardPw5'),
     cardPwMlo:              document.getElementById('cardPwMlo'),
     cardPwGuest:            document.getElementById('cardPwGuest'),
-
-    // Legacy hidden elements (kept so old JS refs don't throw)
-    pwSharedItem:           document.getElementById('pwSharedItem'),
-    pwItem24:               document.getElementById('pwItem24'),
-    pwItem5:                document.getElementById('pwItem5'),
-    pwItemMlo:              document.getElementById('pwItemMlo'),
-    pwItemGuest:            document.getElementById('pwItemGuest'),
 
     // Print page — scan hints
     hint24:             document.getElementById('hint24'),

@@ -2,19 +2,28 @@
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <meta name="theme-color" content="#f2f2f7">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
     <meta name="apple-mobile-web-app-title" content="WiFi Studio">
     <link rel="manifest" href="manifest.webmanifest">
-    <title>WiFi QR Code 產生器｜A4／A5 列印、PNG 分享</title>
-    <meta name="description" content="線上產生 2.4 GHz、5 GHz、MLO 與訪客 WiFi QR Code，支援 A4／A5 合併或獨立列印、3:4 PNG 下載、自訂標題與容錯率，並提供 PWA 離線使用。">
+    <title>WiFi QR Code 產生器｜免費製作、A4／A5 列印、PNG／SVG 下載</title>
+    <meta name="description" content="免費線上把 WiFi 名稱與密碼做成 QR Code，手機相機一掃即可連線。支援 2.4／5 GHz、MLO 與訪客網路，可列印 A4／A5、下載 PNG／SVG／EPS 並管理常用 WiFi；密碼只在瀏覽器處理，可離線使用。">
     <meta name="application-name" content="WiFi Studio">
     <meta name="author" content="Bruce Yang">
     <meta name="robots" content="index, follow, max-image-preview:large">
     <meta name="format-detection" content="telephone=no">
-    <link rel="canonical" href="https://bruce-yang-422.github.io/wifi-qr-code-generator/">
+    <!-- Canonical is set per language by src/js/i18n.js; each ?lang= URL is its own page. -->
+    <link rel="alternate" hreflang="zh-TW" href="https://bruce-yang-422.github.io/wifi-qr-code-generator/?lang=zh-TW">
+    <link rel="alternate" hreflang="zh-CN" href="https://bruce-yang-422.github.io/wifi-qr-code-generator/?lang=zh-CN">
+    <link rel="alternate" hreflang="en" href="https://bruce-yang-422.github.io/wifi-qr-code-generator/?lang=en">
+    <link rel="alternate" hreflang="ja" href="https://bruce-yang-422.github.io/wifi-qr-code-generator/?lang=ja">
+    <link rel="alternate" hreflang="ko" href="https://bruce-yang-422.github.io/wifi-qr-code-generator/?lang=ko">
+    <link rel="alternate" hreflang="fr" href="https://bruce-yang-422.github.io/wifi-qr-code-generator/?lang=fr">
+    <link rel="alternate" hreflang="de" href="https://bruce-yang-422.github.io/wifi-qr-code-generator/?lang=de">
+    <link rel="alternate" hreflang="es" href="https://bruce-yang-422.github.io/wifi-qr-code-generator/?lang=es">
+    <link rel="alternate" hreflang="x-default" href="https://bruce-yang-422.github.io/wifi-qr-code-generator/">
     <meta property="og:type" content="website">
     <meta property="og:locale" content="zh_TW">
     <meta property="og:locale:alternate" content="zh_CN">
@@ -25,27 +34,40 @@
     <meta property="og:locale:alternate" content="de_DE">
     <meta property="og:locale:alternate" content="es_ES">
     <meta property="og:site_name" content="WiFi QR Code 產生器">
-    <meta property="og:title" content="WiFi QR Code 產生器｜A4／A5 列印、PNG 分享">
-    <meta property="og:description" content="線上產生 2.4 GHz、5 GHz、MLO 與訪客 WiFi QR Code，支援 A4／A5 合併或獨立列印、3:4 PNG 下載、自訂標題與容錯率，並提供 PWA 離線使用。">
+    <meta property="og:title" content="WiFi QR Code 產生器｜免費製作、A4／A5 列印、PNG／SVG 下載">
+    <meta property="og:description" content="免費線上把 WiFi 名稱與密碼做成 QR Code，手機相機一掃即可連線。支援 2.4／5 GHz、MLO 與訪客網路，可列印 A4／A5、下載 PNG／SVG／EPS 並管理常用 WiFi；密碼只在瀏覽器處理，可離線使用。">
     <meta property="og:url" content="https://bruce-yang-422.github.io/wifi-qr-code-generator/">
-    <meta property="og:image" content="https://bruce-yang-422.github.io/wifi-qr-code-generator/src/assets/wifi-qr-logo.png">
-    <meta property="og:image:width" content="1000">
-    <meta property="og:image:height" content="1000">
-    <meta property="og:image:alt" content="WiFi Studio 掃描框與 WiFi 圖示">
-    <meta name="twitter:image" content="https://bruce-yang-422.github.io/wifi-qr-code-generator/src/assets/wifi-qr-logo.png">
-    <meta name="twitter:image:alt" content="WiFi Studio 掃描框與 WiFi 圖示">
-    <meta name="twitter:card" content="summary">
-    <meta name="twitter:title" content="WiFi QR Code 產生器｜A4／A5 列印、PNG 分享">
-    <meta name="twitter:description" content="線上產生 2.4 GHz、5 GHz、MLO 與訪客 WiFi QR Code，支援 A4／A5 合併或獨立列印、3:4 PNG 下載、自訂標題與容錯率，並提供 PWA 離線使用。">
+    <meta property="og:image" content="https://bruce-yang-422.github.io/wifi-qr-code-generator/src/assets/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:alt" content="WiFi QR Code 產生器：免費製作，手機相機一掃即連線">
+    <meta name="twitter:image" content="https://bruce-yang-422.github.io/wifi-qr-code-generator/src/assets/og-image.png">
+    <meta name="twitter:image:alt" content="WiFi QR Code 產生器：免費製作，手機相機一掃即連線">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="WiFi QR Code 產生器｜免費製作、A4／A5 列印、PNG／SVG 下載">
+    <meta name="twitter:description" content="免費線上把 WiFi 名稱與密碼做成 QR Code，手機相機一掃即可連線。支援 2.4／5 GHz、MLO 與訪客網路，可列印 A4／A5、下載 PNG／SVG／EPS 並管理常用 WiFi；密碼只在瀏覽器處理，可離線使用。">
     <script type="application/ld+json">
 {
     "@context": "https://schema.org",
     "@type": "WebApplication",
     "name": "WiFi QR Code 產生器",
-    "alternateName": ["WiFi QR Code Generator", "WiFi Studio"],
+    "alternateName": [
+        "WiFi QR Code Generator",
+        "WiFi Studio"
+    ],
     "url": "https://bruce-yang-422.github.io/wifi-qr-code-generator/",
-    "description": "線上產生 2.4 GHz、5 GHz、MLO 與訪客 WiFi QR Code，支援 A4／A5 合併或獨立列印、3:4 PNG 下載、自訂標題與容錯率，並提供 PWA 離線使用。",
-    "inLanguage": ["zh-TW", "zh-CN", "en", "ja", "ko", "fr", "de", "es"],
+    "description": "免費線上把 WiFi 名稱與密碼做成 QR Code，手機相機一掃即可連線。支援 2.4／5 GHz、MLO 與訪客網路，可列印 A4／A5、下載 PNG／SVG／EPS 並管理常用 WiFi；密碼只在瀏覽器處理，可離線使用。",
+    "inLanguage": [
+        "zh-TW",
+        "zh-CN",
+        "en",
+        "ja",
+        "ko",
+        "fr",
+        "de",
+        "es"
+    ],
     "applicationCategory": "UtilitiesApplication",
     "operatingSystem": "Any",
     "browserRequirements": "Requires JavaScript",
@@ -62,14 +84,20 @@
         "url": "https://github.com/bruce-yang-422"
     },
     "license": "https://opensource.org/licenses/MIT",
+    "keywords": "WiFi QR Code, WiFi 密碼 QR Code, QR Code 產生器, 訪客 WiFi, 掃描連線, MLO, Band Steering, WiFi QR code generator",
     "featureList": [
-        "8 種介面語言：繁中、簡中、英、日、韓、法、德、西",
-        "多組 WiFi QR Code 與共用或獨立密碼",
-        "A4、A5 與雙 A5 列印及 PDF 輸出",
-        "MLO、訪客網路獨立分頁",
-        "1200 × 1600 PNG 分享圖片",
-        "自訂標題、備註與 QR Code 容錯率",
-        "PWA 安裝與離線使用"
+        "八種介面語言與瀏覽器語言自動辨識",
+        "2.4 GHz、5 GHz、MLO、訪客網路與彈性密碼設定",
+        "命名常用 WiFi、表格管理、搜尋與設定載入",
+        "八語系欄位 CSV 完整備份、Excel／Numbers 匯入及工作表選擇",
+        "內部管理備註不納入列印、QR Code 或分享圖片",
+        "A4 單張、A5 單張、雙 A5 分頁列印與 PDF 輸出",
+        "1200 × 1600 分享 PNG 與 1200 × 1200 透明純 QR PNG",
+        "純 QR SVG 與 K100 單色無白底 EPS 向量下載",
+        "手機精簡流程、底部分頁列與完整版切換",
+        "iOS／iPadOS、Android 輔助辨識與系統分享能力回退",
+        "自訂標題、公開備註與 QR Code 容錯率",
+        "PWA、按需安裝入口與離線使用"
     ]
 }
     </script>
@@ -88,8 +116,8 @@
 </head>
 <body>
     <noscript>
-        <p>WiFi QR Code 產生器需要啟用 JavaScript。可產生 2.4 GHz、5 GHz、MLO 與訪客網路的 WiFi QR Code，支援 A4／A5 列印、PDF 與 PNG 分享，所有資料只在瀏覽器本機處理。</p>
-        <p>WiFi QR Code Generator requires JavaScript. Create WiFi QR codes for 2.4 GHz, 5 GHz, MLO and guest networks, print on A4/A5, export PDF or PNG — all processed locally in your browser.</p>
+        <p>WiFi QR Code 產生器需要啟用 JavaScript。可把 2.4 GHz、5 GHz、MLO 與訪客網路的名稱與密碼做成 QR Code，手機相機一掃即可連線；支援 A4／A5 列印與 PDF、PNG／SVG／EPS 下載、常用 WiFi 管理與 CSV 備份，所有資料只在瀏覽器本機處理。</p>
+        <p>WiFi QR Code Generator requires JavaScript. Turn 2.4 GHz, 5 GHz, MLO and guest network names and passwords into QR codes that phones join with one scan. Print A4/A5 or PDF, download PNG/SVG/EPS, and manage saved networks with CSV backups — all processed locally in your browser.</p>
     </noscript>
     <div class="app-shell">
         <header class="hero">
@@ -124,12 +152,6 @@
                     <div class="chrome-title">WiFi 設定</div>
                 </div>
                 <div class="control-scroll" role="region" aria-label="WiFi 設定欄位" tabindex="0">
-                <section class="profile-library" aria-labelledby="profilesTitle">
-                    <div class="profile-heading"><h2 id="profilesTitle">常用 WiFi</h2><span id="profileCount"></span></div>
-                    <p class="profile-help">依場所儲存多組網路與密碼，之後一鍵載入。</p>
-                    <div class="profile-entry-actions"><button type="button" class="profile-save" id="saveProfile">儲存目前設定</button><button type="button" class="profile-manage" id="manageProfiles">管理常用 WiFi</button></div>
-                    <div class="profile-feedback"><p id="profileStatus" role="status" aria-live="polite"></p><button type="button" id="undoProfileLoad" hidden>還原載入前設定</button></div>
-                </section>
                 <div class="control-title">設定要分享的網路</div>
                 <p class="control-sub">啟用需要的網路，填寫名稱與密碼，再到右側安排列印。</p>
                 <details class="settings-disclosure">
@@ -143,24 +165,46 @@
                     <label for="wifiNoteInput">說明備註（選填）</label>
                     <textarea id="wifiNoteInput" rows="4" maxlength="240" placeholder="例如：&#10;開放時間：每日 09:00–18:00&#10;WiFi 位置：一樓大廳、二樓會議室&#10;使用權限：限訪客使用，僅提供網際網路連線"></textarea>
                 </div>
-                </div>
-                </details>
-                <div class="settings-section-title">網路名稱 <span>只列印已啟用的網路</span></div>
                 <div class="input-group internal-note-field">
                     <label for="internalNoteInput">內部備註（不列印）</label>
                     <textarea id="internalNoteInput" rows="3" maxlength="2000" placeholder="例如：設備位置、聯絡人、維護注意事項"></textarea>
                     <p class="profile-help">僅供管理使用，不會出現在列印、QR Code 或分享圖片。</p>
                 </div>
-
-                <div class="input-group">
-                    <div class="network-header">
-                        <label for="ssid24Input">2.4 GHz SSID</label>
-                        <label class="network-switch" title="啟用 2.4 GHz">
-                            <input type="checkbox" role="switch" id="enable24" class="network-enable" aria-label="啟用 2.4 GHz" checked>
-                            <span class="switch-track"></span>
+                </div>
+                </details>
+                <div class="settings-section-title">網路與密碼 <span>只列印已啟用的網路</span></div>
+                <div class="input-group" id="passwordModeGroup">
+                    <label>內部網路密碼</label>
+                    <div class="password-mode-toggle" id="passwordModeToggle">
+                        <label class="mode-option">
+                            <input type="radio" name="passwordMode" value="shared" checked>
+                            <span>密碼相同</span>
+                        </label>
+                        <label class="mode-option">
+                            <input type="radio" name="passwordMode" value="separate">
+                            <span>分開設定</span>
                         </label>
                     </div>
-                    <input type="text" id="ssid24Input" placeholder="例如：MyWiFi" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false">
+                </div>
+
+                <div class="network-block">
+                    <div class="input-group">
+                        <div class="network-header">
+                            <label for="ssid24Input">2.4 GHz SSID</label>
+                            <label class="network-switch" title="啟用 2.4 GHz">
+                                <input type="checkbox" role="switch" id="enable24" class="network-enable" aria-label="啟用 2.4 GHz" checked>
+                                <span class="switch-track"></span>
+                            </label>
+                        </div>
+                        <input type="text" id="ssid24Input" placeholder="例如：MyWiFi" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false">
+                    </div>
+                    <div class="input-group password-panel network-password hidden" id="pw24Group">
+                        <label for="pw24Input">2.4 GHz 密碼</label>
+                        <div class="input-row">
+                            <input type="password" id="pw24Input" placeholder="輸入 2.4 GHz 密碼" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false">
+                            <button type="button" class="toggle-vis" id="toggle24Btn" aria-label="顯示或隱藏 2.4 GHz 密碼">👁</button>
+                        </div>
+                    </div>
                 </div>
 
                 <div id="net5Group">
@@ -173,6 +217,13 @@
                             </label>
                         </div>
                         <input type="text" id="ssid5Input" placeholder="例如：MyWiFi_5G" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false">
+                    </div>
+                    <div class="input-group password-panel network-password hidden" id="pw5Group">
+                        <label for="pw5Input">5 GHz 密碼</label>
+                        <div class="input-row">
+                            <input type="password" id="pw5Input" placeholder="輸入 5 GHz 密碼" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false">
+                            <button type="button" class="toggle-vis" id="toggle5Btn" aria-label="顯示或隱藏 5 GHz 密碼">👁</button>
+                        </div>
                     </div>
                 </div>
 
@@ -187,40 +238,23 @@
                     <div class="band-steering-desc">開啟後 2.4 / 5 GHz 共用同一 SSID，只產生一個 QR Code</div>
                 </div>
 
-                <div class="input-group">
-                    <div class="network-header">
-                        <label for="ssidMloInput">MLO SSID</label>
-                        <label class="network-switch" title="啟用 MLO">
-                            <input type="checkbox" role="switch" id="enableMlo" class="network-enable" aria-label="啟用 MLO">
-                            <span class="switch-track"></span>
-                        </label>
+                <div class="network-block">
+                    <div class="input-group">
+                        <div class="network-header">
+                            <label for="ssidMloInput">MLO SSID</label>
+                            <label class="network-switch" title="啟用 MLO">
+                                <input type="checkbox" role="switch" id="enableMlo" class="network-enable" aria-label="啟用 MLO">
+                                <span class="switch-track"></span>
+                            </label>
+                        </div>
+                        <input type="text" id="ssidMloInput" placeholder="例如：MyWiFi_MLO" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false">
                     </div>
-                    <input type="text" id="ssidMloInput" placeholder="例如：MyWiFi_MLO" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false">
-                </div>
-
-                <div class="input-group">
-                    <div class="network-header">
-                        <label for="ssidGuestInput">訪客 SSID</label>
-                        <label class="network-switch" title="啟用訪客網路">
-                            <input type="checkbox" role="switch" id="enableGuest" class="network-enable" aria-label="啟用訪客網路">
-                            <span class="switch-track"></span>
-                        </label>
-                    </div>
-                    <input type="text" id="ssidGuestInput" placeholder="例如：MyWiFi_Guest" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false">
-                </div>
-
-                <div class="settings-section-title">連線密碼 <span>訪客密碼獨立設定</span></div>
-                <div class="input-group">
-                    <label>內部網路密碼</label>
-                    <div class="password-mode-toggle" id="passwordModeToggle">
-                        <label class="mode-option">
-                            <input type="radio" name="passwordMode" value="shared" checked>
-                            <span>密碼相同</span>
-                        </label>
-                        <label class="mode-option">
-                            <input type="radio" name="passwordMode" value="separate">
-                            <span>分開設定</span>
-                        </label>
+                    <div class="input-group password-panel network-password hidden" id="pwMloGroup">
+                        <label for="pwMloInput">MLO 密碼</label>
+                        <div class="input-row">
+                            <input type="password" id="pwMloInput" placeholder="輸入 MLO 密碼" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false">
+                            <button type="button" class="toggle-vis" id="toggleMloBtn" aria-label="顯示或隱藏 MLO 密碼">👁</button>
+                        </div>
                     </div>
                 </div>
 
@@ -232,70 +266,38 @@
                     </div>
                 </div>
 
-                <div class="password-split-group hidden" id="separatePasswordGroup">
-                    <div class="input-group password-panel">
-                        <label for="pw24Input">2.4 GHz 密碼</label>
-                        <div class="input-row">
-                            <input type="password" id="pw24Input" placeholder="輸入 2.4 GHz 密碼" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false">
-                            <button type="button" class="toggle-vis" id="toggle24Btn" aria-label="顯示或隱藏 2.4 GHz 密碼">👁</button>
+                <div class="network-block guest-block">
+                    <div class="input-group">
+                        <div class="network-header">
+                            <label for="ssidGuestInput">訪客 SSID</label>
+                            <label class="network-switch" title="啟用訪客網路">
+                                <input type="checkbox" role="switch" id="enableGuest" class="network-enable" aria-label="啟用訪客網路">
+                                <span class="switch-track"></span>
+                            </label>
                         </div>
+                        <input type="text" id="ssidGuestInput" placeholder="例如：MyWiFi_Guest" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false">
                     </div>
-
-                    <div class="input-group password-panel">
-                        <label for="pw5Input">5 GHz 密碼</label>
+                    <div class="input-group password-panel hidden" id="guestPasswordGroup">
+                        <label for="pwGuestInput">訪客密碼</label>
                         <div class="input-row">
-                            <input type="password" id="pw5Input" placeholder="輸入 5 GHz 密碼" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false">
-                            <button type="button" class="toggle-vis" id="toggle5Btn" aria-label="顯示或隱藏 5 GHz 密碼">👁</button>
-                        </div>
-                    </div>
-
-                    <div class="input-group password-panel">
-                        <label for="pwMloInput">MLO 密碼</label>
-                        <div class="input-row">
-                            <input type="password" id="pwMloInput" placeholder="輸入 MLO 密碼" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false">
-                            <button type="button" class="toggle-vis" id="toggleMloBtn" aria-label="顯示或隱藏 MLO 密碼">👁</button>
+                            <input type="password" id="pwGuestInput" placeholder="訪客 WiFi 密碼" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false">
+                            <button type="button" class="toggle-vis" id="toggleGuestBtn" aria-label="顯示或隱藏訪客密碼">👁</button>
                         </div>
                     </div>
                 </div>
-
-                <div class="input-group password-panel hidden" id="guestPasswordGroup">
-                    <label for="pwGuestInput">訪客密碼</label>
-                    <div class="input-row">
-                        <input type="password" id="pwGuestInput" placeholder="訪客 WiFi 密碼" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false">
-                        <button type="button" class="toggle-vis" id="toggleGuestBtn" aria-label="顯示或隱藏訪客密碼">👁</button>
-                    </div>
-                </div>
-
-                <div class="settings-disclosure">
-                <div class="settings-section-title">已選網路摘要</div>
-                <div class="quick-preview" id="quickPreview">
-                    <div class="quick-chip" id="quickChip24">
-                        <strong id="quickLabel24">2.4 GHz</strong>
-                        <span id="quick24">未填寫 SSID</span>
-                    </div>
-                    <div class="quick-chip" id="quickChip5">
-                        <strong>5 GHz</strong>
-                        <span id="quick5">未填寫 SSID</span>
-                    </div>
-                    <div class="quick-chip" id="quickChipMlo">
-                        <strong>MLO</strong>
-                        <span id="quickMlo">未填寫 SSID</span>
-                    </div>
-                    <div class="quick-chip hidden" id="quickChipGuest">
-                        <strong>訪客</strong>
-                        <span id="quickGuest">未填寫 SSID</span>
-                    </div>
-                </div>
-
-                </div>
+                <section class="profile-library" aria-labelledby="profilesTitle">
+                    <div class="profile-heading"><h2 id="profilesTitle">常用 WiFi</h2><span id="profileCount"></span></div>
+                    <p class="profile-help">依場所儲存多組網路與密碼，之後一鍵載入。</p>
+                    <div class="profile-entry-actions"><button type="button" class="profile-save" id="saveProfile">儲存目前設定</button><button type="button" class="profile-manage" id="manageProfiles">管理常用 WiFi</button></div>
+                    <div class="profile-feedback"><p id="profileStatus" role="status" aria-live="polite"></p><button type="button" id="undoProfileLoad" hidden>還原載入前設定</button></div>
+                </section>
                 </div>
                 <div class="control-actions">
-                <button type="button" class="btn-generate" id="genBtn">產生 QR Code</button>
-
-
+                <button type="button" class="btn-generate" id="genBtn">檢查並預覽</button>
+                <p id="formStatus" class="form-status" role="alert" hidden></p>
                 <button type="button" class="btn-clear-memory" id="clearMemoryBtn" title="清除目前自動記憶">清除目前記憶</button>
 
-                <div class="security-note">🔒 密碼只在本機瀏覽器處理，不會送到伺服器。若已產生 QR Code，後續修改 SSID 或密碼也會同步更新。</div>
+                <div class="security-note">🔒 密碼只在本機瀏覽器處理，不會送到伺服器。QR Code 會隨輸入即時更新。</div>
                 </div>
 
             </section>
@@ -334,8 +336,8 @@
                                 <img src="src/assets/wifi-qr-logo.png" alt="" width="52" height="52">
                             </div>
                             <div class="print-header-text">
-                                <h2>WiFi Access</h2>
-                                <div class="tagline">Scan to Connect</div>
+                                <h2>WiFi 連線</h2>
+                                <div class="tagline">掃描連線</div>
                             </div>
                         </div>
 
@@ -362,7 +364,7 @@
                                 </div>
                                 <div class="scan-hint" id="hint24">等待產生 2.4 GHz QR Code</div>
                                 <div class="card-pw-section">
-                                    <div class="card-pw-label">Password</div>
+                                    <div class="card-pw-label">連線密碼</div>
                                     <div class="card-pw-value" id="cardPw24">••••••••</div>
                                 </div>
                             </article>
@@ -383,7 +385,7 @@
                                 </div>
                                 <div class="scan-hint" id="hint5">等待產生 5 GHz QR Code</div>
                                 <div class="card-pw-section">
-                                    <div class="card-pw-label">Password</div>
+                                    <div class="card-pw-label">連線密碼</div>
                                     <div class="card-pw-value" id="cardPw5">••••••••</div>
                                 </div>
                             </article>
@@ -404,7 +406,7 @@
                                 </div>
                                 <div class="scan-hint" id="hintMlo">等待產生 MLO QR Code</div>
                                 <div class="card-pw-section">
-                                    <div class="card-pw-label">Password</div>
+                                    <div class="card-pw-label">連線密碼</div>
                                     <div class="card-pw-value" id="cardPwMlo">••••••••</div>
                                 </div>
                             </article>
@@ -425,27 +427,10 @@
                                 </div>
                                 <div class="scan-hint" id="hintGuest">等待產生訪客 QR Code</div>
                                 <div class="card-pw-section">
-                                    <div class="card-pw-label">Password</div>
+                                    <div class="card-pw-label">連線密碼</div>
                                     <div class="card-pw-value" id="cardPwGuest">••••••••</div>
                                 </div>
                             </article>
-                        </div>
-
-                        <!-- removed password-section: passwords now live inside each card -->
-                        <div class="password-section" style="display:none">
-                            <div class="pw-grid" id="pwGrid">
-                                <div class="pw-item" id="pwSharedItem"></div>
-                                <div class="pw-item hidden" id="pwItem24"></div>
-                                <div class="pw-item hidden" id="pwItem5"></div>
-                                <div class="pw-item hidden" id="pwItemMlo">
-                                    <div class="pw-label">MLO</div>
-                                    <div class="pw-value pw-value-split" id="pwMloDisplay">••••••••</div>
-                                </div>
-                                <div class="pw-item hidden" id="pwItemGuest">
-                                    <div class="pw-label">訪客 Guest</div>
-                                    <div class="pw-value pw-value-split" id="pwGuestDisplay">••••••••</div>
-                                </div>
-                            </div>
                         </div>
 
                         <div class="print-band-guide">
@@ -467,7 +452,7 @@
                             </div>
                         </div>
 
-                        <div class="print-footer" id="footerText">WiFi Network Sheet</div>
+                        <div class="print-footer" id="footerText">WiFi 連線資訊</div>
                     </div>
                 </div>
             </section>
@@ -486,7 +471,7 @@
                         </label>
                         <label>
                             <input type="radio" name="printLayout" value="single-a5">
-                            <span>獨立 A5</span>
+                            <span>A5 單張</span>
                         </label>
                         <label title="A4 橫向，左右兩張 A5，含中央裁切線">
                             <input type="radio" name="printLayout" value="a5">
@@ -533,10 +518,19 @@
                 </div>
                 </div>
                 <button type="button" class="btn-print" id="printBtn">🖨️ 列印 / 儲存為 PDF</button>
+                <p id="printStatus" class="form-status" hidden></p>
                 <div class="settings-section-title">分享圖片</div>
                 <p class="print-option-help">每個網路獨立下載 1200 × 1600 PNG（3:4），可傳送至 LINE 或其他 App。</p>
                 <p class="print-option-help">分享 PNG 是完整資訊卡；純 QR PNG 是 1200 × 1200 透明底 QR Code，供美術排版。</p>
                 <p class="print-option-help vector-download-help">SVG／EPS 為純 QR Code 向量檔，適合海報排版；EPS 使用 K100 純黑，不畫白底。請在淺色背景上保留四格淨空。</p>
+                <div class="print-switch-row vector-toggle-row">
+                    <label for="showVectors">顯示向量下載（SVG／EPS）</label>
+                    <label class="network-switch">
+                        <input type="checkbox" role="switch" id="showVectors">
+                        <span class="switch-track"></span>
+                    </label>
+                </div>
+
                 <div id="pngDownloads"></div>
                 <p id="pngStatus" role="status" class="print-option-help"></p>
             </section>
@@ -554,6 +548,17 @@
         <button type="button" id="mobileGoPreview"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/></svg><span>預覽</span></button>
         <button type="button" id="mobileToggleFull" aria-pressed="false"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7M21 3l-7 7M10 21H3v-7M3 21l7-7"/></svg><span id="mobileModeText">完整版</span></button>
     </nav>
+    <dialog id="imageShareDialog" class="app-dialog" aria-labelledby="imageShareTitle">
+        <h2 id="imageShareTitle">分享圖片</h2>
+        <img id="imageSharePreview" alt="WiFi 分享圖片">
+        <p id="imageShareFilename" class="profile-help"></p><p id="imageShareStatus" class="profile-help" role="status"></p>
+        <div class="image-share-actions"><button type="button" id="sharePreparedImage">開啟系統分享</button><button type="button" id="downloadPreparedImage">下載 PNG</button><button type="button" id="cancelImageShare">取消</button></div>
+    </dialog>
+    <dialog id="iosInstallDialog" class="app-dialog" aria-labelledby="iosInstallTitle">
+        <h2 id="iosInstallTitle">加入主畫面</h2>
+        <p class="profile-help">在 Safari 開啟此網站，點選分享，再選擇「加入主畫面」。</p>
+        <div class="profile-dialog-actions"><button type="button" id="closeIosInstall">完成</button></div>
+    </dialog>
     <dialog id="worksheetDialog" class="app-dialog worksheet-dialog" aria-labelledby="worksheetTitle">
         <h2 id="worksheetTitle">選擇要匯入的工作表</h2>
         <p id="worksheetFilename" class="profile-help"></p>
@@ -579,6 +584,7 @@
         </form>
     </dialog>
     <script src="src/js/i18n.js"></script>
+    <script src="src/js/platform.js"></script>
     <script src="src/js/elements.js"></script>
     <script src="src/js/state.js"></script>
     <script src="src/js/ui.js"></script>

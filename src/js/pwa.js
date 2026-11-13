@@ -2,6 +2,10 @@
     const button = document.getElementById('installApp');
     const standalone = window.matchMedia('(display-mode: standalone)');
     let pending;
+    const installed = () => standalone.matches || navigator.standalone;
+    const iosManualInstall = wifiDevice.os === 'ios' && window.isSecureContext && location.protocol !== 'file:';
+    if (iosManualInstall && !installed()) button.hidden = false;
+    document.getElementById('closeIosInstall').addEventListener('click', () => document.getElementById('iosInstallDialog').close());
     window.addEventListener('beforeinstallprompt', event => {
         event.preventDefault();
         if (standalone.matches || navigator.standalone) return;
@@ -9,7 +13,10 @@
         button.hidden = false;
     });
     button.addEventListener('click', async () => {
-        if (!pending) return;
+        if (!pending) {
+            if (iosManualInstall && !installed()) document.getElementById('iosInstallDialog').showModal();
+            return;
+        }
         const prompt = pending;
         pending = null;
         button.hidden = true;

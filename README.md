@@ -8,7 +8,7 @@
 ![CSS3](https://img.shields.io/badge/CSS3-1572B6?logo=css3&logoColor=white)
 ![JavaScript](https://img.shields.io/badge/JavaScript-Vanilla-F7DF1E?logo=javascript&logoColor=black)
 
-> A client-side, zero-build WiFi QR code generator for 2.4 GHz, 5 GHz, MLO and guest networks. Export A4/A5 print layouts, PDFs and 3:4 PNG images for sharing on phones, with PWA offline support.
+> A client-side WiFi QR code generator and saved-network manager. Back up CSV, import Excel/Numbers, print A4/A5/PDF, and export sharing PNGs or QR-only PNG/SVG/EPS artwork. Eight languages, mobile optimizations and offline PWA support; no build step.
 
 **[🌐 Live Demo](https://bruce-yang-422.github.io/wifi-qr-code-generator/)** · **[🐛 Report a Bug](https://github.com/bruce-yang-422/wifi-qr-code-generator/issues)** · **[💡 Request a Feature](https://github.com/bruce-yang-422/wifi-qr-code-generator/issues/new)**
 
@@ -22,7 +22,10 @@
 - [Usage](#usage)
 - [Configuration (`config.js`)](#configuration-configjs)
 - [Print Layouts](#print-layouts)
-- [PNG Share Images](#png-share-images)
+- [Saved WiFi manager](#saved-wifi-manager)
+- [CSV backups and spreadsheet imports](#csv-backups-and-spreadsheet-imports)
+- [Downloads and artwork](#downloads-and-artwork)
+- [Mobile experience and platform behavior](#mobile-experience-and-platform-behavior)
 - [PWA and Offline Use](#pwa-and-offline-use)
 - [Languages](#languages)
 - [Project Structure](#project-structure)
@@ -36,10 +39,10 @@
 
 Offices, shops, meeting rooms and guesthouses often need to post WiFi details for several bands or a separate guest network. This tool lets you enter SSIDs and passwords in the browser, preview the result live, and print or save scannable QR codes as a PDF.
 
-QR codes are generated locally in your browser; the app never uploads your SSIDs or passwords. On desktop, the workspace uses an Apple-style three-column layout: network settings on the left, the paper preview in the middle, and print and download options on the right. The page expands naturally and scrolls as a whole.
+QR codes are generated locally in your browser; the app never uploads your SSIDs or passwords. On desktop, the workspace uses an Apple-style three-column layout: network settings, paper preview, and print/download options. Management mode replaces the middle with a table and the right with the selected record inspector. The page expands naturally and scrolls as a whole.
 
 > [!NOTE]
-> The interface is available in 8 languages (see [Languages](#languages)). Button names in this README refer to the English UI.
+> The interface is available in 8 languages (see [Languages](#languages)). Button names in this README refer to the English UI. UI labels may wrap differently on phones.
 
 ## Features
 
@@ -51,10 +54,12 @@ QR codes are generated locally in your browser; the app never uploads your SSIDs
 | 📝 **Custom title and notes** | Add a WiFi title and notes (opening hours, coverage area, usage rules, etc.) |
 | 👀 **Live preview** | Changes appear instantly in the print preview |
 | 🌐 **8 languages** | Traditional Chinese, Simplified Chinese, English, Japanese, Korean, French, German and Spanish |
-| 🖨️ **Print layouts** | Single A4, standalone A5, or two A5 copies on landscape A4 (with a cut line) |
+| 🖨️ **Print layouts** | Single A4, single A5, or two A5 copies on landscape A4 (with a cut line) |
 | 🗂️ **Page grouping** | Print internal networks together or one per page; MLO and guest can each get their own page |
-| 💾 **Auto-save** | Network details, title, notes and network toggles are saved to `localStorage`; print arrangement and error correction level are not |
-| 🖼️ **PNG sharing** | Download a 1200 × 1600 (3:4) image per network, ready to share via LINE or other messaging apps |
+| 💾 **Auto-save** | Current inputs, internal notes, network toggles, print arrangement and error correction are remembered locally; named sets are saved explicitly |
+| 🖼️ **Downloads** | Share-card PNG, transparent QR-only PNG, SVG and K100 EPS |
+| 🗃️ **Saved WiFi** | Named sets, searchable table, full inspector and CSV backup with Excel/Numbers imports |
+| 📱 **Mobile workflow** | Fixed bottom tabs, full/simple switch, platform-aware keyboard and image sharing |
 | 🎚️ **Error correction** | Switch between L / M / Q / H (default H); the center icon is hidden in the preview below H |
 | 📲 **PWA** | An unobtrusive install button on supported browsers; core features work offline once cached |
 | ⚙️ **Local config file** | Prefill SSIDs and passwords with `config.js` |
@@ -94,11 +99,11 @@ Then open <http://localhost:8080>. The PWA requires HTTPS or localhost; opening 
 2. Enable the networks you need (2.4 GHz / 5 GHz / MLO / Guest) and enter their SSIDs.
 3. **(Optional)** Turn on Band Steering so 2.4 and 5 GHz share one SSID and password.
 4. Choose a password mode: **Shared** or **Separate**.
-5. Each network's QR code updates on its own as soon as its fields are complete; an incomplete network does not clear the others. You can also click **Generate QR Code** to validate all fields.
+5. Each network's QR code updates on its own as soon as its fields are complete; an incomplete network does not clear the others. Click **Check and preview** to validate all fields: a message names the first missing field. Passwords outside WPA's 8–63 characters show a warning, since devices may fail to connect.
 6. In the right panel, choose the paper size, page-separation toggles and error correction level, review the print summary, then print or download PNGs. Any incomplete network must be completed or turned off before printing.
 
 > [!TIP]
-> To clear the data saved in your browser, click **🗑️ Clear Memory** at the bottom of the control panel.
+> To clear the current auto-saved draft, choose **Clear current data** at the bottom of the control panel. Named WiFi sets are kept.
 
 ### QR Code Format
 
@@ -160,7 +165,7 @@ All fields are optional.
 | Option | Description |
 | --- | --- |
 | **Single A4** | One copy per portrait A4 sheet |
-| **Standalone A5** | Output on A5 paper |
+| **Single A5** | One copy per portrait A5 sheet |
 | **Two A5 on A4** | Landscape A4 with two A5 copies side by side and a center cut line |
 
 Every page-separation toggle works the same way: **on = its own page, off = merged with the other networks**.
@@ -175,25 +180,74 @@ The two-A5 layout prints two identical copies on one landscape A4 sheet, which y
 
 When printing, turn off the browser's headers and footers, select the matching paper size, set scale to 100%, and keep your printer's printable margins in mind.
 
-## PNG Share Images
+## Saved WiFi manager
 
-Choose a network under **Share Image** on the right to download it. Only networks that are enabled and have both an SSID and a password can be downloaded; this is independent of the print grouping settings.
+Choose **Save current settings** and enter a required name, such as Office, Home, Shop or Meeting Room A. An existing name changes the confirmation button to **Update existing settings**.
 
-- **Size:** 1200 × 1600, 3:4 portrait.
-- **Style:** iPhone-style rounded card with icon, title, notes, SSID, QR code and password.
-- **Text:** SSID and password use JetBrains Mono; long text wraps or shrinks automatically.
-- **QR code:** Uses the current error correction level with a four-module white quiet zone; the PNG does not overlay the center icon.
-- **File name:** `WiFi-<title>-<SSID>-<band>.png`. Empty parts, duplicate parts and invalid characters are skipped, e.g. `WiFi-MeetingRoom-Office-5G.png`.
+**Manage saved WiFi** replaces the center print preview with a Numbers-style table. Search by name, SSID or internal notes, sort by name or update time, and select a row to view the full settings in the right inspector. Passwords remain masked until you choose to reveal them. **Load and preview** applies the set and returns to printing; loading and deletion offer one-step undo.
 
-Images contain the network password, so share them only with people who should have access.
+Each set preserves the raw network fields, passwords, title, public notes, internal notes, paper layout, page grouping and QR error correction. Internal notes accept up to 2,000 characters and are included in backups, but never appear in printouts, PNGs or QR payloads.
+
+The current auto-saved draft and named sets are separate. **Clear current data** clears only the draft; it does not delete saved sets. To update a saved set, save again with its name.
+
+## CSV backups and spreadsheet imports
+
+**Export full CSV backup** downloads all saved sets as UTF-8 CSV with a BOM, readable in Numbers and Excel. Each set uses four rows so inactive networks and original password fields are preserved alongside band steering, notes, print settings, identifiers and update times.
+
+Column headings follow the selected language. Imports recognize all eight supported languages, English field keys and mixed-language headings. The **Text protection markers** column is internal backup metadata that prevents spreadsheet formulas from interpreting credentials and lets the importer restore their original text; leave it unchanged.
+
+**Import file** accepts:
+
+| Format | Handling |
+| --- | --- |
+| `.csv` | Up to 2 MB; comma, semicolon or tab delimiters; quoted commas, quotes and newlines |
+| `.xlsx`, `.xls`, `.xlx` | Excel workbooks up to 10 MB; `.xlx` is accepted as an extension alias |
+| `.numbers` | Numbers workbooks up to 10 MB; each table may appear as a separate selectable sheet |
+
+A workbook with multiple sheets requires an explicit sheet selection, a masked preview and confirmation. Cancelling imports nothing. General files need at least `ssid` and `password` columns or their localized equivalents; optional `name` and `band` columns group networks. Format SSIDs and passwords as text in spreadsheets to retain leading zeros.
+
+Imports keep existing records, skip identical name/content pairs and add numbered suffixes to conflicting names. Invalid files leave records unchanged. The library is limited to 200 sets; selected worksheets are limited to 800 data rows and 64 columns.
+
+> [!WARNING]
+> Records and plaintext passwords exist only in the current browser's localStorage. Clearing cookies and site data, resetting or removing the browser can delete them. Export your own backup first and keep it private. There is no cloud sync or server-side backup.
+
+## Downloads and artwork
+
+Downloads are independent of print grouping. Enable a network and complete its SSID and password before downloading.
+
+| Option | Contents | Intended use |
+| --- | --- | --- |
+| **Share PNG** | 1200 × 1600 (3:4) card with logo, title, public notes, SSID, QR code and password | Messaging apps and phone sharing |
+| **QR-only PNG** | 1200 × 1200 transparent image with black modules drawn at integer pixel positions | Artwork and layouts |
+| **SVG** | QR-only black vector geometry, transparent background | Scalable artwork |
+| **EPS** | QR-only CMYK 0/0/0/100 (K100), closed integer-coordinate rectangle subpaths and a combined fill | Print and poster production |
+
+SVG and EPS contain no image, font, logo, stroke or white background object. They reserve a four-module quiet zone. Place transparent artwork on a light surface and keep that margin clear. All formats use the selected error correction level; QR-only files contain no center icon. Internal notes are excluded from every output.
+
+Share-card filenames use `WiFi-<title>-<SSID>-<band>.png`; QR-only files use `WiFi-<title>-<SSID>-<band>-QR.png`, `.svg` or `.eps`. Empty parts, repeated parts and invalid filename characters are removed. These files grant WiFi access, so choose their recipients accordingly.
+
+## Mobile experience and platform behavior
+
+Phones start in a simplified flow: network name, password, generate, print and PNG downloads. Fresh blank phone sessions enable one network. More networks, saved settings and print options remain available in expandable controls.
+
+The fixed bottom bar provides **Input**, **Downloads**, **Preview** and a full/simple mode switch. Mode preference is remembered without changing entered data. The two PNG choices are shown by default on every screen size; turn on **Show vector downloads (SVG/EPS)** above the download list for SVG/EPS. The choice is remembered. Full mode exposes the complete controls.
+
+The app uses browser hints to recognize iOS/iPadOS and Android, including iPad desktop-mode user agents. Capabilities, not the OS label alone, determine available features:
+
+- On supported mobile browsers, **Share PNG** prepares the image, then offers a fresh-gesture **Open share sheet** button plus a PNG download fallback. Cancelling the system share sheet does not trigger a download.
+- SSID and password inputs disable autocorrection and automatic capitalization. Enter on an SSID moves to its password; IME composition does not generate a QR code.
+- The bottom bar accounts for screen safe areas and hides when on-screen keyboard use is detected.
+- iOS keeps the simple bottom-tab appearance; Android receives a small active-icon indicator and larger touch targets.
+
+UA-based recognition can be affected by browser privacy settings and desktop mode. Unrecognized or unsupported environments retain the regular download workflow and responsive controls.
 
 ## PWA and Offline Use
 
 `manifest.webmanifest` defines the app name, 192/512 icons and standalone display mode; `sw.js` caches the core app files.
 
-- After the first online visit and once the Service Worker has finished caching, you can generate, preview, print and export PNGs offline.
-- The **Install** button in the header appears only when the browser fires `beforeinstallprompt` and the app is not already running standalone. The app never shows an install prompt on its own.
-- Browsers without this event do not show the button; use the browser's own "Add to Home Screen" feature if available.
+- After the first online visit and once the Service Worker has finished caching, you can generate, manage, preview, print, import local files and export artwork offline.
+- The header **Install** button uses the browser install event where supported. On iOS, a secure website instead provides a Safari Home Screen guide only after the button is clicked. The app never opens install prompts automatically.
+- Other browsers without this event keep the button hidden; use their built-in Home Screen feature if available.
 - The QR code library is bundled with the project and does not rely on a CDN. Google Fonts still require a network connection; offline, system fallback fonts may be used.
 - `config.js` is not cached by the Service Worker. Offline, the app uses saved data or manual input.
 - After changing any cached file, bump the cache version in `sw.js`. The new Service Worker usually takes over after old tabs are closed.
@@ -202,6 +256,8 @@ Images contain the network password, so share them only with people who should h
 
 The interface supports Traditional Chinese, Simplified Chinese, English, Japanese, Korean, French, German and Spanish. On first visit it follows browser language preferences, with English as the fallback. The language menu remembers manual choices locally. Print hints, summaries and PNG labels follow the selected language; user-entered SSIDs, passwords, titles and notes are preserved.
 
+Each language also has its own link, e.g. `?lang=ja` or `?lang=zh-TW` (case-insensitive). A `?lang=` link opens in that language without changing the saved preference; choosing a language from the menu updates the address so it can be shared. The page declares `hreflang` alternates for all eight languages plus an auto-detecting `x-default`, sets a self-referencing canonical per language, and lists every variant in `sitemap.xml` (submit it in Google Search Console). Social previews use the 1200×630 `src/assets/og-image.png`.
+
 ## Project Structure
 
 ```text
@@ -209,12 +265,13 @@ wifi-qr-code-generator/
 ├── index.html              # Main page
 ├── manifest.webmanifest    # PWA name, icons and launch settings
 ├── sw.js                   # Offline cache
+├── sitemap.xml             # Language URLs with hreflang alternates
 ├── config.js               # Local config (excluded by .gitignore)
 ├── LICENSE
 ├── README.md               # English documentation (primary)
 ├── README.zh-TW.md         # Traditional Chinese documentation
 └── src/
-    ├── assets/             # Logo, ICO and PWA icons
+    ├── assets/             # Logo, ICO, PWA icons and 1200×630 social image
     ├── vendor/             # Bundled qrcodejs, SheetJS and licenses
     ├── css/
     │   ├── base.css        # Global variables, fonts and colors
@@ -232,7 +289,10 @@ wifi-qr-code-generator/
         ├── ui.js           # UI updates
         ├── qr.js           # QR code generation
         ├── print-layout.js # Print grouping, summary and preview scaling
-        ├── download.js     # 3:4 PNG rendering and file naming
+        ├── platform.js     # OS hints, keyboard ergonomics and prepared image sharing
+        ├── mobile-ui.js    # Phone layout, bottom tabs and full/simple mode
+        ├── vector-export.js # Integer-module SVG / K100 EPS
+        ├── download.js     # Sharing and QR-only PNG / vector downloads
         ├── profiles.js     # Named settings, manager table and record inspector
         ├── profiles-csv.js # Full CSV backup, parsing and validation
         ├── profiles-import.js # Excel / Numbers import and worksheet selection
@@ -243,6 +303,7 @@ wifi-qr-code-generator/
 
 - **HTML5 / CSS3 / Vanilla JavaScript** — no framework, no build step
 - **[qrcodejs](https://github.com/davidshimjs/qrcodejs)** — QR code generation (bundled at `src/vendor/qrcode.min.js`; license in `src/vendor/qrcode.LICENSE`)
+- **[SheetJS CE 0.20.3](https://docs.sheetjs.com/docs/miscellany/formats/)** — local Excel/Numbers parsing; Apache-2.0 license in `src/vendor/xlsx.LICENSE`
 - **[Google Fonts](https://fonts.google.com/)** — Outfit, Noto Sans TC, JetBrains Mono
 
 ## Privacy and Security
@@ -250,7 +311,7 @@ wifi-qr-code-generator/
 - 🔒 SSIDs and passwords are processed only in your browser and are **never sent to any server**.
 - 💾 `localStorage` data stays in the current browser and is not synced to the cloud.
 - 🙈 `config.js`, PDFs, `exports/` and some legacy PNG file name patterns are listed in `.gitignore`. New `WiFi-*.png` files saved to the project root are **not** ignored automatically; download them outside the project or into `exports/`.
-- ⚠️ On shared computers, click **Clear Memory** after use to remove saved data.
+- ⚠️ On shared computers, clear the current draft and remove saved sets when finished. **Clear current data** alone does not remove named sets.
 
 > [!WARNING]
 > Passwords are stored in plain text in `localStorage`. Do not use auto-save on untrusted devices.
@@ -259,7 +320,7 @@ wifi-qr-code-generator/
 
 Use a recent version of Chrome, Edge, Firefox or Safari. Core features rely on Canvas, web fonts and browser printing; PWA installation and standalone mode vary by browser and platform.
 
-JavaScript syntax, the manifest, icon sizes and the cache list have been checked. Real-world installation, offline behavior and printing on different devices still need verification.
+Checks cover syntax, HTML, assets, eight-language data round-trips, spreadsheet import and selection, 390px mobile flows, actual image downloads and vector geometry. OS-specific share/install behavior is browser-simulated; physical iOS/Android share sheets, printer output and artwork-editor EPS import still require real-device validation.
 
 ## Contributing
 
@@ -278,23 +339,3 @@ Please follow [Conventional Commits](https://www.conventionalcommits.org/) for c
 Distributed under the [MIT License](LICENSE).
 
 Copyright © 2026 Bruce Yang
-
-## Saved WiFi manager
-
-Use **Save current settings** and enter a required name such as Office, Home or Shop. Each saved set includes raw network fields, passwords, title, notes, paper layout, grouping and QR error correction. Saving an existing name explicitly updates that set.
-
-**Manage saved WiFi** replaces the center print workspace with a Numbers-style searchable and sortable table. **Load and preview** restores a set and returns to printing. Loading and deletion offer a one-step undo. Removing the current auto-saved draft does not delete saved sets.
-
-Export every set as a UTF-8 CSV full backup that opens in Numbers or Excel, then import it on another browser or device. Imports support CSV, Excel (.xlsx/.xls, including the .xlx extension alias) and Numbers (.numbers). When a workbook has multiple sheets or tables, choose one in the styled worksheet dialog, review the masked preview and confirm. Cancelling does not import anything. JSON import is not supported. Each set uses four rows to preserve active and inactive networks, original passwords, band steering, titles, notes, print options, IDs and timestamps. General CSV files need at least ssid and password columns; optional name and band columns group the imported networks. Imports preserve existing sets, skip identical name/content pairs and rename name collisions. Invalid files leave existing records unchanged (CSV up to 2 MB; Excel/Numbers up to 10 MB; 200 sets total).
-
-Saved sets exist only in this browser's localStorage and contain plaintext WiFi passwords. Clearing cookies and site data, resetting or uninstalling the browser may remove all records. Export your own backup first and store it securely. Backups are not uploaded to a server; generated WiFi-Profiles-*.csv files are ignored by Git.
-
-In management mode, the right panel shows the selected record’s full parameters instead of print settings. Passwords are masked until explicitly revealed. CSV parsing supports commas, semicolons and tabs, quoted newlines and doubled quotes; exported formula-like cells are escaped and restored on import.
-
-Spreadsheet parsing uses locally bundled [SheetJS CE 0.20.3](https://docs.sheetjs.com/docs/miscellany/formats/) (Apache-2.0; see src/vendor/xlsx.LICENSE), including Numbers table extraction. Files are processed locally and never uploaded. Use text-formatted SSID/password cells to preserve leading zeros.
-
-CSV column headings follow the selected interface language. Imports recognize headings from all eight supported languages, English field keys and mixed-language headers, regardless of the current interface language. This also applies when a CSV backup is saved as Excel and imported again.
-
-Internal notes (up to 2,000 characters) are for management only. They are saved locally and included in full CSV backups, but excluded from printouts, PNG images and QR payloads. On phones, the interface prioritizes network name, password, printing and PNG downloads; network management and print options can be expanded when needed. Fresh blank phone sessions start with one enabled network.
-
-Downloads now offer a 1200×1600 share-card PNG, a transparent 1200×1200 QR-only PNG, SVG, and EPS. Vector exports contain only black QR modules with a four-module transparent quiet zone. EPS uses CMYK 0/0/0/100, closed integer-coordinate rectangle subpaths, one combined fill, no strokes and no white background. Use artwork exports on a light surface. Phones show the two PNG choices by default; vector choices are opt-in. A bottom tab bar links input, downloads and preview, with a saved full/simple mode toggle.

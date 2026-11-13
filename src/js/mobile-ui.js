@@ -34,26 +34,17 @@
             const extra = [
                 document.querySelector('.profile-library'),
                 document.querySelector('.control-scroll > details.settings-disclosure'),
-                document.querySelector('.internal-note-field'), document.getElementById('net5Group'),
+                document.getElementById('net5Group'),
                 document.querySelector('.band-steering-group'),
-                document.getElementById('ssidMloInput').closest('.input-group'),
-                document.getElementById('ssidGuestInput').closest('.input-group'),
-                document.getElementById('passwordModeToggle').closest('.input-group'),
-                document.getElementById('quickPreview').parentElement
+                document.getElementById('ssidMloInput').closest('.network-block'),
+                document.getElementById('ssidGuestInput').closest('.network-block'),
+                document.getElementById('passwordModeGroup')
             ];
             extra.forEach(node => move(node, advanced)); scroll.append(advanced);
             const panel = document.querySelector('.print-settings-panel');
             const printOptions = details('紙張與列印選項', 'mobile-print-options');
             panel.querySelector('.panel-chrome').after(printOptions);
             move(panel.querySelector('.print-options'), printOptions);
-            const vectorOption = document.createElement('div'); vectorOption.className = 'mobile-vector-option';
-            const vectorLabel = document.createElement('label'); vectorLabel.htmlFor = 'mobileVectorToggle'; vectorLabel.dataset.translation = '顯示向量下載（SVG／EPS）'; vectorLabel.textContent = t(vectorLabel.dataset.translation);
-            const vectorSwitch = document.createElement('label'); vectorSwitch.className = 'network-switch';
-            const vectorInput = document.createElement('input'); vectorInput.type = 'checkbox'; vectorInput.id = 'mobileVectorToggle'; vectorInput.setAttribute('role', 'switch');
-            const track = document.createElement('span'); track.className = 'switch-track';
-            document.body.classList.remove('mobile-vectors');
-            vectorInput.addEventListener('change', () => document.body.classList.toggle('mobile-vectors', vectorInput.checked));
-            vectorSwitch.append(vectorInput, track); vectorOption.append(vectorLabel, vectorSwitch); printOptions.append(vectorOption);
             const preview = document.getElementById('printWorkspace');
             const previewDetails = details('查看列印預覽', 'mobile-preview-details');
             preview.before(previewDetails); move(preview, previewDetails);
@@ -109,6 +100,26 @@
     document.getElementById('mobileGoInput').addEventListener('click', () => go('mobileGoInput', document.querySelector('.control-panel')));
     document.getElementById('mobileGoDownloads').addEventListener('click', () => go('mobileGoDownloads', document.querySelector('.print-settings-panel')));
     document.getElementById('mobileGoPreview').addEventListener('click', () => go('mobileGoPreview', document.getElementById('printWorkspace')));
+    // Keep the highlighted tab in step with manual scrolling, not only with tab taps.
+    function syncActiveTab() {
+        if (!media.matches) return;
+        const sections = [
+            ['mobileGoInput', document.querySelector('.control-panel')],
+            ['mobileGoDownloads', document.querySelector('.print-settings-panel')],
+            ['mobileGoPreview', document.querySelector('.mobile-preview-details:not([hidden])') || document.getElementById('printWorkspace')]
+        ].filter(([, element]) => element && element.getClientRects().length);
+        if (!sections.length) return;
+        const atBottom = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2;
+        let current = sections[0][0];
+        for (const [id, element] of sections) {
+            if (atBottom || element.getBoundingClientRect().top <= window.innerHeight * 0.35) current = id;
+        }
+        activate(current);
+    }
+    let tabFrame = 0;
+    window.addEventListener('scroll', () => {
+        if (!tabFrame) tabFrame = requestAnimationFrame(() => { tabFrame = 0; syncActiveTab(); });
+    }, { passive: true });
     document.getElementById('mobileToggleFull').addEventListener('click', () => {
         fullMode = !fullMode;
         try { localStorage.setItem('wifi-mobile-mode', fullMode ? 'full' : 'simple'); } catch (_) { /* Optional storage. */ }

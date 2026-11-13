@@ -70,6 +70,17 @@ function handlePrint() {
 function bindInputEvents(input) {
     input.addEventListener('input', handleInputChange);
     input.addEventListener('keydown', (event) => {
+        if (event.isComposing || event.keyCode === 229) return;
+        if (event.key === 'Enter' && input.id.startsWith('ssid') && ['ios', 'android'].includes(wifiDevice.os) && window.matchMedia('(max-width: 760px)').matches) {
+            event.preventDefault();
+            const next = input === elements.ssidGuestInput ? elements.passwordGuestInput
+                : getPasswordMode() === 'shared' ? elements.sharedPasswordInput
+                    : input === elements.ssid24Input ? elements.password24Input
+                        : input === elements.ssid5Input ? elements.password5Input : elements.passwordMloInput;
+            // The matching password field is hidden while its network is switched off.
+            if (next.closest('.hidden')) { handleGenerate(); return; }
+            focusWifiField(next); return;
+        }
         if (event.key === 'Enter' && input.tagName !== 'TEXTAREA') handleGenerate();
     });
 }

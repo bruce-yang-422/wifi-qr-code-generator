@@ -156,7 +156,7 @@ function validateWifiProfileBackup(value) {
         for (const [key, label] of [['24', '2.4 GHz'], ['5', '5 GHz'], ['Mlo', 'MLO'], ['Guest', t('訪客')]]) {
             section(label, [['狀態', s['enable' + key] ? yes : no], ['SSID', s['ssid' + key]], ['連線密碼', password(s, key), true]]);
         }
-        section('列印設定', [['紙張', t({ a4: 'A4 單張', 'single-a5': '獨立 A5', a5: 'A4 印兩份 A5' }[s.printOptions.paper])], ['所有網路各自獨立', s.printOptions.separateEach ? yes : no], ['MLO 獨立列印', s.printOptions.separateMlo ? yes : no], ['訪客網路獨立列印', s.printOptions.separateGuest ? yes : no], ['QR Code 容錯等級', s.printOptions.correction]]);
+        section('列印設定', [['紙張', t({ a4: 'A4 單張', 'single-a5': 'A5 單張', a5: 'A4 印兩份 A5' }[s.printOptions.paper])], ['所有網路各自獨立', s.printOptions.separateEach ? yes : no], ['MLO 獨立列印', s.printOptions.separateMlo ? yes : no], ['訪客網路獨立列印', s.printOptions.separateGuest ? yes : no], ['QR Code 容錯等級', s.printOptions.correction]]);
     }
     function render() {
         byId('profileCount').textContent = t('已儲存 {count} 組', { count: profiles.length });

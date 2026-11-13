@@ -33,7 +33,7 @@ WiFi 標題（選填）|WiFi 标题（选填）|WiFi title (optional)|WiFiタイ
 產生 QR Code|生成 QR Code|Generate QR codes|QRコードを作成|QR 코드 생성|Générer les QR codes|QR-Codes erstellen|Generar códigos QR
 🗑️ 清除記憶|🗑️ 清除记录|Clear saved data|保存データを削除|저장 데이터 지우기|Effacer les données|Gespeicherte Daten löschen|Borrar datos guardados
 確定要清除所有記憶的輸入嗎？此操作無法復原。|确定要清除所有保存的输入吗？此操作无法撤销。|Clear all saved inputs? This cannot be undone.|保存した入力をすべて削除しますか？元に戻せません。|저장된 입력을 모두 지울까요? 되돌릴 수 없습니다.|Effacer toutes les saisies enregistrées ? Cette action est irréversible.|Alle gespeicherten Eingaben löschen? Dies kann nicht rückgängig gemacht werden.|¿Borrar todos los datos guardados? Esta acción no se puede deshacer.
-🔒 密碼只在本機瀏覽器處理，不會送到伺服器。若已產生 QR Code，後續修改 SSID 或密碼也會同步更新。|🔒 密码仅在本机浏览器处理，不会发送至服务器。修改 SSID 或密码后会同步更新二维码。|🔒 Passwords stay in this browser. QR codes update when names or passwords change.|🔒 パスワードはブラウザー内で処理します。名前やパスワードを変更するとQRコードも更新されます。|🔒 비밀번호는 브라우저에서만 처리됩니다. 이름이나 비밀번호를 바꾸면 QR 코드도 갱신됩니다.|🔒 Les mots de passe restent dans ce navigateur. Les QR codes suivent vos modifications.|🔒 Passwörter bleiben in diesem Browser. QR-Codes werden bei Änderungen aktualisiert.|🔒 Las contraseñas se procesan en este navegador. Los QR se actualizan con los cambios.
+🔒 密碼只在本機瀏覽器處理，不會送到伺服器。QR Code 會隨輸入即時更新。|🔒 密码仅在本机浏览器处理，不会发送至服务器。修改 SSID 或密码后会同步更新二维码。|🔒 Passwords stay in this browser. QR codes update when names or passwords change.|🔒 パスワードはブラウザー内で処理します。名前やパスワードを変更するとQRコードも更新されます。|🔒 비밀번호는 브라우저에서만 처리됩니다. 이름이나 비밀번호를 바꾸면 QR 코드도 갱신됩니다.|🔒 Les mots de passe restent dans ce navigateur. Les QR codes suivent vos modifications.|🔒 Passwörter bleiben in diesem Browser. QR-Codes werden bei Änderungen aktualisiert.|🔒 Las contraseñas se procesan en este navegador. Los QR se actualizan con los cambios.
 列印工作區|打印工作区|Print workspace|印刷ワークスペース|인쇄 작업 공간|Espace d’impression|Druckbereich|Área de impresión
 紙張預覽|纸张预览|Print preview|印刷プレビュー|인쇄 미리보기|Aperçu avant impression|Druckvorschau|Vista previa
 依列印設定即時更新。|根据打印设置实时更新。|Updates with your print settings.|印刷設定に合わせて更新。|인쇄 설정에 따라 갱신됩니다.|Mise à jour selon vos réglages.|Wird an die Druckeinstellungen angepasst.|Se actualiza según los ajustes.
@@ -47,7 +47,7 @@ WiFi 標題（選填）|WiFi 标题（选填）|WiFi title (optional)|WiFiタイ
 列印設定|打印设置|Print settings|印刷設定|인쇄 설정|Réglages d’impression|Druckeinstellungen|Ajustes de impresión
 1 · 紙張與份數|1 · 纸张与份数|1 · Paper and copies|1 · 用紙と部数|1 · 용지 및 부수|1 · Papier et copies|1 · Papier und Kopien|1 · Papel y copias
 A4 單張|A4 单张|A4 portrait|A4縦|A4 세로|A4 portrait|A4 Hochformat|A4 vertical
-獨立 A5|独立 A5|A5 portrait|A5縦|A5 세로|A5 portrait|A5 Hochformat|A5 vertical
+A5 單張|A5 单张|A5 portrait|A5縦|A5 세로|A5 portrait|A5 Hochformat|A5 vertical
 A4 印兩份 A5|A4 打印两份 A5|Two A5 copies on A4|A4にA5を2部|A4에 A5 두 부|Deux A5 sur A4|Zwei A5-Kopien auf A4|Dos copias A5 en A4
 2 · 獨立列印|2 · 独立打印|2 · Separate pages|2 · 個別印刷|2 · 개별 인쇄|2 · Pages séparées|2 · Separate Seiten|2 · Páginas separadas
 所有網路各自獨立|所有网络各自独立|Separate every network|全ネットワークを個別印刷|모든 네트워크 개별 인쇄|Séparer chaque réseau|Jedes Netzwerk einzeln|Separar todas las redes
@@ -124,12 +124,28 @@ for (const [source, key] of [
     WIFI_TRANSLATIONS[source][0] = source;
 }
 const WIFI_EXTRA_ROWS = `
-WiFi 分享工具說明|WiFi 分享工具说明|Generate WiFi QR codes, print A4 or A5 sheets, and share PNG images. Supports multiple networks and offline use.|WiFiのQRコードを作成し、A4・A5で印刷、PNG画像で共有。複数ネットワークとオフライン利用に対応。|WiFi QR 코드를 생성하고 A4·A5로 인쇄하거나 PNG로 공유하세요. 여러 네트워크와 오프라인 사용을 지원합니다.|Créez des QR codes WiFi, imprimez en A4 ou A5 et partagez des PNG. Plusieurs réseaux et utilisation hors ligne.|WLAN-QR-Codes erstellen, auf A4 oder A5 drucken und als PNG teilen. Mehrere Netzwerke und Offline-Nutzung.|Genera códigos QR WiFi, imprime en A4 o A5 y comparte PNG. Admite varias redes y uso sin conexión.
+WiFi 分享工具說明|免费在线把 WiFi 名称与密码做成二维码，手机相机一扫即可连接。支持 2.4／5 GHz、MLO 与访客网络，可打印 A4／A5、下载 PNG／SVG／EPS 并管理常用 WiFi；密码仅在浏览器处理，可离线使用。|Free WiFi QR code generator: phones join with one camera scan. 2.4/5 GHz, MLO and guest networks, A4/A5 printing, PNG/SVG/EPS. Passwords stay in your browser.|無料のWiFi QRコード作成ツール。スマホのカメラで読み取るだけで接続できます。2.4/5 GHz、MLO、ゲストネットワーク、A4/A5印刷、PNG/SVG/EPS保存、WiFi管理に対応。パスワードはブラウザー内で処理し、オフラインでも使えます。|무료 WiFi QR 코드 생성기. 휴대폰 카메라로 스캔하면 바로 연결됩니다. 2.4/5 GHz, MLO, 게스트 네트워크, A4/A5 인쇄, PNG/SVG/EPS 다운로드와 WiFi 관리를 지원하며 비밀번호는 브라우저에서만 처리되고 오프라인에서도 사용할 수 있습니다.|Générateur gratuit de QR code WiFi : un scan avec l’appareil photo suffit pour se connecter. 2,4/5 GHz, MLO, réseau invité, impression A4/A5, export PNG/SVG/EPS et réseaux enregistrés. Les mots de passe restent dans le navigateur ; fonctionne hors ligne.|Kostenloser WLAN-QR-Code-Generator: mit der Handykamera scannen und verbinden. 2,4/5 GHz, MLO, Gastnetz, A4/A5-Druck, PNG/SVG/EPS-Export und gespeicherte Netzwerke. Passwörter bleiben im Browser; funktioniert offline.|Generador gratuito de códigos QR WiFi: escanea con la cámara del móvil para conectarte. 2,4/5 GHz, MLO, red de invitados, impresión A4/A5, descarga PNG/SVG/EPS y redes guardadas. Las contraseñas no salen del navegador; funciona sin conexión.
+SEO 標題副題|免费制作、A4／A5 打印、PNG／SVG 下载|Free, Print A4/A5, PNG/SVG Downloads|無料作成・A4/A5印刷・PNG/SVG保存|무료 생성·A4/A5 인쇄·PNG/SVG 다운로드|Gratuit, impression A4/A5, PNG/SVG|Kostenlos, A4/A5-Druck, PNG/SVG|Gratis, impresión A4/A5, PNG/SVG
 例如：訪客無線網路／會議室 WiFi／公共上網區|例如：访客无线网络／会议室 WiFi／公共上网区|Example: Guest WiFi / Meeting room|例：ゲストWiFi／会議室|예: 게스트 WiFi / 회의실|Exemple : WiFi invité / Salle de réunion|Beispiel: Gäste-WLAN / Besprechungsraum|Ejemplo: WiFi de invitados / Sala de reuniones
 備註範例|备注示例|Hours: 09:00–18:00; Location: Lobby; Access: Internet only|利用時間：09:00–18:00、場所：ロビー、利用範囲：インターネットのみ|이용 시간: 09:00–18:00, 위치: 로비, 권한: 인터넷 전용|Horaires : 09:00–18:00 ; Lieu : Hall ; Accès : Internet uniquement|Zeiten: 09:00–18:00; Ort: Empfang; Zugang: Nur Internet|Horario: 09:00–18:00; Ubicación: Vestíbulo; Acceso: Solo Internet
 `;
 WIFI_EXTRA_ROWS.trim().split('\n').forEach(row => { const cells = row.split('|'); WIFI_TRANSLATIONS[cells[0]] = cells; });
 const WIFI_PROFILE_ROWS = `
+檢查並預覽|检查并预览|Check and preview|確認してプレビュー|확인 및 미리보기|Vérifier et prévisualiser|Prüfen und Vorschau|Comprobar y previsualizar
+網路與密碼|网络与密码|Networks and passwords|ネットワークとパスワード|네트워크 및 비밀번호|Réseaux et mots de passe|Netzwerke und Passwörter|Redes y contraseñas
+請至少啟用一個網路。|请至少启用一个网络。|Enable at least one network.|ネットワークを1つ以上有効にしてください。|네트워크를 하나 이상 켜세요.|Activez au moins un réseau.|Mindestens ein Netzwerk aktivieren.|Activa al menos una red.
+請填寫「{field}」。|请填写“{field}”。|Please fill in “{field}”.|「{field}」を入力してください。|'{field}' 항목을 입력하세요.|Veuillez renseigner « {field} ».|Bitte „{field}“ ausfüllen.|Rellena «{field}».
+WPA 密碼需為 8～63 個字元（目前 {count} 個），否則裝置可能無法連線。|WPA 密码需为 8～63 个字符（当前 {count} 个），否则设备可能无法连接。|WPA passwords need 8–63 characters (currently {count}); devices may fail to connect.|WPAパスワードは8～63文字が必要です（現在{count}文字）。接続できない場合があります。|WPA 비밀번호는 8~63자여야 합니다(현재 {count}자). 연결되지 않을 수 있습니다.|Le mot de passe WPA doit comporter 8 à 63 caractères (actuellement {count}) ; la connexion peut échouer.|WPA-Passwörter brauchen 8–63 Zeichen (derzeit {count}); die Verbindung kann sonst fehlschlagen.|La contraseña WPA debe tener 8–63 caracteres (ahora {count}); la conexión podría fallar.
+WiFi 連線|WiFi 连接|WiFi Access|WiFi接続|WiFi 접속|Accès WiFi|WLAN-Zugang|Acceso WiFi
+WiFi 連線資訊|WiFi 连接信息|WiFi network sheet|WiFi接続情報|WiFi 연결 정보|Fiche WiFi|WLAN-Infoblatt|Ficha de WiFi
+開啟系統分享|打开系统分享|Open share sheet|共有メニューを開く|시스템 공유 열기|Ouvrir le partage|Systemfreigabe öffnen|Abrir menú de compartir
+下載 PNG|下载 PNG|Download PNG|PNGを保存|PNG 다운로드|Télécharger PNG|PNG herunterladen|Descargar PNG
+圖片已準備，可分享或下載。|图片已准备好，可以分享或下载。|Image ready to share or download.|画像を共有または保存できます。|이미지를 공유하거나 다운로드할 수 있습니다.|Image prête à partager ou télécharger.|Bild zum Teilen oder Herunterladen bereit.|Imagen lista para compartir o descargar.
+無法開啟分享，請使用下載 PNG。|无法打开分享，请使用下载 PNG。|Sharing is unavailable. Use Download PNG.|共有できません。「PNGを保存」をお使いください。|공유할 수 없습니다. PNG 다운로드를 이용하세요.|Partage indisponible. Utilisez Télécharger PNG.|Teilen nicht verfügbar. PNG herunterladen verwenden.|No se puede compartir. Usa Descargar PNG.
+WiFi 分享圖片|WiFi 分享图片|WiFi sharing image|WiFi共有画像|WiFi 공유 이미지|Image de partage WiFi|WLAN-Freigabebild|Imagen para compartir WiFi
+加入主畫面|添加到主屏幕|Add to Home Screen|ホーム画面に追加|홈 화면에 추가|Sur l’écran d’accueil|Zum Home-Bildschirm|Añadir a pantalla de inicio
+在 Safari 開啟此網站，點選分享，再選擇「加入主畫面」。|在 Safari 打开此网站，点按分享，然后选择“添加到主屏幕”。|Open this site in Safari, tap Share, then choose Add to Home Screen.|Safariでこのサイトを開き、共有から「ホーム画面に追加」を選択します。|Safari에서 이 사이트를 열고 공유를 누른 다음 홈 화면에 추가를 선택하세요.|Ouvrez ce site dans Safari, touchez Partager, puis Sur l’écran d’accueil.|Diese Seite in Safari öffnen, Teilen und dann Zum Home-Bildschirm wählen.|Abre este sitio en Safari, toca Compartir y elige Añadir a pantalla de inicio.
+完成|完成|Done|完了|완료|Terminé|Fertig|Listo
 手機功能選單|手机功能菜单|Mobile navigation|モバイルメニュー|모바일 메뉴|Navigation mobile|Mobile Navigation|Navegación móvil
 輸入|输入|Input|入力|입력|Saisie|Eingabe|Datos
 下載|下载|Downloads|保存|다운로드|Télécharger|Downloads|Descargas
@@ -240,8 +256,16 @@ function resolveWifiLanguage(preferences) {
     }
     return 'en';
 }
-let wifiLanguage;
-try { wifiLanguage = localStorage.getItem('wifi-language'); } catch (_) { /* Optional storage. */ }
+// Each language has its own crawlable URL (?lang=xx); the bare URL auto-detects (x-default).
+const WIFI_SITE_URL = 'https://bruce-yang-422.github.io/wifi-qr-code-generator/';
+const wifiUrlLanguage = (() => {
+    const requested = new URLSearchParams(location.search).get('lang');
+    return WIFI_LANGUAGES.find(language => language.toLowerCase() === requested?.toLowerCase()) || null;
+})();
+let wifiLanguage = wifiUrlLanguage;
+if (!wifiLanguage) {
+    try { wifiLanguage = localStorage.getItem('wifi-language'); } catch (_) { /* Optional storage. */ }
+}
 if (!WIFI_LANGUAGES.includes(wifiLanguage)) wifiLanguage = resolveWifiLanguage(navigator.languages || [navigator.language || 'en']);
 function t(source, values = {}) {
     const row = WIFI_TRANSLATIONS[source];
@@ -293,8 +317,8 @@ function initWifiLanguage() {
         const source = node.textContent.trim();
         if (WIFI_TRANSLATIONS[source]) originalNodes.push([node, source]);
     }
-    document.querySelectorAll('[placeholder],[title],[aria-label]').forEach(element => {
-        for (const attribute of ['placeholder', 'title', 'aria-label']) {
+    document.querySelectorAll('[placeholder],[title],[aria-label],[alt]').forEach(element => {
+        for (const attribute of ['placeholder', 'title', 'aria-label', 'alt']) {
             const source = element.getAttribute(attribute);
             if (source) attributes.push([element, attribute, source]);
         }
@@ -327,12 +351,8 @@ function initWifiLanguage() {
         languageButtons.forEach(button => button.setAttribute('aria-checked', String(button.dataset.language === wifiLanguage)));
         for (const [node, source] of originalNodes) if (node.isConnected) node.textContent = t(source);
         for (const [element, attribute, source] of attributes) element.setAttribute(attribute, translateAttribute(source));
-        document.title = wifiLanguage === 'zh-TW' ? seoTitle : t('WiFi QR Code 產生器') + ' | A4 / A5 · PNG';
-        const description = wifiLanguage === 'zh-TW'
-            ? seoDescription
-            : wifiLanguage === 'zh-CN'
-                ? '在线生成 WiFi QR Code，支持 A4／A5 打印、PNG 分享、多组网络与离线使用。'
-                : t('WiFi 分享工具說明');
+        document.title = wifiLanguage === 'zh-TW' ? seoTitle : t('WiFi QR Code 產生器') + ' | ' + t('SEO 標題副題');
+        const description = wifiLanguage === 'zh-TW' ? seoDescription : t('WiFi 分享工具說明');
         for (const key of ['description', 'og:description', 'twitter:description']) {
             const element = document.querySelector(`meta[name="${key}"],meta[property="${key}"]`);
             if (element) element.content = description;
@@ -340,11 +360,28 @@ function initWifiLanguage() {
         for (const key of ['og:title', 'twitter:title']) document.querySelector(`meta[property="${key}"],meta[name="${key}"]`)?.setAttribute('content', document.title);
         const locales = { 'zh-TW': 'zh_TW', 'zh-CN': 'zh_CN', en: 'en_US', ja: 'ja_JP', ko: 'ko_KR', fr: 'fr_FR', de: 'de_DE', es: 'es_ES' };
         document.querySelector('meta[property="og:locale"]')?.setAttribute('content', locales[wifiLanguage]);
+        // Self-referencing canonical: a ?lang= page points to itself, the bare URL to the bare URL.
+        const pageUrl = wifiUrlLanguage || new URLSearchParams(location.search).has('lang')
+            ? `${WIFI_SITE_URL}?lang=${wifiLanguage}` : WIFI_SITE_URL;
+        let canonical = document.querySelector('link[rel="canonical"]');
+        if (!canonical) { canonical = document.createElement('link'); canonical.rel = 'canonical'; document.head.append(canonical); }
+        canonical.href = pageUrl;
+        document.querySelector('meta[property="og:url"]')?.setAttribute('content', pageUrl);
+        document.querySelectorAll('meta[property="og:locale:alternate"]').forEach(element => element.remove());
+        for (const [language, locale] of Object.entries(locales)) {
+            if (language === wifiLanguage) continue;
+            const alternate = document.createElement('meta'); alternate.setAttribute('property', 'og:locale:alternate'); alternate.content = locale;
+            document.head.append(alternate);
+        }
     }
     apply();
     selector.addEventListener('change', () => {
         wifiLanguage = selector.value;
         try { localStorage.setItem('wifi-language', wifiLanguage); } catch (_) { /* Optional storage. */ }
+        // Keep the address shareable: the link reopens in the language that was chosen.
+        const url = new URL(location.href);
+        url.searchParams.set('lang', wifiLanguage);
+        history.replaceState(history.state, '', url);
         apply();
         updatePreviewText();
         renderQrCodes();
