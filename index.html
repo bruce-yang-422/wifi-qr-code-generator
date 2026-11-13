@@ -94,7 +94,7 @@
     <div class="app-shell">
         <header class="hero">
             <div class="eyebrow">WiFi Studio</div>
-            <h1>WiFi QR Code 產生器</h1>
+            <div class="app-brand"><img src="src/assets/wifi-qr-logo.png" alt="" width="36" height="36"><h1>WiFi QR Code 產生器</h1></div>
             <p>設定網路、安排版面，輕鬆分享連線。</p>
             <details class="language-picker" id="languagePicker">
                 <summary aria-label="Language">
@@ -124,6 +124,12 @@
                     <div class="chrome-title">WiFi 設定</div>
                 </div>
                 <div class="control-scroll" role="region" aria-label="WiFi 設定欄位" tabindex="0">
+                <section class="profile-library" aria-labelledby="profilesTitle">
+                    <div class="profile-heading"><h2 id="profilesTitle">常用 WiFi</h2><span id="profileCount"></span></div>
+                    <p class="profile-help">依場所儲存多組網路與密碼，之後一鍵載入。</p>
+                    <div class="profile-entry-actions"><button type="button" class="profile-save" id="saveProfile">儲存目前設定</button><button type="button" class="profile-manage" id="manageProfiles">管理常用 WiFi</button></div>
+                    <div class="profile-feedback"><p id="profileStatus" role="status" aria-live="polite"></p><button type="button" id="undoProfileLoad" hidden>還原載入前設定</button></div>
+                </section>
                 <div class="control-title">設定要分享的網路</div>
                 <p class="control-sub">啟用需要的網路，填寫名稱與密碼，再到右側安排列印。</p>
                 <details class="settings-disclosure">
@@ -140,16 +146,21 @@
                 </div>
                 </details>
                 <div class="settings-section-title">網路名稱 <span>只列印已啟用的網路</span></div>
+                <div class="input-group internal-note-field">
+                    <label for="internalNoteInput">內部備註（不列印）</label>
+                    <textarea id="internalNoteInput" rows="3" maxlength="2000" placeholder="例如：設備位置、聯絡人、維護注意事項"></textarea>
+                    <p class="profile-help">僅供管理使用，不會出現在列印、QR Code 或分享圖片。</p>
+                </div>
 
                 <div class="input-group">
                     <div class="network-header">
                         <label for="ssid24Input">2.4 GHz SSID</label>
                         <label class="network-switch" title="啟用 2.4 GHz">
-                            <input type="checkbox" id="enable24" class="network-enable" checked>
+                            <input type="checkbox" role="switch" id="enable24" class="network-enable" aria-label="啟用 2.4 GHz" checked>
                             <span class="switch-track"></span>
                         </label>
                     </div>
-                    <input type="text" id="ssid24Input" placeholder="例如：MyWiFi">
+                    <input type="text" id="ssid24Input" placeholder="例如：MyWiFi" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false">
                 </div>
 
                 <div id="net5Group">
@@ -157,11 +168,11 @@
                         <div class="network-header">
                             <label for="ssid5Input">5 GHz SSID</label>
                             <label class="network-switch" title="啟用 5 GHz">
-                                <input type="checkbox" id="enable5" class="network-enable" checked>
+                                <input type="checkbox" role="switch" id="enable5" class="network-enable" aria-label="啟用 5 GHz" checked>
                                 <span class="switch-track"></span>
                             </label>
                         </div>
-                        <input type="text" id="ssid5Input" placeholder="例如：MyWiFi_5G">
+                        <input type="text" id="ssid5Input" placeholder="例如：MyWiFi_5G" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false">
                     </div>
                 </div>
 
@@ -169,7 +180,7 @@
                     <div class="network-header">
                         <label>智慧混合（Band Steering）</label>
                         <label class="network-switch" title="啟用智慧混合">
-                            <input type="checkbox" id="bandSteering">
+                            <input type="checkbox" role="switch" id="bandSteering" aria-label="啟用智慧混合">
                             <span class="switch-track"></span>
                         </label>
                     </div>
@@ -180,22 +191,22 @@
                     <div class="network-header">
                         <label for="ssidMloInput">MLO SSID</label>
                         <label class="network-switch" title="啟用 MLO">
-                            <input type="checkbox" id="enableMlo" class="network-enable">
+                            <input type="checkbox" role="switch" id="enableMlo" class="network-enable" aria-label="啟用 MLO">
                             <span class="switch-track"></span>
                         </label>
                     </div>
-                    <input type="text" id="ssidMloInput" placeholder="例如：MyWiFi_MLO">
+                    <input type="text" id="ssidMloInput" placeholder="例如：MyWiFi_MLO" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false">
                 </div>
 
                 <div class="input-group">
                     <div class="network-header">
                         <label for="ssidGuestInput">訪客 SSID</label>
                         <label class="network-switch" title="啟用訪客網路">
-                            <input type="checkbox" id="enableGuest" class="network-enable">
+                            <input type="checkbox" role="switch" id="enableGuest" class="network-enable" aria-label="啟用訪客網路">
                             <span class="switch-track"></span>
                         </label>
                     </div>
-                    <input type="text" id="ssidGuestInput" placeholder="例如：MyWiFi_Guest">
+                    <input type="text" id="ssidGuestInput" placeholder="例如：MyWiFi_Guest" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false">
                 </div>
 
                 <div class="settings-section-title">連線密碼 <span>訪客密碼獨立設定</span></div>
@@ -216,7 +227,7 @@
                 <div class="input-group password-panel" id="sharedPasswordGroup">
                     <label for="sharedPwInput">共用 WiFi 密碼</label>
                     <div class="input-row">
-                        <input type="password" id="sharedPwInput" placeholder="輸入三組 WiFi 共用密碼" autocomplete="off" spellcheck="false">
+                        <input type="password" id="sharedPwInput" placeholder="輸入三組 WiFi 共用密碼" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false">
                         <button type="button" class="toggle-vis" id="toggleSharedBtn" aria-label="顯示或隱藏共用密碼">👁</button>
                     </div>
                 </div>
@@ -225,7 +236,7 @@
                     <div class="input-group password-panel">
                         <label for="pw24Input">2.4 GHz 密碼</label>
                         <div class="input-row">
-                            <input type="password" id="pw24Input" placeholder="輸入 2.4 GHz 密碼" autocomplete="off" spellcheck="false">
+                            <input type="password" id="pw24Input" placeholder="輸入 2.4 GHz 密碼" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false">
                             <button type="button" class="toggle-vis" id="toggle24Btn" aria-label="顯示或隱藏 2.4 GHz 密碼">👁</button>
                         </div>
                     </div>
@@ -233,7 +244,7 @@
                     <div class="input-group password-panel">
                         <label for="pw5Input">5 GHz 密碼</label>
                         <div class="input-row">
-                            <input type="password" id="pw5Input" placeholder="輸入 5 GHz 密碼" autocomplete="off" spellcheck="false">
+                            <input type="password" id="pw5Input" placeholder="輸入 5 GHz 密碼" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false">
                             <button type="button" class="toggle-vis" id="toggle5Btn" aria-label="顯示或隱藏 5 GHz 密碼">👁</button>
                         </div>
                     </div>
@@ -241,7 +252,7 @@
                     <div class="input-group password-panel">
                         <label for="pwMloInput">MLO 密碼</label>
                         <div class="input-row">
-                            <input type="password" id="pwMloInput" placeholder="輸入 MLO 密碼" autocomplete="off" spellcheck="false">
+                            <input type="password" id="pwMloInput" placeholder="輸入 MLO 密碼" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false">
                             <button type="button" class="toggle-vis" id="toggleMloBtn" aria-label="顯示或隱藏 MLO 密碼">👁</button>
                         </div>
                     </div>
@@ -250,7 +261,7 @@
                 <div class="input-group password-panel hidden" id="guestPasswordGroup">
                     <label for="pwGuestInput">訪客密碼</label>
                     <div class="input-row">
-                        <input type="password" id="pwGuestInput" placeholder="訪客 WiFi 密碼" autocomplete="off" spellcheck="false">
+                        <input type="password" id="pwGuestInput" placeholder="訪客 WiFi 密碼" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false">
                         <button type="button" class="toggle-vis" id="toggleGuestBtn" aria-label="顯示或隱藏訪客密碼">👁</button>
                     </div>
                 </div>
@@ -282,14 +293,28 @@
                 <button type="button" class="btn-generate" id="genBtn">產生 QR Code</button>
 
 
-                <button type="button" class="btn-clear-memory" id="clearMemoryBtn" title="清除瀏覽器記憶的所有輸入">🗑️ 清除記憶</button>
+                <button type="button" class="btn-clear-memory" id="clearMemoryBtn" title="清除目前自動記憶">清除目前記憶</button>
 
                 <div class="security-note">🔒 密碼只在本機瀏覽器處理，不會送到伺服器。若已產生 QR Code，後續修改 SSID 或密碼也會同步更新。</div>
                 </div>
 
             </section>
 
-            <section class="preview-wrap">
+            <section class="profiles-manager" id="profilesManager" aria-labelledby="managerTitle" hidden>
+                <div class="panel-chrome"><div class="traffic-lights" aria-hidden="true"><span class="traffic-dot traffic-close"></span><span class="traffic-dot traffic-minimize"></span><span class="traffic-dot traffic-zoom"></span></div><div class="chrome-title">常用 WiFi 管理</div></div>
+                <div class="manager-heading"><div><h2 id="managerTitle" tabindex="-1">常用 WiFi 管理</h2><p class="profile-help">選擇一組設定，即可載入網路、密碼與列印安排。</p></div><button type="button" id="closeProfiles">返回列印預覽</button></div>
+                <aside class="profile-warning" aria-labelledby="profileWarningTitle"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M10.3 4.4 2.6 18a2 2 0 0 0 1.7 3h15.4a2 2 0 0 0 1.7-3L13.7 4.4a2 2 0 0 0-3.4 0Z"/><path d="M12 9v5m0 3v1"/></svg><div><strong id="profileWarningTitle">紀錄只存在此瀏覽器，請自行備份</strong><p>清除 Cookie 與網站資料、重設或移除瀏覽器，可能一併刪除所有已儲存紀錄。請先匯出備份，並保存在安全的位置。</p></div></aside>
+                <div class="manager-toolbar"><button type="button" id="managerSaveProfile">儲存目前設定</button><button type="button" id="exportProfiles">匯出 CSV 完整備份</button><button type="button" id="importProfiles">匯入檔案</button></div>
+                <p class="profile-help">支援 CSV、Excel 與 Numbers 匯入；多工作表會先讓您選擇。資料至少需有 ssid、password 欄位。</p>
+                <label for="profileSearch" class="profile-search-label">搜尋設定</label>
+                <input type="search" id="profileSearch" placeholder="搜尋名稱或 SSID" autocomplete="off">
+                <input type="file" id="profileFile" accept=".csv,.xlsx,.xls,.xlx,.numbers,text/csv,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel,application/vnd.apple.numbers" hidden>
+                <p class="profile-help profile-privacy">備份檔包含 WiFi 密碼，請妥善保存。</p>
+                <p id="managerStatus" role="status" aria-live="polite" class="profile-help"></p>
+                <div class="profile-table-tools"><span id="profileTableCount"></span><button type="button" id="toggleProfilePasswords" role="switch" aria-checked="false">顯示密碼</button></div>
+                <div id="profileList" class="profile-table-container"></div>
+            </section>
+            <section class="preview-wrap" id="printWorkspace">
                 <div class="panel-chrome">
                     <div class="traffic-lights" aria-hidden="true">
                         <span class="traffic-dot traffic-close"></span>
@@ -510,13 +535,49 @@
                 <button type="button" class="btn-print" id="printBtn">🖨️ 列印 / 儲存為 PDF</button>
                 <div class="settings-section-title">分享圖片</div>
                 <p class="print-option-help">每個網路獨立下載 1200 × 1600 PNG（3:4），可傳送至 LINE 或其他 App。</p>
+                <p class="print-option-help">分享 PNG 是完整資訊卡；純 QR PNG 是 1200 × 1200 透明底 QR Code，供美術排版。</p>
+                <p class="print-option-help vector-download-help">SVG／EPS 為純 QR Code 向量檔，適合海報排版；EPS 使用 K100 純黑，不畫白底。請在淺色背景上保留四格淨空。</p>
                 <div id="pngDownloads"></div>
                 <p id="pngStatus" role="status" class="print-option-help"></p>
+            </section>
+            <section class="profile-inspector" id="profileInspector" aria-labelledby="inspectorTitle" hidden>
+                <div class="panel-chrome"><div class="traffic-lights" aria-hidden="true"><span class="traffic-dot traffic-close"></span><span class="traffic-dot traffic-minimize"></span><span class="traffic-dot traffic-zoom"></span></div><div class="chrome-title" id="inspectorTitle">設定詳細資料</div></div>
+                <div id="profileInspectorBody"></div>
             </section>
         </main>
     </div>
 
     <script src="config.js" onerror="console.log('未偵測到 config.js，將退回手動輸入模式');"></script>
+    <nav class="mobile-function-bar" aria-label="手機功能選單">
+        <button type="button" id="mobileGoInput" class="is-active" aria-current="location"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m4 16-1 5 5-1L20 8l-4-4L4 16Z"/><path d="m14 6 4 4"/></svg><span>輸入</span></button>
+        <button type="button" id="mobileGoDownloads"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12m-4-4 4 4 4-4M4 16v4a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-4"/></svg><span>下載</span></button>
+        <button type="button" id="mobileGoPreview"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/></svg><span>預覽</span></button>
+        <button type="button" id="mobileToggleFull" aria-pressed="false"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7M21 3l-7 7M10 21H3v-7M3 21l7-7"/></svg><span id="mobileModeText">完整版</span></button>
+    </nav>
+    <dialog id="worksheetDialog" class="app-dialog worksheet-dialog" aria-labelledby="worksheetTitle">
+        <h2 id="worksheetTitle">選擇要匯入的工作表</h2>
+        <p id="worksheetFilename" class="profile-help"></p>
+        <div id="worksheetOptions" class="worksheet-options" role="radiogroup" aria-labelledby="worksheetTitle"></div>
+        <p id="worksheetStatus" class="profile-help" role="status"></p>
+        <div id="worksheetPreview"></div>
+        <p class="profile-help">SSID 與密碼建議使用文字格式，避免試算表移除開頭的 0。</p>
+        <div class="profile-dialog-actions"><button type="button" id="cancelWorksheet">取消</button><button type="button" id="confirmWorksheet" disabled>匯入此工作表</button></div>
+    </dialog>
+    <dialog id="clearMemoryDialog" class="app-dialog" aria-labelledby="clearMemoryTitle">
+        <h2 id="clearMemoryTitle">清除目前自動記憶？</h2>
+        <p class="profile-help">只清除目前輸入的自動記憶，不會刪除常用 WiFi。</p>
+        <div class="profile-dialog-actions"><button type="button" id="cancelClearMemory">取消</button><button type="button" id="confirmClearMemory">清除目前記憶</button></div>
+    </dialog>
+    <dialog id="profileDialog" class="app-dialog" aria-labelledby="profileDialogTitle">
+        <form id="profileForm" novalidate>
+            <h2 id="profileDialogTitle">儲存常用 WiFi</h2>
+            <label for="profileName">設定名稱</label>
+            <input type="text" id="profileName" required maxlength="80" autocomplete="off" aria-describedby="profileSaveHelp profileNameError" placeholder="例如：公司網路、家裡網路、1樓門市、辦公室A">
+            <p id="profileNameError" class="profile-field-error" role="alert"></p>
+            <p id="profileSaveHelp" class="profile-help"></p>
+            <div class="profile-dialog-actions"><button type="button" id="cancelProfile">取消</button><button type="submit" id="confirmProfile">儲存</button></div>
+        </form>
+    </dialog>
     <script src="src/js/i18n.js"></script>
     <script src="src/js/elements.js"></script>
     <script src="src/js/state.js"></script>
@@ -525,7 +586,13 @@
     <script src="src/js/validate.js"></script>
     <script src="src/js/main.js"></script>
     <script src="src/js/print-layout.js"></script>
+    <script src="src/js/vector-export.js"></script>
     <script src="src/js/download.js"></script>
+    <script src="src/vendor/xlsx.full.min.js"></script>
+    <script src="src/js/profiles-csv.js"></script>
+    <script src="src/js/profiles-import.js"></script>
+    <script src="src/js/profiles.js"></script>
+    <script src="src/js/mobile-ui.js"></script>
     <script src="src/js/pwa.js"></script>
 </body>
 </html>

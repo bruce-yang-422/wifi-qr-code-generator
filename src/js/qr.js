@@ -12,8 +12,9 @@ function renderQr(target, frame, ssid, password) {
     target.innerHTML = '';
     new QRCode(target, {
         text: `WIFI:T:WPA;S:${escapeWifiValue(ssid)};P:${escapeWifiValue(password)};H:false;;`,
-        width: 140,
-        height: 140,
+        // CSS scales the code to as much as 80 mm; render enough pixels to stay sharp in print.
+        width: 512,
+        height: 512,
         colorDark: '#2c2420',
         colorLight: '#ffffff',
         correctLevel: QRCode.CorrectLevel[document.querySelector('input[name="qrCorrection"]:checked').value]

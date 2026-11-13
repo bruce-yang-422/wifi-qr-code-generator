@@ -29,15 +29,82 @@ function wifiPngFilename(title, ssid, band) {
     function update() {
         list.replaceChildren();
         networks().forEach(network => {
-            const button = document.createElement('button');
-            button.type = 'button';
-            button.className = 'png-download';
-            button.textContent = t('下載 {band} PNG', { band: network.label });
-            button.disabled = !network.ssid || !network.password;
-            if (button.disabled) button.title = t('請填寫此網路的 SSID 與密碼');
-            button.addEventListener('click', () => download(network.key, button));
-            list.append(button);
+            const item = document.createElement('div'); item.className = 'network-download-item';
+            const label = document.createElement('strong'); label.textContent = network.label;
+            const name = document.createElement('span'); name.className = 'network-download-name'; name.textContent = network.ssid || t('未填寫 SSID');
+            const buttons = document.createElement('div'); buttons.className = 'network-download-formats';
+            for (const format of ['png', 'qr-png', 'svg', 'eps']) {
+                const button = document.createElement('button'); button.type = 'button'; button.className = 'png-download';
+                const title = format === 'png' ? t('分享 PNG') : format === 'qr-png' ? t('純 QR PNG') : format.toUpperCase();
+                button.textContent = title; button.dataset.format = format; button.dataset.key = network.key;
+                button.setAttribute('aria-label', t('下載 {band} {format}', { band: network.label, format: title }));
+                button.disabled = !network.ssid || !network.password;
+                if (button.disabled) button.title = t('請填寫此網路的 SSID 與密碼');
+                button.addEventListener('click', () => {
+                    if (document.activeElement === button) restoreFocus = `[data-key="${network.key}"][data-format="${format}"]`;
+                    return format === 'png' ? download(network.key, button) : format === 'qr-png' ? downloadQrPng(network.key, button) : downloadVector(network.key, format, button);
+                });
+                buttons.append(button);
+            }
+            item.append(label, name, buttons); list.append(item);
         });
+    }
+    // update() rebuilds every button; keep keyboard focus on the one that was used.
+    // Disabled buttons lose focus, so the target is recorded when the click starts.
+    let restoreFocus = null;
+    function refresh() {
+        const target = restoreFocus;
+        restoreFocus = null;
+        update();
+        if (target) list.querySelector(target)?.focus();
+    }
+    function exportModel(network) {
+        const level = document.querySelector('input[name="qrCorrection"]:checked').value;
+        return new QRCode(document.createElement('div'), {
+            text: `WIFI:T:WPA;S:${escapeWifiValue(network.ssid)};P:${escapeWifiValue(network.password)};H:false;;`,
+            width: 140, height: 140, correctLevel: QRCode.CorrectLevel[level]
+        })._oQRCode;
+    }
+    function artFilename(network, extension) {
+        const band = { '24': isBandSteering() ? '2.4G-5G' : '2.4G', '5': '5G', Mlo: 'MLO', Guest: 'Guest' }[network.key];
+        return wifiPngFilename(getState().wifiTitle, network.ssid, band).replace(/\.png$/, `-QR.${extension}`);
+    }
+    function saveArtBlob(blob, filename) {
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement('a'); link.href = url; link.download = filename;
+        document.body.append(link); link.click(); link.remove();
+        setTimeout(() => URL.revokeObjectURL(url), 10000);
+        status.textContent = t('已下載：{file}', { file: filename });
+    }
+    async function downloadQrPng(key, button) {
+        const network = networks().find(item => item.key === key);
+        if (!network?.ssid || !network.password) return;
+        button.disabled = true;
+        try {
+            const model = exportModel(network); const count = model.getModuleCount();
+            const canvas = document.createElement('canvas'); canvas.width = canvas.height = 1200;
+            const ctx = canvas.getContext('2d'); ctx.fillStyle = '#000000';
+            const unit = Math.floor(1200 / (count + 8));
+            const offset = Math.floor((1200 - (count + 8) * unit) / 2);
+            for (let row = 0; row < count; row++) for (let col = 0; col < count; col++) {
+                if (model.isDark(row, col)) ctx.fillRect(offset + (col + 4) * unit, offset + (row + 4) * unit, unit, unit);
+            }
+            const blob = await new Promise(resolve => canvas.toBlob(resolve, 'image/png'));
+            if (!blob) throw new Error('PNG export failed');
+            saveArtBlob(blob, artFilename(network, 'png'));
+        } catch (_) { status.textContent = t('圖片下載失敗，請縮短網路資料後重試。'); }
+        finally { refresh(); }
+    }
+    function downloadVector(key, format, button) {
+        const network = networks().find(item => item.key === key);
+        if (!network?.ssid || !network.password) return;
+        button.disabled = true;
+        try {
+            const content = wifiQrVector(exportModel(network), format);
+            const blob = new Blob([content], { type: format === 'svg' ? 'image/svg+xml;charset=utf-8' : 'application/postscript' });
+            saveArtBlob(blob, artFilename(network, format));
+        } catch (_) { status.textContent = t('向量檔下載失敗，請檢查網路資料後重試。'); }
+        finally { refresh(); }
     }
     async function download(key, button) {
         const network = networks().find(item => item.key === key);
@@ -165,11 +232,12 @@ function wifiPngFilename(title, ssid, band) {
             status.textContent = t('圖片下載失敗，請縮短網路資料後重試。');
             console.error('PNG export failed:', error);
         } finally {
-            update();
+            refresh();
         }
     }
     document.querySelector('.control-panel').addEventListener('input', update);
     document.querySelector('.control-panel').addEventListener('change', update);
     window.addEventListener('languagechange', () => { status.textContent = ''; update(); });
+    window.addEventListener('settingsloaded', update);
     update();
 })();

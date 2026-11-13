@@ -212,7 +212,7 @@ wifi-qr-code-generator/
 ├── README.zh-TW.md         # 繁體中文說明
 └── src/
     ├── assets/             # Logo、ICO、PWA 圖示
-    ├── vendor/             # qrcodejs 本機套件及授權
+    ├── vendor/             # qrcodejs、SheetJS 本機套件及授權
     ├── css/
     │   ├── base.css        # 全域變數、字型與配色
     │   ├── layout.css      # 主要版面配置
@@ -230,6 +230,9 @@ wifi-qr-code-generator/
         ├── qr.js           # QR Code 產生
         ├── print-layout.js # 列印分組、摘要與預覽縮放
         ├── download.js     # 3:4 PNG 繪製與檔名
+        ├── profiles.js     # 命名設定、管理表格與詳細資料
+        ├── profiles-csv.js # CSV 完整備份與格式檢查
+        ├── profiles-import.js # Excel／Numbers 匯入及工作表選擇
         └── pwa.js          # 安裝入口與 Service Worker 註冊
 ```
 
@@ -272,3 +275,23 @@ Commit 訊息請遵循 [Conventional Commits](https://www.conventionalcommits.or
 本專案以 [MIT License](LICENSE) 授權釋出。
 
 Copyright © 2026 Bruce Yang
+
+## 常用 WiFi 管理
+
+按 **儲存目前設定** 後必須輸入辨識名稱，例如「公司網路」、「家裡網路」、「1樓門市」、「辦公室A」。每組會保存網路欄位原始值、密碼、標題備註、紙張、分頁安排與 QR 容錯率；同名時會明確顯示「更新同名設定」。
+
+按 **管理常用 WiFi**，中間列印工作區即切換為Numbers 風格的可搜尋、排序管理表格。**載入並預覽** 會還原設定並返回列印；載入與刪除皆提供單步還原。清除目前自動記憶不會刪除常用設定。
+
+可將所有紀錄匯出為 UTF-8 CSV 完整備份，用 Numbers／Excel 開啟，或匯入其他瀏覽器與裝置。匯入支援 CSV、Excel（.xlsx／.xls，另容許 .xlx 副檔名）及 Numbers（.numbers）。多工作表或多資料表會先顯示選擇視窗，選頁後預覽並確認，取消不會匯入。不支援 JSON 匯入。每組使用四列保留啟用及未啟用的網路、原始密碼、智慧混合、標題備註、列印參數、識別碼及更新時間。一般 CSV 至少需有 ssid、password 欄位，另可用 name、band 欄位指定名稱與頻段。匯入會保留原有設定、略過相同名稱與內容的紀錄，同名不同內容則自動加編號。無效檔案不會變更既有紀錄，CSV 限制 2 MB、Excel／Numbers 限制 10 MB，合計最多 200 組。
+
+紀錄只存在此瀏覽器的 localStorage，密碼為明文。清除 Cookie 與網站資料、重設或移除瀏覽器，可能一併移除全部紀錄，請先自行匯出備份並妥善保存。備份不會上傳伺服器，產生的 WiFi-Profiles-*.csv 檔案已加入 Git 忽略規則。
+
+管理模式下，右欄會由列印設定切換成選中紀錄的完整參數；密碼預設遮蔽，可主動顯示。CSV 支援逗號、分號與 Tab 分隔、引號換行及雙引號跳脫；匯出時會處理可能被試算表當成公式的內容，匯入時還原原始值。
+
+試算表解析使用本機 [SheetJS CE 0.20.3](https://docs.sheetjs.com/docs/miscellany/formats/)（Apache-2.0，詳見 src/vendor/xlsx.LICENSE）。檔案在瀏覽器處理，不上傳伺服器。SSID／密碼建議使用文字儲存格，以保留開頭的 0。Numbers 同一頁的多張資料表可能被列為不同的可選工作表。
+
+CSV 欄位標題會跟隨目前介面語言。匯入時可辨識八種語言標題、英文欄位鍵名及混合語言標題，不受目前介面語言影響；CSV 轉存為 Excel 後再次匯入也適用。
+
+內部備註可寫最多 2,000 字，僅供管理；會隨設定保存並包含在 CSV 完整備份，但不加入列印、PNG 或 QR 內容。手機版優先顯示網路名稱、密碼、列印與 PNG 下載，網路管理及列印選項可按需展開；新的空白手機設定預設只啟用單一網路。
+
+下載提供 1200×1600 分享資訊卡 PNG、1200×1200 透明底純 QR PNG、SVG 及 EPS。向量檔只包含黑色 QR 模組並預留四格透明淨空；EPS 使用 CMYK 0/0/0/100，整數座標封閉矩形子路徑、單一合併填色，無描邊與白底。美術檔應放在淺色背景。手機預設顯示兩種 PNG，SVG／EPS 可在進階選項開啟；底部分頁列提供輸入、下載、預覽及完整版／精簡版切換，並記住模式選擇。

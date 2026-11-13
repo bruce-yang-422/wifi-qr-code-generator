@@ -23,17 +23,17 @@ function handleEnableChange() {
 
 function syncPasswordsOnModeChange(nextMode) {
     if (nextMode === 'shared') {
-        const nextValue = elements.password24Input.value.trim()
-            || elements.password5Input.value.trim()
-            || elements.passwordMloInput.value.trim()
-            || elements.sharedPasswordInput.value.trim();
+        const nextValue = elements.password24Input.value
+            || elements.password5Input.value
+            || elements.passwordMloInput.value
+            || elements.sharedPasswordInput.value;
         elements.sharedPasswordInput.value = nextValue;
         return;
     }
-    const sharedValue = elements.sharedPasswordInput.value.trim();
-    if (!elements.password24Input.value.trim())  elements.password24Input.value  = sharedValue;
-    if (!elements.password5Input.value.trim())   elements.password5Input.value   = sharedValue;
-    if (!elements.passwordMloInput.value.trim()) elements.passwordMloInput.value = sharedValue;
+    const sharedValue = elements.sharedPasswordInput.value;
+    if (!elements.password24Input.value)  elements.password24Input.value  = sharedValue;
+    if (!elements.password5Input.value)   elements.password5Input.value   = sharedValue;
+    if (!elements.passwordMloInput.value) elements.passwordMloInput.value = sharedValue;
 }
 
 function handleModeChange(event) {
@@ -50,7 +50,12 @@ function handleGenerate() {
     renderQrCodes();
     updatePreviewText();
     if (!ensureRequiredValues()) return;
-    elements.printPage.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    // The source page is hidden when networks print on separate sheets, so scroll to the workspace.
+    const workspace = document.getElementById('printWorkspace');
+    for (let parent = workspace.parentElement; parent; parent = parent.parentElement) {
+        if (parent.tagName === 'DETAILS') parent.open = true;
+    }
+    workspace.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
 function handlePrint() {
@@ -71,10 +76,10 @@ function bindInputEvents(input) {
 
 /* ─── Initialisation ────────────────────────────────────────────────────── */
 
-function applyInitialValues() {
-    const v = getInitialValues();
+function applyInitialValues(v = getInitialValues()) {
     document.getElementById('wifiTitleInput').value = v.wifiTitle || '';
     document.getElementById('wifiNoteInput').value = v.wifiNote || '';
+    document.getElementById('internalNoteInput').value = v.internalNote || '';
 
     elements.ssid24Input.value        = v.ssid24;
     elements.ssid5Input.value         = v.ssid5;
@@ -117,10 +122,14 @@ function init() {
     elements.generateButton.addEventListener('click', handleGenerate);
     elements.printButton.addEventListener('click', handlePrint);
     elements.clearMemoryButton.addEventListener('click', () => {
-        if (confirm(t('確定要清除所有記憶的輸入嗎？此操作無法復原。'))) {
-            clearStoredState();
-            location.reload();
-        }
+        document.getElementById('clearMemoryDialog').showModal();
+    });
+    document.getElementById('cancelClearMemory').addEventListener('click', () => {
+        document.getElementById('clearMemoryDialog').close();
+    });
+    document.getElementById('confirmClearMemory').addEventListener('click', () => {
+        clearStoredState();
+        location.reload();
     });
 
     // Password mode radio
@@ -136,6 +145,7 @@ function init() {
     [
         document.getElementById('wifiTitleInput'),
         document.getElementById('wifiNoteInput'),
+        document.getElementById('internalNoteInput'),
         elements.ssid24Input,
         elements.ssid5Input,
         elements.ssidMloInput,

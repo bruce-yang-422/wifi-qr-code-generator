@@ -8,7 +8,9 @@ function updateCardVisibility() {
     // Band steering ON → merge 5 GHz into the 2.4 GHz card
     const show5separate = !bs && enabled5raw;
     const label24       = bs && enabled24 ? '2.4 / 5 GHz' : '2.4 GHz';
-    document.querySelector('label[for="ssid24Input"]').textContent = bs ? t('2.4／5 GHz 共用 SSID') : '2.4 GHz SSID';
+    const mobile = document.body.classList.contains('mobile-simple');
+    document.querySelector('label[for="ssid24Input"]').textContent = mobile ? t('網路名稱（SSID）') : bs ? t('2.4／5 GHz 共用 SSID') : '2.4 GHz SSID';
+    document.querySelector('label[for="sharedPwInput"]').textContent = t(mobile ? '連線密碼' : '共用 WiFi 密碼');
 
     elements.bandTag24.textContent  = label24;
     elements.quickLabel24.textContent = label24;
@@ -99,16 +101,16 @@ function updatePreviewText() {
     elements.footerText.textContent = footerParts.length
         ? footerParts.join(' / ')
         : 'WiFi Network Sheet';
-    document.title = t('WiFi QR Code 產生器') + ' | A4 / A5 · PNG';
 
     syncModeVisibility();
     updateCardVisibility();
 
     const hintSuffix = mode === 'separate' ? t('（獨立密碼）') : '';
-    elements.hint24.textContent    = ssid24    && enabled24    ? t('掃描加入 {ssid}', { ssid: ssid24 }) + hintSuffix    : t('等待產生 {band} QR Code', { band: '2.4 GHz' });
-    elements.hint5.textContent     = ssid5     && enabled5     ? t('掃描加入 {ssid}', { ssid: ssid5 }) + hintSuffix     : t('等待產生 {band} QR Code', { band: '5 GHz' });
-    elements.hintMlo.textContent   = ssidMlo   && enabledMlo   ? t('掃描加入 {ssid}', { ssid: ssidMlo }) + hintSuffix   : t('等待產生 {band} QR Code', { band: 'MLO' });
-    elements.hintGuest.textContent = ssidGuest && enabledGuest ? t('掃描加入 {ssid}', { ssid: ssidGuest })       : t('等待產生 {band} QR Code', { band: t('訪客') });
+    // Only promise a scan when the QR code can actually be rendered.
+    elements.hint24.textContent    = ssid24    && password24    && enabled24    ? t('掃描加入 {ssid}', { ssid: ssid24 }) + hintSuffix    : t('等待產生 {band} QR Code', { band: '2.4 GHz' });
+    elements.hint5.textContent     = ssid5     && password5     && enabled5     ? t('掃描加入 {ssid}', { ssid: ssid5 }) + hintSuffix     : t('等待產生 {band} QR Code', { band: '5 GHz' });
+    elements.hintMlo.textContent   = ssidMlo   && passwordMlo   && enabledMlo   ? t('掃描加入 {ssid}', { ssid: ssidMlo }) + hintSuffix   : t('等待產生 {band} QR Code', { band: 'MLO' });
+    elements.hintGuest.textContent = ssidGuest && passwordGuest && enabledGuest ? t('掃描加入 {ssid}', { ssid: ssidGuest })       : t('等待產生 {band} QR Code', { band: t('訪客') });
 }
 
 function setPlaceholder(target, message) {
@@ -119,4 +121,5 @@ function togglePasswordVisibility(input, button) {
     const isPassword = input.type === 'password';
     input.type       = isPassword ? 'text' : 'password';
     button.textContent = isPassword ? '🙈' : '👁';
+    button.setAttribute('aria-pressed', String(isPassword));
 }

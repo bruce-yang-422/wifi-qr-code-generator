@@ -67,11 +67,12 @@ function getInitialValues() {
         return {
             wifiTitle: stored.wifiTitle || '',
             wifiNote: stored.wifiNote || '',
+            internalNote: stored.internalNote || '',
             ssid24:         stored.ssid24 || '',
             ssid5:          stored.ssid5 || '',
             ssidMlo:        stored.ssidMlo || '',
             ssidGuest:      stored.ssidGuest || '',
-            passwordMode:   stored.passwordMode || 'shared',
+            passwordMode:   stored.passwordMode || stored.mode || 'shared',
             sharedPassword: stored.sharedPassword || '',
             password24:     stored.password24 || '',
             password5:      stored.password5 || '',
@@ -115,24 +116,27 @@ function getInitialValues() {
 function getPasswordsByMode() {
     const mode = getPasswordMode();
     const bs   = isBandSteering();
-    const sharedPassword = elements.sharedPasswordInput.value.trim();
-    const password24     = mode === 'shared' ? sharedPassword : elements.password24Input.value.trim();
-    const password5      = bs ? password24 : (mode === 'shared' ? sharedPassword : elements.password5Input.value.trim());
-    const passwordMlo    = mode === 'shared' ? sharedPassword : elements.passwordMloInput.value.trim();
-    const passwordGuest  = elements.passwordGuestInput.value.trim();
+    const sharedPassword = elements.sharedPasswordInput.value;
+    const password24     = mode === 'shared' ? sharedPassword : elements.password24Input.value;
+    const password5      = bs ? password24 : (mode === 'shared' ? sharedPassword : elements.password5Input.value);
+    const passwordMlo    = mode === 'shared' ? sharedPassword : elements.passwordMloInput.value;
+    const passwordGuest  = elements.passwordGuestInput.value;
 
     return { mode, sharedPassword, password24, password5, passwordMlo, passwordGuest };
 }
 
 function getState() {
-    const ssid24 = elements.ssid24Input.value.trim();
+    const ssid24 = elements.ssid24Input.value;
     return {
         wifiTitle: document.getElementById('wifiTitleInput').value.trim(),
         wifiNote: document.getElementById('wifiNoteInput').value.trim(),
+        internalNote: document.getElementById('internalNoteInput').value,
+        passwordMode: getPasswordMode(),
+        printOptions: getPrintOptions(),
         ssid24,
-        ssid5:     isBandSteering() ? ssid24 : elements.ssid5Input.value.trim(),
-        ssidMlo:   elements.ssidMloInput.value.trim(),
-        ssidGuest: elements.ssidGuestInput.value.trim(),
+        ssid5:     isBandSteering() ? ssid24 : elements.ssid5Input.value,
+        ssidMlo:   elements.ssidMloInput.value,
+        ssidGuest: elements.ssidGuestInput.value,
         ...getPasswordsByMode(),
         enable24:     elements.enable24.checked,
         enable5:      elements.enable5.checked,
@@ -140,4 +144,26 @@ function getState() {
         enableGuest:  elements.enableGuest.checked,
         bandSteering: elements.bandSteering.checked
     };
+}
+
+function getPrintOptions() {
+    return {
+        paper: document.querySelector('input[name="printLayout"]:checked').value,
+        separateEach: document.getElementById('networkLayoutSwitch').checked,
+        separateMlo: document.getElementById('mloLayoutSwitch').checked,
+        separateGuest: document.getElementById('guestLayoutSwitch').checked,
+        correction: document.querySelector('input[name="qrCorrection"]:checked').value
+    };
+}
+
+function applyPrintOptions(options) {
+    if (!options) return;
+    const paper = [...document.querySelectorAll('input[name="printLayout"]')].find(input => input.value === options.paper);
+    if (paper) paper.checked = true;
+    for (const [id, key] of [['networkLayoutSwitch', 'separateEach'], ['mloLayoutSwitch', 'separateMlo'], ['guestLayoutSwitch', 'separateGuest']]) {
+        if (typeof options[key] === 'boolean') document.getElementById(id).checked = options[key];
+    }
+    const correction = [...document.querySelectorAll('input[name="qrCorrection"]')].find(input => input.value === options.correction);
+    if (correction) correction.checked = true;
+    document.getElementById('printLayout').dispatchEvent(new Event('change', { bubbles: true }));
 }

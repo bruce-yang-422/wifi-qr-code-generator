@@ -12,8 +12,7 @@ function planPrintGroups(active, separateEach, separateMlo, separateGuest) {
     const viewport = document.createElement('div');
     viewport.className = 'preview-scroll';
     viewport.setAttribute('role', 'region');
-    viewport.setAttribute('aria-label', '列印紙張預覽，可捲動查看各頁');
-    viewport.tabIndex = 0;
+    viewport.setAttribute('aria-label', '列印紙張預覽');
     stage.before(viewport);
     viewport.append(stage);
     const sheet = document.createElement('div');
@@ -147,5 +146,10 @@ function planPrintGroups(active, separateEach, separateMlo, separateGuest) {
     source.addEventListener('load', syncCopy, true);
     window.addEventListener('beforeprint', syncCopy);
     window.addEventListener('languagechange', syncCopy);
+    const savedPrintOptions = loadStateFromStorage()?.printOptions;
+    if (savedPrintOptions) {
+        applyPrintOptions(savedPrintOptions);
+        renderQrCodes();
+    }
     syncCopy();
 })();

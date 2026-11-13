@@ -1,5 +1,12 @@
 /* ─── Validation ────────────────────────────────────────────────────────── */
 
+function focusWifiField(input) {
+    for (let parent = input.parentElement; parent; parent = parent.parentElement) {
+        if (parent.tagName === 'DETAILS') parent.open = true;
+    }
+    input.focus();
+}
+
 function clearInputErrors() {
     [
         elements.ssid24Input,
@@ -24,52 +31,52 @@ function ensureRequiredValues() {
 
     if (enabled24 && !ssid24) {
         elements.ssid24Input.classList.add('input-error');
-        elements.ssid24Input.focus();
+        focusWifiField(elements.ssid24Input);
         return false;
     }
     if (!isBandSteering() && enabled5 && !ssid5) {
         elements.ssid5Input.classList.add('input-error');
-        elements.ssid5Input.focus();
+        focusWifiField(elements.ssid5Input);
         return false;
     }
     if (enabledMlo && !ssidMlo) {
         elements.ssidMloInput.classList.add('input-error');
-        elements.ssidMloInput.focus();
+        focusWifiField(elements.ssidMloInput);
         return false;
     }
     if (enabledGuest && !ssidGuest) {
         elements.ssidGuestInput.classList.add('input-error');
-        elements.ssidGuestInput.focus();
+        focusWifiField(elements.ssidGuestInput);
         return false;
     }
 
     if (anyMainEnabled && mode === 'shared' && !sharedPassword) {
         elements.sharedPasswordInput.classList.add('input-error');
-        elements.sharedPasswordInput.focus();
+        focusWifiField(elements.sharedPasswordInput);
         return false;
     }
 
     if (anyMainEnabled && mode === 'separate') {
         if (enabled24 && !password24) {
             elements.password24Input.classList.add('input-error');
-            elements.password24Input.focus();
+            focusWifiField(elements.password24Input);
             return false;
         }
         if (enabled5 && !password5) {
             elements.password5Input.classList.add('input-error');
-            elements.password5Input.focus();
+            focusWifiField(elements.password5Input);
             return false;
         }
         if (enabledMlo && !passwordMlo) {
             elements.passwordMloInput.classList.add('input-error');
-            elements.passwordMloInput.focus();
+            focusWifiField(elements.passwordMloInput);
             return false;
         }
     }
 
     if (enabledGuest && !passwordGuest) {
         elements.passwordGuestInput.classList.add('input-error');
-        elements.passwordGuestInput.focus();
+        focusWifiField(elements.passwordGuestInput);
         return false;
     }
 

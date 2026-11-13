@@ -43,6 +43,7 @@ coverage/
 
 # Generated QR exports
 exports/
+WiFi-Profiles-*.csv
 *-WiFi-*.png
 WiFi-*.png
 *.pdf

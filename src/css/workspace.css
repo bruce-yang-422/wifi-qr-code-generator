@@ -347,3 +347,281 @@
     }
     .hero #installApp:not([hidden]) { display: inline-flex; align-items: center; justify-content: center; }
 }
+
+/* Saved WiFi: a compact entry point and a dedicated center workspace. */
+@media screen {
+    .profile-library { margin-bottom: 18px; padding: 12px; border: 1px solid rgba(0,122,255,.12); border-radius: 14px; background: linear-gradient(135deg,#f0f6ff,#f8faff); }
+    .profile-heading { display:flex; align-items:center; justify-content:space-between; gap:8px; }
+    .profile-heading h2 { font-size:14px; font-weight:650; }
+    .profile-heading > span { font-size:11px; color:#6e6e73; }
+    .profile-help { color:#6e6e73; font-size:12px; line-height:1.6; margin:8px 0 12px; }
+    .profile-library button, .profiles-manager button, .app-dialog button {
+        appearance:none; border:1px solid #dcdfe5; border-radius:10px; background:#fff; color:#3a3a3c; padding:10px 14px; font:inherit; font-size:12px; font-weight:550; line-height:1.4; cursor:pointer; box-shadow:0 1px 2px #00000004;
+    }
+    .profile-library button:hover, .profiles-manager button:hover, .app-dialog button:hover { background:#edf3fc; }
+    .profile-library .profile-save, #managerSaveProfile, .app-dialog #confirmProfile { background:#007aff; border-color:transparent; color:white; }
+    .profile-library .profile-save:hover, #managerSaveProfile:hover, .app-dialog #confirmProfile:hover { background:#0067dd; }
+    .profile-library .profile-save, .profile-library .profile-manage { width:100%; margin-top:6px; }
+    .profile-library .profile-manage { color:#0062cc; border-color:#cbdcf6; background:#fff; }
+    .profile-feedback p { font-size:11px; color:#3a3a3c; margin-top:8px; overflow-wrap:anywhere; }
+    .profile-feedback p:empty { display:none; }
+    #undoProfileLoad { margin-top:6px; padding:5px 0; color:#0062cc; border:0; background:transparent; box-shadow:none; font-size:11px; }
+    .profiles-manager { padding:16px; border:1px solid #ffffffed; border-radius:20px; background:rgba(255,255,255,.76); box-shadow:0 8px 32px #1f263c12; backdrop-filter:blur(24px); min-width:0; container-type:inline-size; }
+    .profiles-manager[hidden], #printWorkspace[hidden] { display:none !important; }
+    .manager-heading { display:flex; justify-content:space-between; align-items:flex-start; gap:16px; margin:18px 0 10px; }
+    .manager-heading h2 { font-size:23px; letter-spacing:-.03em; line-height:1.3; }
+    .manager-heading > button { flex-shrink:0; color:#0062cc; background:#f1f6ff; border-color:#dce7f8; }
+    .profile-warning { display:flex; gap:12px; padding:14px; border:1px solid #ebd7aa; border-radius:13px; background:#fff9ed; color:#805510; margin-bottom:16px; }
+    .profile-warning svg { flex-shrink:0; margin-top:1px; }
+    .profile-warning strong { font-size:13px; line-height:1.5; }
+    .profile-warning p { font-size:12px; line-height:1.7; margin-top:4px; }
+    .manager-toolbar { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:20px; }
+    .profiles-manager button:disabled { opacity:.45; cursor:default; }
+    .profile-search-label { display:block; font-size:12px; font-weight:600; margin-bottom:6px; }
+    #profileSearch, #profileName { box-sizing:border-box; width:100%; appearance:none; border:1px solid #dcdfe5; border-radius:11px; background:#f6f7fa; color:#1d1d1f; padding:12px 14px; font:inherit; font-size:14px; }
+    #profileSearch::-webkit-search-cancel-button { cursor:pointer; }
+    .profile-library button:focus-visible, .profiles-manager button:focus-visible, .app-dialog button:focus-visible, #profileSearch:focus-visible, #profileName:focus-visible { outline:3px solid #007aff44; outline-offset:2px; border-color:#007aff; }
+    .profile-privacy { font-size:11px; }
+    .profile-list { display:grid; gap:12px; padding-top:4px; }
+    .profile-card { position:relative; min-width:0; padding:18px; border:1px solid #e0e3e9; border-radius:16px; background:#fff; box-shadow:0 2px 6px #1f263c05; }
+    .profile-card.is-active { border-color:#91bbfb; box-shadow:0 0 0 1px #007aff0d; }
+    .profile-card h3 { font-size:17px; line-height:1.4; margin-bottom:6px; overflow-wrap:anywhere; }
+    .profile-card > p { font-size:12px; line-height:1.6; color:#6e6e73; overflow-wrap:anywhere; }
+    .profile-card .profile-stamp { font-size:11px; margin-top:4px; color:#8e8e93; }
+    .profile-badge { display:inline-block; margin-bottom:10px; border-radius:6px; background:#edf4ff; color:#0062cc; font-size:10px; padding:3px 7px; }
+    .profile-card-actions { display:flex; align-items:center; gap:8px; margin-top:16px; }
+    .profile-card-actions button:first-child { flex:1; background:#edf4ff; color:#0062cc; border-color:transparent; }
+    .profile-card-actions .profile-delete { color:#b23434; background:transparent; border:0; box-shadow:none; }
+    .profile-empty { border:1px dashed #d5dbe5; border-radius:16px; padding:40px 24px; text-align:center; font-size:13px; line-height:1.8; color:#6e6e73; }
+    .app-dialog { margin:auto; padding:26px; width:min(440px,calc(100vw - 32px)); max-height:calc(100dvh - 32px); overflow:auto; border:1px solid #ffffffcc; border-radius:22px; background:#fafafc; color:#1d1d1f; box-shadow:0 24px 100px #17253e4d; }
+    .app-dialog::backdrop { background:#17203350; backdrop-filter:blur(6px); }
+    .app-dialog h2 { font-size:22px; letter-spacing:-.03em; margin-bottom:22px; }
+    .app-dialog label { display:block; font-size:12px; font-weight:600; margin-bottom:7px; }
+    .app-dialog #profileName { background:#fff; }
+    .profile-dialog-actions { display:flex; justify-content:flex-end; gap:8px; margin-top:24px; }
+    .profile-dialog-actions button { min-width:90px; }
+    .profile-field-error { color:#bc3030; font-size:12px; margin-top:6px; }
+    .profile-field-error:empty { display:none; }
+    #profileName[aria-invalid='true'] { border-color:#bc3030; }
+    .workspace.is-managing .profiles-manager { grid-column:2; }
+}
+@container (min-width:620px) { .profile-list { grid-template-columns:repeat(2,minmax(0,1fr)); } .profile-empty { grid-column:1 / -1; } }
+@media screen and (min-width:761px) and (max-width:1180px) { .workspace .profiles-manager { grid-column:2; grid-row:1 / span 2; } }
+@media screen and (max-width:760px) {
+    .workspace.is-managing .profiles-manager { grid-column:1; order:1; }
+    .workspace.is-managing .print-settings-panel { order:2; }
+    .manager-heading { flex-direction:column; gap:4px; }
+    .manager-heading h2 { font-size:21px; }
+    .manager-toolbar button { flex:1 1 auto; }
+    .profile-card-actions button, .profile-library button { min-height:42px; }
+}
+@media print { .profile-library, .profiles-manager, .app-dialog { display:none !important; } #printWorkspace[hidden] { display:block !important; } }
+@media screen {
+    #managerTitle:focus { outline:none; }
+    .profile-card { display:flex; flex-direction:column; }
+    .profile-badge { align-self:flex-start; min-height:20px; }
+    .profile-badge.is-placeholder { visibility:hidden; }
+    .profile-card-actions { margin-top:auto; padding-top:16px; }
+}
+@media screen {
+    .app-dialog #confirmClearMemory { background:#c43b3b; color:#fff; border-color:transparent; }
+    .app-dialog #confirmClearMemory:hover { background:#ad3030; }
+}
+
+/* Numbers-inspired grouped table and a matching record inspector. */
+@media screen {
+    .profile-table-tools { display:flex; justify-content:space-between; align-items:center; gap:12px; margin:12px 0 8px; font-size:12px; color:#6e6e73; }
+    .profile-table-tools button { padding:6px 10px; font-size:11px; }
+    .profile-table-tools button[aria-checked='true'] { color:#007aff; background:#edf4ff; border-color:#bbd6ff; }
+    .profile-table-container { overflow-x:auto; border:1px solid #dce1e8; border-radius:12px; background:#fff; scrollbar-width:thin; }
+    .profile-table { border-collapse:separate; border-spacing:0; width:100%; min-width:850px; font-size:12px; table-layout:fixed; }
+    .profile-table th, .profile-table td { padding:12px; border-right:1px solid #e6e9ee; border-bottom:1px solid #e6e9ee; vertical-align:middle; text-align:left; overflow-wrap:anywhere; }
+    .profile-table thead th { background:#f0f2f6; color:#6e6e73; font-size:11px; font-weight:600; height:42px; }
+    .profile-table thead th:nth-child(1) { width:150px; }
+    .profile-table thead th:nth-child(2) { width:110px; }
+    .profile-table thead th:nth-child(3) { width:170px; }
+    .profile-table thead th:nth-child(4) { width:160px; }
+    .profile-table thead th:nth-child(5) { width:130px; }
+    .profile-table thead th:nth-child(6) { width:140px; }
+    .profile-table th:last-child, .profile-table td:last-child { border-right:0; }
+    .profile-table thead button { border:0; padding:0; box-shadow:none; background:transparent; font-size:11px; text-align:left; width:100%; }
+    .profile-table tbody { cursor:pointer; }
+    .profile-table tbody:nth-child(odd) { background:#fafbfd; }
+    .profile-table tbody:hover { background:#f0f6ff; }
+    .profile-table tbody.is-selected { background:#eaf3ff; }
+    .profile-table tbody.is-selected > tr > th { box-shadow:inset 3px 0 #007aff; }
+    .profile-table tr:focus-visible { outline:2px solid #007aff; outline-offset:-2px; }
+    .profile-table-name { display:block; color:#1d1d1f; font-size:13px; font-weight:600; }
+    .profile-table .profile-badge { display:inline-block; margin:6px 0 0; min-height:0; }
+    .profile-band { display:inline-block; padding:3px 7px; border-radius:6px; background:#edf0f6; color:#526078; font-size:10px; }
+    .profile-cell-ssid, .profile-cell-password, .inspector-password { font-family:'JetBrains Mono','Noto Sans TC',monospace; font-feature-settings:'zero' 1,'liga' 0; }
+    .profile-cell-date { color:#8e8e93; font-size:10px; }
+    .profile-table-actions button { display:block; width:100%; padding:7px; font-size:11px; border:0; box-shadow:none; background:#e6f0ff; color:#0062cc; }
+    .profile-table-actions .profile-delete { background:transparent; color:#a43b3b; margin-top:4px; }
+    .profile-inspector { min-width:0; padding:14px; border:1px solid #ffffffed; border-radius:20px; background:rgba(255,255,255,.8); box-shadow:0 8px 32px #1f263c12; backdrop-filter:blur(24px); }
+    .profile-inspector[hidden] { display:none !important; }
+    .workspace.is-managing .print-settings-panel { display:none; }
+    #profileInspectorBody > h2 { margin:16px 0; font-size:20px; overflow-wrap:anywhere; }
+    .profile-inspector button { appearance:none; border:1px solid #dce1e8; border-radius:10px; padding:9px 12px; font:inherit; font-size:12px; cursor:pointer; }
+    .profile-inspector .inspector-load { width:100%; background:#007aff; color:#fff; border-color:transparent; }
+    .profile-inspector .inspector-reveal { width:100%; background:#fff; color:#0062cc; margin-top:7px; }
+    .inspector-section { padding:14px 0; border-bottom:1px solid #e1e5ec; }
+    .inspector-section:last-child { border-bottom:0; }
+    .inspector-section h3 { font-size:12px; margin-bottom:10px; color:#343944; }
+    .inspector-section dl { display:grid; grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr); gap:9px 12px; font-size:11px; line-height:1.6; }
+    .inspector-section dt { color:#8e8e93; }
+    .inspector-section dd { margin:0; color:#343944; overflow-wrap:anywhere; white-space:pre-wrap; }
+    .profile-inspector button:focus-visible { outline:2px solid #007aff; outline-offset:2px; }
+}
+@media screen and (min-width:761px) and (max-width:1180px) { .workspace.is-managing .profile-inspector { grid-column:1; grid-row:2; } }
+@media screen and (max-width:760px) { .workspace.is-managing .profile-inspector { grid-column:1; order:2; } }
+@media print { .profile-inspector { display:none !important; } }
+@media screen {
+    .worksheet-dialog { width:min(620px,calc(100vw - 32px)); }
+    #worksheetFilename { overflow-wrap:anywhere; color:#1d1d1f; }
+    .worksheet-options { display:grid; gap:8px; margin:16px 0; }
+    .worksheet-option { display:flex !important; align-items:center; gap:10px; padding:12px 14px; border:1px solid #dce1e8; border-radius:11px; background:#fff; cursor:pointer; font-size:13px !important; }
+    .worksheet-option input { position:absolute; width:1px; height:1px; opacity:0; }
+    .worksheet-radio { box-sizing:border-box; display:block; width:18px; height:18px; border:1.5px solid #c2c7cf; border-radius:50%; flex-shrink:0; }
+    .worksheet-option:has(input:checked) { background:#edf5ff; border-color:#8ebeff; }
+    .worksheet-option input:checked + .worksheet-radio { border:5px solid #007aff; }
+    .worksheet-option:has(input:focus-visible) { outline:2px solid #007aff; outline-offset:2px; }
+    .worksheet-preview-table { width:100%; table-layout:fixed; border-collapse:collapse; font-size:11px; background:#fff; }
+    .worksheet-preview-table th, .worksheet-preview-table td { padding:9px; border:1px solid #e1e5ec; text-align:left; overflow-wrap:anywhere; }
+    .worksheet-preview-table th { background:#f1f3f7; color:#6e6e73; }
+    #confirmWorksheet { background:#007aff; color:#fff; border-color:transparent; }
+    #confirmWorksheet:disabled { opacity:.4; cursor:default; }
+}
+@media screen {
+    .profile-entry-actions { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px; margin-top:10px; }
+    .profile-entry-actions .profile-save, .profile-entry-actions .profile-manage { width:100%; margin:0; min-height:40px; height:100%; display:flex; align-items:center; justify-content:center; padding:10px 8px; }
+    .internal-note-field { padding:10px; border:1px solid #e0e5ec; border-radius:12px; background:#f7f8fb; }
+    .internal-note-field .profile-help { font-size:10px; margin:6px 0 0; }
+}
+
+@media screen {
+    .app-brand { display:flex; align-items:center; gap:10px; min-width:0; }
+    .app-brand img { display:block; width:36px; height:36px; object-fit:contain; flex-shrink:0; }
+}
+@media screen and (max-width:760px) {
+    .app-brand { gap:7px; flex:1 1 auto; }
+    .app-brand img { width:30px; height:30px; }
+    .hero .app-brand h1 { font-size:18px; line-height:1.3; }
+    .mobile-simple .hero > p { display:none; }
+    .mobile-simple .hero { align-items:center; gap:8px; }
+    .mobile-simple .hero .language-picker { margin:0 0 0 auto; }
+    .mobile-simple .control-panel .panel-chrome, .mobile-simple .print-settings-panel > .panel-chrome { display:none; }
+    .mobile-simple .control-title { font-size:20px; margin-bottom:8px; }
+    .mobile-simple .control-sub { margin-bottom:16px; }
+    .mobile-simple .control-scroll > .settings-section-title { display:none; }
+    .mobile-simple .control-scroll input[type='text'], .mobile-simple .control-scroll input[type='password'], .mobile-simple .control-scroll textarea { font-size:16px; min-height:44px; }
+    .mobile-simple .control-scroll > .input-group { margin-bottom:16px; }
+    .mobile-simple .control-actions { margin-top:12px; }
+    .mobile-simple .control-actions .security-note { display:none; }
+    .mobile-advanced-settings, .mobile-print-options { border:1px solid #e0e5ed; border-radius:12px; background:#f7f9fc; padding:12px; margin-top:10px; }
+    .mobile-advanced-settings > summary, .mobile-print-options > summary, .mobile-preview-details > summary { font-size:13px; font-weight:600; color:#4c5970; cursor:pointer; padding:4px 0; }
+    .mobile-advanced-settings[open] > summary, .mobile-print-options[open] > summary { margin-bottom:14px; }
+    .mobile-simple .print-settings-panel .btn-print { margin:14px 0 0; font-size:15px; padding:13px; }
+    .mobile-simple .png-download { min-height:46px; font-size:14px; }
+    .mobile-simple .print-settings-panel .settings-section-title { margin-top:16px; font-size:15px; }
+    .mobile-simple .print-options { margin:0; }
+    .mobile-preview-details { order:2; min-width:0; }
+    .mobile-preview-details > summary { padding:14px; border-radius:12px; border:1px solid #e0e5ed; background:#fff; }
+    .mobile-preview-details[open] > summary { margin-bottom:10px; }
+    .mobile-preview-details[hidden] { display:none !important; }
+}
+@media print { .mobile-preview-details > summary { display:none; } }
+@media screen {
+    .settings-disclosure > summary,
+    .mobile-advanced-settings > summary,
+    .mobile-print-options > summary,
+    .mobile-preview-details > summary { display:flex; align-items:center; gap:10px; list-style:none; }
+    .settings-disclosure > summary::-webkit-details-marker,
+    .mobile-advanced-settings > summary::-webkit-details-marker,
+    .mobile-print-options > summary::-webkit-details-marker,
+    .mobile-preview-details > summary::-webkit-details-marker { display:none; }
+    .settings-disclosure > summary::after,
+    .mobile-advanced-settings > summary::after,
+    .mobile-print-options > summary::after,
+    .mobile-preview-details > summary::after { content:''; width:7px; height:7px; margin-left:auto; margin-right:3px; flex-shrink:0; border-right:1.7px solid #6e7788; border-bottom:1.7px solid #6e7788; transform:rotate(45deg); }
+    .settings-disclosure[open] > summary::after,
+    .mobile-advanced-settings[open] > summary::after,
+    .mobile-print-options[open] > summary::after,
+    .mobile-preview-details[open] > summary::after { transform:rotate(225deg); }
+}
+@media screen {
+    .network-download-item { padding:11px; border:1px solid #e1e5ed; border-radius:12px; background:#ffffffb3; }
+    .network-download-item > strong { display:block; font-size:12px; }
+    .network-download-name { display:block; margin:3px 0 9px; color:#6e6e73; font-size:11px; overflow-wrap:anywhere; }
+    .network-download-formats { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:6px; }
+    .network-download-formats .png-download { padding:9px 5px; font-size:11px; }
+    .network-download-formats .png-download[data-format='png'] { color:#0062cc; background:#edf4ff; border-color:#d3e4fc; }
+    .mobile-vector-option { display:flex; align-items:center; justify-content:space-between; gap:12px; border-top:1px solid #dfe4ec; margin-top:12px; padding-top:12px; }
+    .mobile-vector-option > label:first-child { font-size:12px; color:#4c5970; cursor:pointer; }
+}
+@media screen and (max-width:760px) {
+    .mobile-simple:not(.mobile-vectors) .png-download[data-format='svg'],
+    .mobile-simple:not(.mobile-vectors) .png-download[data-format='eps'],
+    .mobile-simple:not(.mobile-vectors) .vector-download-help { display:none; }
+    .mobile-simple:not(.mobile-vectors) .network-download-formats { grid-template-columns:minmax(0,1fr); }
+    .mobile-simple .network-download-formats .png-download { font-size:14px; }
+}
+@media screen {
+    .network-download-formats { grid-template-columns:repeat(2,minmax(0,1fr)); }
+}
+@media screen and (max-width:760px) {
+    .mobile-simple:not(.mobile-vectors) .network-download-formats { grid-template-columns:repeat(2,minmax(0,1fr)); }
+}
+/* iOS-style tab bar: edge-to-edge material, tint-only selection, safe-area inset. */
+.mobile-function-bar { display:none; }
+@media screen and (max-width:760px) {
+    body { padding-bottom:calc(94px + env(safe-area-inset-bottom,0px)); }
+    .control-panel, .print-settings-panel, #printWorkspace { scroll-margin-top:12px; }
+    .mobile-function-bar {
+        display:grid;
+        grid-template-columns:repeat(4,minmax(0,1fr));
+        position:fixed;
+        z-index:50;
+        left:0;
+        right:0;
+        bottom:0;
+        transform:none;
+        width:100%;
+        max-width:none;
+        padding:7px 12px calc(7px + env(safe-area-inset-bottom,0px));
+        border:0;
+        border-top:1px solid rgba(60,60,67,.16);
+        border-radius:0;
+        background:rgba(248,249,252,.92);
+        backdrop-filter:blur(28px) saturate(175%);
+        box-shadow:0 -2px 12px rgba(30,40,60,.035);
+    }
+    .mobile-function-bar button,
+    .mobile-function-bar #mobileToggleFull,
+    .mobile-function-bar #mobileToggleFull[aria-pressed='true'] {
+        appearance:none;
+        display:flex;
+        flex-direction:column;
+        align-items:center;
+        justify-content:center;
+        border:0;
+        line-height:1.3;
+        cursor:pointer;
+        min-height:49px;
+        padding:3px 2px;
+        gap:4px;
+        border-radius:0;
+        background:transparent;
+        color:#8a8a8e;
+        font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+        font-size:10px;
+        font-weight:500;
+        letter-spacing:0;
+    }
+    .mobile-function-bar button.is-active { background:transparent; color:#007aff; }
+    .mobile-function-bar button svg { display:block; flex-shrink:0; width:23px; height:23px; stroke-width:1.7; }
+    .mobile-function-bar button:active { opacity:.55; }
+    .mobile-function-bar button:focus-visible { outline:2px solid #007aff; outline-offset:-2px; border-radius:8px; }
+}
+
+@media print { .mobile-function-bar { display:none !important; } }

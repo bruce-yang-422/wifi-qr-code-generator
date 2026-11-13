@@ -215,7 +215,7 @@ wifi-qr-code-generator/
 ├── README.zh-TW.md         # Traditional Chinese documentation
 └── src/
     ├── assets/             # Logo, ICO and PWA icons
-    ├── vendor/             # Bundled qrcodejs and its license
+    ├── vendor/             # Bundled qrcodejs, SheetJS and licenses
     ├── css/
     │   ├── base.css        # Global variables, fonts and colors
     │   ├── layout.css      # Main layout
@@ -233,6 +233,9 @@ wifi-qr-code-generator/
         ├── qr.js           # QR code generation
         ├── print-layout.js # Print grouping, summary and preview scaling
         ├── download.js     # 3:4 PNG rendering and file naming
+        ├── profiles.js     # Named settings, manager table and record inspector
+        ├── profiles-csv.js # Full CSV backup, parsing and validation
+        ├── profiles-import.js # Excel / Numbers import and worksheet selection
         └── pwa.js          # Install button and Service Worker registration
 ```
 
@@ -275,3 +278,23 @@ Please follow [Conventional Commits](https://www.conventionalcommits.org/) for c
 Distributed under the [MIT License](LICENSE).
 
 Copyright © 2026 Bruce Yang
+
+## Saved WiFi manager
+
+Use **Save current settings** and enter a required name such as Office, Home or Shop. Each saved set includes raw network fields, passwords, title, notes, paper layout, grouping and QR error correction. Saving an existing name explicitly updates that set.
+
+**Manage saved WiFi** replaces the center print workspace with a Numbers-style searchable and sortable table. **Load and preview** restores a set and returns to printing. Loading and deletion offer a one-step undo. Removing the current auto-saved draft does not delete saved sets.
+
+Export every set as a UTF-8 CSV full backup that opens in Numbers or Excel, then import it on another browser or device. Imports support CSV, Excel (.xlsx/.xls, including the .xlx extension alias) and Numbers (.numbers). When a workbook has multiple sheets or tables, choose one in the styled worksheet dialog, review the masked preview and confirm. Cancelling does not import anything. JSON import is not supported. Each set uses four rows to preserve active and inactive networks, original passwords, band steering, titles, notes, print options, IDs and timestamps. General CSV files need at least ssid and password columns; optional name and band columns group the imported networks. Imports preserve existing sets, skip identical name/content pairs and rename name collisions. Invalid files leave existing records unchanged (CSV up to 2 MB; Excel/Numbers up to 10 MB; 200 sets total).
+
+Saved sets exist only in this browser's localStorage and contain plaintext WiFi passwords. Clearing cookies and site data, resetting or uninstalling the browser may remove all records. Export your own backup first and store it securely. Backups are not uploaded to a server; generated WiFi-Profiles-*.csv files are ignored by Git.
+
+In management mode, the right panel shows the selected record’s full parameters instead of print settings. Passwords are masked until explicitly revealed. CSV parsing supports commas, semicolons and tabs, quoted newlines and doubled quotes; exported formula-like cells are escaped and restored on import.
+
+Spreadsheet parsing uses locally bundled [SheetJS CE 0.20.3](https://docs.sheetjs.com/docs/miscellany/formats/) (Apache-2.0; see src/vendor/xlsx.LICENSE), including Numbers table extraction. Files are processed locally and never uploaded. Use text-formatted SSID/password cells to preserve leading zeros.
+
+CSV column headings follow the selected interface language. Imports recognize headings from all eight supported languages, English field keys and mixed-language headers, regardless of the current interface language. This also applies when a CSV backup is saved as Excel and imported again.
+
+Internal notes (up to 2,000 characters) are for management only. They are saved locally and included in full CSV backups, but excluded from printouts, PNG images and QR payloads. On phones, the interface prioritizes network name, password, printing and PNG downloads; network management and print options can be expanded when needed. Fresh blank phone sessions start with one enabled network.
+
+Downloads now offer a 1200×1600 share-card PNG, a transparent 1200×1200 QR-only PNG, SVG, and EPS. Vector exports contain only black QR modules with a four-module transparent quiet zone. EPS uses CMYK 0/0/0/100, closed integer-coordinate rectangle subpaths, one combined fill, no strokes and no white background. Use artwork exports on a light surface. Phones show the two PNG choices by default; vector choices are opt-in. A bottom tab bar links input, downloads and preview, with a saved full/simple mode toggle.
