@@ -298,7 +298,8 @@ wifi-qr-code-generator/
         ├── profiles.js     # Named settings, manager table and record inspector
         ├── profiles-csv.js # Full CSV backup, parsing and validation
         ├── profiles-import.js # Excel / Numbers import and worksheet selection
-        └── pwa.js          # Install button and Service Worker registration
+        ├── pwa.js          # Install button and Service Worker registration
+        └── site-info.js    # Site information and privacy policy dialogs
 ```
 
 ## Tech Stack
@@ -309,6 +310,8 @@ wifi-qr-code-generator/
 - **[Google Fonts](https://fonts.google.com/)** — Outfit, Noto Sans TC, JetBrains Mono
 
 ## Privacy and Security
+
+The page footer links to **Site information** (version, last update, author, licences and third-party components) and a **Privacy policy**, both translated into all eight languages. When publishing a release, update `version` and `updated` in `WIFI_SITE_META` at the top of `src/js/site-info.js` (and `privacyUpdated` if the policy changes); keep `softwareVersion` and `dateModified` in the JSON-LD of `index.html` in step.
 
 - 🔒 SSIDs and passwords are processed only in your browser and are **never sent to any server**.
 - 💾 `localStorage` data stays in the current browser and is not synced to the cloud.

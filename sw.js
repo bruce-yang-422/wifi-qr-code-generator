@@ -1,5 +1,5 @@
 const CACHE_PREFIX = `wifi-studio:${self.registration.scope}:`;
-const CACHE = CACHE_PREFIX + 'v16';
+const CACHE = CACHE_PREFIX + 'v19';
 // Cache only application files. Local config.js may contain passwords.
 const FILES = [
     './', './index.html', './manifest.webmanifest',
@@ -7,7 +7,7 @@ const FILES = [
     './src/css/print-page.css', './src/css/responsive.css', './src/css/workspace.css',
     './src/js/i18n.js', './src/js/platform.js', './src/js/elements.js', './src/js/state.js', './src/js/ui.js', './src/js/qr.js',
     './src/js/validate.js', './src/js/main.js', './src/js/print-layout.js',
-    './src/js/vector-export.js', './src/js/download.js', './src/js/profiles-csv.js', './src/js/profiles-import.js', './src/js/profiles.js', './src/js/mobile-ui.js', './src/js/pwa.js', './src/vendor/qrcode.min.js', './src/vendor/xlsx.full.min.js',
+    './src/js/vector-export.js', './src/js/download.js', './src/js/profiles-csv.js', './src/js/profiles-import.js', './src/js/profiles.js', './src/js/mobile-ui.js', './src/js/pwa.js', './src/js/site-info.js', './src/vendor/qrcode.min.js', './src/vendor/xlsx.full.min.js',
     './src/assets/wifi-qr-logo.png', './src/assets/wifi-qr-logo.ico',
     './src/assets/pwa-192.png', './src/assets/pwa-512.png'
 ];

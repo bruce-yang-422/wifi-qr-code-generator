@@ -131,6 +131,8 @@ SEO 標題副題|免费制作、A4／A5 打印、PNG／SVG 下载|Free, Print A4
 `;
 WIFI_EXTRA_ROWS.trim().split('\n').forEach(row => { const cells = row.split('|'); WIFI_TRANSLATIONS[cells[0]] = cells; });
 const WIFI_PROFILE_ROWS = `
+網站資訊|网站信息|Site information|サイト情報|사이트 정보|Informations sur le site|Website-Informationen|Información del sitio
+隱私權政策|隐私政策|Privacy policy|プライバシーポリシー|개인정보 처리방침|Politique de confidentialité|Datenschutzerklärung|Política de privacidad
 檢查並預覽|检查并预览|Check and preview|確認してプレビュー|확인 및 미리보기|Vérifier et prévisualiser|Prüfen und Vorschau|Comprobar y previsualizar
 網路與密碼|网络与密码|Networks and passwords|ネットワークとパスワード|네트워크 및 비밀번호|Réseaux et mots de passe|Netzwerke und Passwörter|Redes y contraseñas
 請至少啟用一個網路。|请至少启用一个网络。|Enable at least one network.|ネットワークを1つ以上有効にしてください。|네트워크를 하나 이상 켜세요.|Activez au moins un réseau.|Mindestens ein Netzwerk aktivieren.|Activa al menos una red.

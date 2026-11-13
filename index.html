@@ -83,6 +83,8 @@
         "name": "Bruce Yang",
         "url": "https://github.com/bruce-yang-422"
     },
+    "softwareVersion": "2026.11.13",
+    "dateModified": "2026-11-13",
     "license": "https://opensource.org/licenses/MIT",
     "keywords": "WiFi QR Code, WiFi 密碼 QR Code, QR Code 產生器, 訪客 WiFi, 掃描連線, MLO, Band Steering, WiFi QR code generator",
     "featureList": [
@@ -539,6 +541,12 @@
                 <div id="profileInspectorBody"></div>
             </section>
         </main>
+        <footer class="site-footer">
+            <span>© 2026 Bruce Yang</span>
+            <button type="button" id="openSiteInfo" aria-haspopup="dialog">網站資訊</button>
+            <button type="button" id="openPrivacy" aria-haspopup="dialog">隱私權政策</button>
+            <a href="https://github.com/bruce-yang-422/wifi-qr-code-generator" target="_blank" rel="noopener noreferrer">GitHub</a>
+        </footer>
     </div>
 
     <script src="config.js" onerror="console.log('未偵測到 config.js，將退回手動輸入模式');"></script>
@@ -548,6 +556,16 @@
         <button type="button" id="mobileGoPreview"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/></svg><span>預覽</span></button>
         <button type="button" id="mobileToggleFull" aria-pressed="false"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7M21 3l-7 7M10 21H3v-7M3 21l7-7"/></svg><span id="mobileModeText">完整版</span></button>
     </nav>
+    <dialog id="siteInfoDialog" class="app-dialog site-info-dialog" aria-labelledby="siteInfoTitle">
+        <h2 id="siteInfoTitle">網站資訊</h2>
+        <div class="site-info-body"></div>
+        <div class="profile-dialog-actions"><button type="button" data-close-dialog>關閉視窗</button></div>
+    </dialog>
+    <dialog id="privacyDialog" class="app-dialog site-info-dialog" aria-labelledby="privacyTitle">
+        <h2 id="privacyTitle">隱私權政策</h2>
+        <div class="site-info-body"></div>
+        <div class="profile-dialog-actions"><button type="button" data-close-dialog>關閉視窗</button></div>
+    </dialog>
     <dialog id="imageShareDialog" class="app-dialog" aria-labelledby="imageShareTitle">
         <h2 id="imageShareTitle">分享圖片</h2>
         <img id="imageSharePreview" alt="WiFi 分享圖片">
@@ -600,5 +618,6 @@
     <script src="src/js/profiles.js"></script>
     <script src="src/js/mobile-ui.js"></script>
     <script src="src/js/pwa.js"></script>
+    <script src="src/js/site-info.js"></script>
 </body>
 </html>

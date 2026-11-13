@@ -295,7 +295,8 @@ wifi-qr-code-generator/
         ├── profiles.js     # 命名設定、管理表格與詳細資料
         ├── profiles-csv.js # CSV 完整備份與格式檢查
         ├── profiles-import.js # Excel／Numbers 匯入及工作表選擇
-        └── pwa.js          # 安裝入口與 Service Worker 註冊
+        ├── pwa.js          # 安裝入口與 Service Worker 註冊
+        └── site-info.js    # 網站資訊與隱私權政策視窗
 ```
 
 ## 技術堆疊
@@ -306,6 +307,8 @@ wifi-qr-code-generator/
 - **[Google Fonts](https://fonts.google.com/)**：Outfit、Noto Sans TC、JetBrains Mono
 
 ## 隱私與安全性
+
+頁尾提供 **網站資訊**（版本、最後更新、作者、授權與第三方元件）與 **隱私權政策** 兩個視窗，皆支援八種語言。發布新版時，請更新 `src/js/site-info.js` 開頭 `WIFI_SITE_META` 的 `version` 與 `updated`（政策有修改時一併更新 `privacyUpdated`），並同步修改 `index.html` JSON-LD 的 `softwareVersion` 與 `dateModified`。
 
 - 🔒 SSID 與密碼僅在本機瀏覽器處理，**不會傳送至任何伺服器**。
 - 💾 `localStorage` 資料僅存於目前的瀏覽器，不會同步至雲端。
