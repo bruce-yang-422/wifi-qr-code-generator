@@ -257,7 +257,7 @@ function resolveWifiLanguage(preferences) {
     return 'en';
 }
 // Each language has its own crawlable URL (?lang=xx); the bare URL auto-detects (x-default).
-const WIFI_SITE_URL = 'https://bruce-yang-422.github.io/wifi-qr-code-generator/';
+const WIFI_SITE_URL = 'https://wifiqr.stack-base.com/';
 const wifiUrlLanguage = (() => {
     const requested = new URLSearchParams(location.search).get('lang');
     return WIFI_LANGUAGES.find(language => language.toLowerCase() === requested?.toLowerCase()) || null;

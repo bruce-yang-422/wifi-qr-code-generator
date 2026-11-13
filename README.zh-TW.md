@@ -3,14 +3,14 @@
 [English](README.md) | **繁體中文**
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
-[![GitHub Pages](https://img.shields.io/badge/demo-GitHub%20Pages-blue?logo=github)](https://bruce-yang-422.github.io/wifi-qr-code-generator/)
+[![Website](https://img.shields.io/badge/demo-wifiqr.stack--base.com-blue?logo=googlechrome&logoColor=white)](https://wifiqr.stack-base.com/)
 ![HTML5](https://img.shields.io/badge/HTML5-E34F26?logo=html5&logoColor=white)
 ![CSS3](https://img.shields.io/badge/CSS3-1572B6?logo=css3&logoColor=white)
 ![JavaScript](https://img.shields.io/badge/JavaScript-Vanilla-F7DF1E?logo=javascript&logoColor=black)
 
 > 純前端 WiFi QR Code 產生與常用網路管理工具，支援 CSV 備份、Excel／Numbers 匯入、A4／A5／PDF 列印，以及分享 PNG、純 QR PNG／SVG／EPS，提供八語系、手機操作優化與 PWA 離線使用，不需建置。
 
-**[🌐 線上試用](https://bruce-yang-422.github.io/wifi-qr-code-generator/)** · **[🐛 回報問題](https://github.com/bruce-yang-422/wifi-qr-code-generator/issues)** · **[💡 功能建議](https://github.com/bruce-yang-422/wifi-qr-code-generator/issues/new)**
+**[🌐 線上試用](https://wifiqr.stack-base.com/)** · **[🐛 回報問題](https://github.com/bruce-yang-422/wifi-qr-code-generator/issues)** · **[💡 功能建議](https://github.com/bruce-yang-422/wifi-qr-code-generator/issues/new)**
 
 ---
 
@@ -67,7 +67,7 @@ SSID 與密碼在本機瀏覽器產生 QR Code，不會由應用程式上傳。�
 
 ### 線上使用
 
-直接前往 **<https://bruce-yang-422.github.io/wifi-qr-code-generator/>**。
+直接前往 **<https://wifiqr.stack-base.com/>**。
 
 ### 本機執行
 
@@ -263,6 +263,8 @@ wifi-qr-code-generator/
 ├── manifest.webmanifest    # PWA 名稱、圖示與啟動設定
 ├── sw.js                   # 離線快取
 ├── sitemap.xml             # 各語言網址與 hreflang 對應
+├── robots.txt              # 爬蟲規則與 sitemap 位置
+├── CNAME                   # GitHub Pages 自訂網域
 ├── config.js               # 本機設定檔（已被 .gitignore 排除）
 ├── LICENSE
 ├── README.md               # 英文說明（主要）

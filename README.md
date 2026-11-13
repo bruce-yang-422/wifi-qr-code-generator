@@ -3,14 +3,14 @@
 **English** | [繁體中文](README.zh-TW.md)
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
-[![GitHub Pages](https://img.shields.io/badge/demo-GitHub%20Pages-blue?logo=github)](https://bruce-yang-422.github.io/wifi-qr-code-generator/)
+[![Website](https://img.shields.io/badge/demo-wifiqr.stack--base.com-blue?logo=googlechrome&logoColor=white)](https://wifiqr.stack-base.com/)
 ![HTML5](https://img.shields.io/badge/HTML5-E34F26?logo=html5&logoColor=white)
 ![CSS3](https://img.shields.io/badge/CSS3-1572B6?logo=css3&logoColor=white)
 ![JavaScript](https://img.shields.io/badge/JavaScript-Vanilla-F7DF1E?logo=javascript&logoColor=black)
 
 > A client-side WiFi QR code generator and saved-network manager. Back up CSV, import Excel/Numbers, print A4/A5/PDF, and export sharing PNGs or QR-only PNG/SVG/EPS artwork. Eight languages, mobile optimizations and offline PWA support; no build step.
 
-**[🌐 Live Demo](https://bruce-yang-422.github.io/wifi-qr-code-generator/)** · **[🐛 Report a Bug](https://github.com/bruce-yang-422/wifi-qr-code-generator/issues)** · **[💡 Request a Feature](https://github.com/bruce-yang-422/wifi-qr-code-generator/issues/new)**
+**[🌐 Live Demo](https://wifiqr.stack-base.com/)** · **[🐛 Report a Bug](https://github.com/bruce-yang-422/wifi-qr-code-generator/issues)** · **[💡 Request a Feature](https://github.com/bruce-yang-422/wifi-qr-code-generator/issues/new)**
 
 ---
 
@@ -70,7 +70,7 @@ QR codes are generated locally in your browser; the app never uploads your SSIDs
 
 ### Online
 
-Visit **<https://bruce-yang-422.github.io/wifi-qr-code-generator/>**.
+Visit **<https://wifiqr.stack-base.com/>**.
 
 ### Run Locally
 
@@ -266,6 +266,8 @@ wifi-qr-code-generator/
 ├── manifest.webmanifest    # PWA name, icons and launch settings
 ├── sw.js                   # Offline cache
 ├── sitemap.xml             # Language URLs with hreflang alternates
+├── robots.txt              # Crawler rules and sitemap location
+├── CNAME                   # Custom domain for GitHub Pages
 ├── config.js               # Local config (excluded by .gitignore)
 ├── LICENSE
 ├── README.md               # English documentation (primary)
