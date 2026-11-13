@@ -108,13 +108,14 @@
     <script src="src/vendor/qrcode.min.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;600&family=Noto+Sans+TC:wght@600;700&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="src/css/base.css">
     <link rel="stylesheet" href="src/css/layout.css">
     <link rel="stylesheet" href="src/css/control.css">
     <link rel="stylesheet" href="src/css/print-page.css">
     <link rel="stylesheet" href="src/css/responsive.css">
     <link rel="stylesheet" href="src/css/workspace.css">
+    <link rel="stylesheet" href="src/css/typography.css">
 </head>
 <body>
     <noscript>
@@ -519,7 +520,7 @@
                     <ol id="printSummaryPages"></ol>
                 </div>
                 </div>
-                <button type="button" class="btn-print" id="printBtn">🖨️ 列印 / 儲存為 PDF</button>
+                <button type="button" class="btn-print" id="printBtn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 8V3h10v5M7 17H4a1 1 0 0 1-1-1v-6a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v6a1 1 0 0 1-1 1h-3"/><path d="M7 14h10v7H7zM17 11h1"/></svg><span>列印 / 儲存為 PDF</span></button>
                 <p id="printStatus" class="form-status" hidden></p>
                 <div class="settings-section-title">分享圖片</div>
                 <p class="print-option-help">每個網路獨立下載 1200 × 1600 PNG（3:4），可傳送至 LINE 或其他 App。</p>
@@ -602,6 +603,7 @@
         </form>
     </dialog>
     <script src="src/js/i18n.js"></script>
+    <script src="src/js/typography.js"></script>
     <script src="src/js/platform.js"></script>
     <script src="src/js/elements.js"></script>
     <script src="src/js/state.js"></script>

@@ -65,7 +65,7 @@ QR Code 容錯等級|QR Code 容错等级|QR error correction level|QR誤り訂�
 較高|较高|Higher|やや高|높음|Élevé|Höher|Alto
 高|高|High|高|최고|Maximum|Hoch|Máximo
 容錯越高，較能承受污損，但圖案也可能更密集。低於 H 時隱藏中央圖示，保留辨識空間。|容错越高越能承受污损，但图案可能更密集。低于 H 时隐藏中央图标。|Higher correction tolerates more damage but may create denser codes. Below H, the center icon is hidden.|訂正レベルが高いほど汚れに強くなりますが、模様は細かくなる場合があります。H未満では中央アイコンを非表示にします。|정정 수준이 높으면 손상에 강하지만 코드가 복잡해질 수 있습니다. H 미만에서는 중앙 아이콘을 숨깁니다.|Une correction élevée tolère plus de dommages, mais peut densifier le code. Sous H, l’icône centrale est masquée.|Höhere Korrektur verträgt mehr Schäden, kann aber dichtere Codes erzeugen. Unter H wird das mittige Symbol ausgeblendet.|Más corrección tolera más daños, pero puede generar códigos más densos. Por debajo de H se oculta el icono central.
-🖨️ 列印 / 儲存為 PDF|🖨️ 打印 / 保存为 PDF|Print / Save PDF|印刷 / PDF保存|인쇄 / PDF 저장|Imprimer / PDF|Drucken / PDF speichern|Imprimir / Guardar PDF
+列印 / 儲存為 PDF|打印 / 保存为 PDF|Print / Save PDF|印刷 / PDF保存|인쇄 / PDF 저장|Imprimer / PDF|Drucken / PDF speichern|Imprimir / Guardar PDF
 分享圖片|分享图片|Share images|画像を共有|이미지 공유|Partager des images|Bilder teilen|Compartir imágenes
 每個網路獨立下載 1200 × 1600 PNG（3:4），可傳送至 LINE 或其他 App。|各网络独立下载 1200 × 1600 PNG（3:4），可分享到 LINE 等应用。|Download each network as a 1200 × 1600 PNG (3:4) to share in LINE or other apps.|各ネットワークを1200 × 1600のPNG（3:4）で保存し、LINEなどで共有できます。|각 네트워크를 1200 × 1600 PNG(3:4)로 다운로드하여 LINE 등으로 공유하세요.|Téléchargez chaque réseau en PNG 1200 × 1600 (3:4), à partager sur LINE ou ailleurs.|Jedes Netzwerk als PNG mit 1200 × 1600 (3:4) herunterladen und teilen.|Descarga cada red como PNG de 1200 × 1600 (3:4) para compartir en LINE u otras apps.
 正在準備圖片…|正在准备图片…|Preparing image…|画像を準備中…|이미지 준비 중…|Préparation de l’image…|Bild wird vorbereitet…|Preparando imagen…

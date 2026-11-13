@@ -304,7 +304,7 @@ wifi-qr-code-generator/
 - **HTML5／CSS3／Vanilla JavaScript**：無框架、無建置流程
 - **[qrcodejs](https://github.com/davidshimjs/qrcodejs)**：QR Code 產生（本機 `src/vendor/qrcode.min.js`，授權見 `src/vendor/qrcode.LICENSE`）
 - **[SheetJS CE 0.20.3](https://docs.sheetjs.com/docs/miscellany/formats/)**：本機 Excel／Numbers 解析，Apache-2.0 授權見 `src/vendor/xlsx.LICENSE`
-- **[Google Fonts](https://fonts.google.com/)**：Outfit、Noto Sans TC、JetBrains Mono
+- **[Google Fonts](https://fonts.google.com/)**：JetBrains Mono 與按語言載入的 Noto Sans TC／SC／JP／KR
 
 ## 隱私與安全性
 
@@ -335,6 +335,8 @@ wifi-qr-code-generator/
 5. 開啟 Pull Request
 
 Commit 訊息請遵循 [Conventional Commits](https://www.conventionalcommits.org/zh-hant/) 規範（例如 `feat:`、`fix:`、`docs:`、`refactor:`、`chore:`）。
+
+字型隨語言切換：繁中／簡中／日文／韓文分別搭配 Noto Sans TC／SC／JP／KR 與地區系統備援，英／法／德／西文使用系統無襯線字型。SSID／密碼維持 JetBrains Mono 與系統等寬備援；分享 PNG 使用相同的語言字型策略。僅請求當前 CJK 網路字型，載入逾時或離線時採系統備援；SVG／EPS 仍不含字型。
 
 ## 授權
 

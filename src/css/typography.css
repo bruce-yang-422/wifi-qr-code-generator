@@ -1,0 +1,33 @@
+:root {
+    --font-ui: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+    --font-data: "JetBrains Mono", "SFMono-Regular", Consolas, monospace;
+}
+body, .hero h1, .control-title, .print-header h2, .print-layout-toggle,
+.btn-generate, .btn-print, .btn-clear-memory, .print-page, .print-page * {
+    font-family: var(--font-ui);
+}
+:root body :is(button, select, textarea),
+:root body .control-scroll :is(input, textarea),
+.mobile-function-bar button { font-family: var(--font-ui); }
+.print-page .ssid-name, .print-page .card-pw-value,
+.print-page .pw-value, .print-page .pw-value-split,
+.profile-cell-ssid, .profile-cell-password, .inspector-password, .quick-chip span,
+:root body .control-scroll input:is([id^="ssid"], [id^="pw"], #sharedPwInput) {
+    font-family: var(--font-data);
+    font-variant-numeric: slashed-zero tabular-nums;
+    font-feature-settings: "zero" 1, "liga" 0;
+    font-variant-ligatures: none;
+}
+html:lang(ja) body { line-break: strict; }
+.print-page .ssid-name.is-empty-ssid {
+    font-family: var(--font-ui);
+    font-weight: 500;
+    letter-spacing: normal;
+}
+:root body input::placeholder, :root body textarea::placeholder {
+    font-family: var(--font-ui);
+    font-weight: 400;
+    letter-spacing: normal;
+}
+html:lang(ko) body { word-break: keep-all; overflow-wrap: break-word; }
+.control-sub, .profile-help, .print-option-help { hyphens: auto; }

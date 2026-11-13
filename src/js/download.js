@@ -112,11 +112,9 @@ function wifiPngFilename(title, ssid, band) {
         button.disabled = true;
         status.textContent = t('正在準備圖片…');
         try {
-            await Promise.all([
-                document.fonts.load('600 40px "JetBrains Mono"'),
-                document.fonts.load('600 40px "Noto Sans TC"')
-            ]);
-            await document.fonts.ready;
+            const state = getState();
+            const fonts = await prepareWifiTypography([state.wifiTitle, state.wifiNote, network.ssid, network.password,
+                t('掃描連線'), t('開啟相機掃描，即可加入網路'), t('連線密碼')].join(' '));
             const canvas = document.createElement('canvas');
             canvas.width = 1200;
             canvas.height = 1600;
@@ -138,8 +136,8 @@ function wifiPngFilename(title, ssid, band) {
             ctx.shadowBlur = 0;
             ctx.shadowOffsetY = 0;
             ctx.textAlign = 'center';
-            const sans = '"Noto Sans TC", Arial, sans-serif';
-            const mono = '"JetBrains Mono", "Noto Sans TC", monospace';
+            const sans = fonts.ui;
+            const mono = fonts.mono;
             function text(value, y, size, family = sans, color = '#1d1d1f', maxLines = 2) {
                 let lines;
                 do {
@@ -178,7 +176,6 @@ function wifiPngFilename(title, ssid, band) {
             ctx.stroke(new Path2D('M37 57Q64 30 91 57M45 69Q64 50 83 69M54 81Q64 71 74 81'));
             ctx.fillStyle = '#fff'; ctx.beginPath(); ctx.arc(64, 92, 5, 0, Math.PI * 2); ctx.fill();
             ctx.restore();
-            const state = getState();
             text(state.wifiTitle || t('WiFi 連線'), 280, 60, sans, '#1d1d1f', 1);
             text(t('掃描連線'), 344, 32, sans, '#667085');
             const networkTop = state.wifiNote ? 550 : 420;

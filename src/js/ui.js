@@ -81,6 +81,9 @@ function updatePreviewText() {
     elements.ssid5Name.textContent      = display5;
     elements.ssidMloName.textContent    = displayMlo;
     elements.ssidGuestName.textContent  = displayGuest;
+    [[elements.ssid24Name, ssid24], [elements.ssid5Name, ssid5],
+        [elements.ssidMloName, ssidMlo], [elements.ssidGuestName, ssidGuest]]
+        .forEach(([label, value]) => label.classList.toggle('is-empty-ssid', !value));
 
     elements.cardPw24.textContent    = password24    || '••••••••';
     elements.cardPw5.textContent     = password5     || '••••••••';

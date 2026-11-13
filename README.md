@@ -339,6 +339,8 @@ Issues and pull requests are welcome!
 
 Please follow [Conventional Commits](https://www.conventionalcommits.org/) for commit messages (e.g. `feat:`, `fix:`, `docs:`, `refactor:`, `chore:`).
 
+Typography follows the selected language: Noto Sans TC / SC / JP / KR with regional system fallbacks for Chinese, Japanese and Korean; system sans-serif faces for English, French, German and Spanish. SSIDs and passwords retain JetBrains Mono with system monospace fallbacks. Share PNG uses the same language-aware font policy. Only the selected CJK web family is requested, with bounded loading and offline system fallbacks; SVG/EPS remain font-free.
+
 ## License
 
 Distributed under the [MIT License](LICENSE).

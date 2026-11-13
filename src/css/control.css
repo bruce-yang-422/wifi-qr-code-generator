@@ -220,7 +220,12 @@
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 }
 
-.print-layout-toggle label { position: relative; cursor: pointer; }
+.print-layout-toggle label {
+    position: relative;
+    display: flex;
+    min-width: 0;
+    cursor: pointer;
+}
 .print-layout-toggle input {
     position: absolute;
     width: 1px;
@@ -228,7 +233,12 @@
     opacity: 0;
 }
 .print-layout-toggle span {
-    display: block;
+    display: flex;
+    flex: 1;
+    align-items: center;
+    justify-content: center;
+    min-width: 0;
+    overflow-wrap: anywhere;
     padding: 8px 14px;
     border-radius: 999px;
     color: var(--text-muted);
