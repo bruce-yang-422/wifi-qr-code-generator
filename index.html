@@ -147,11 +147,6 @@
         <main class="workspace">
             <section class="control-panel">
                 <div class="panel-chrome">
-                    <div class="traffic-lights" aria-hidden="true">
-                        <span class="traffic-dot traffic-close"></span>
-                        <span class="traffic-dot traffic-minimize"></span>
-                        <span class="traffic-dot traffic-zoom"></span>
-                    </div>
                     <div class="chrome-title">WiFi 設定</div>
                 </div>
                 <div class="control-scroll" role="region" aria-label="WiFi 設定欄位" tabindex="0">
@@ -306,7 +301,7 @@
             </section>
 
             <section class="profiles-manager" id="profilesManager" aria-labelledby="managerTitle" hidden>
-                <div class="panel-chrome"><div class="traffic-lights" aria-hidden="true"><span class="traffic-dot traffic-close"></span><span class="traffic-dot traffic-minimize"></span><span class="traffic-dot traffic-zoom"></span></div><div class="chrome-title">常用 WiFi 管理</div></div>
+                <div class="panel-chrome"><div class="chrome-title">常用 WiFi 管理</div></div>
                 <div class="manager-heading"><div><h2 id="managerTitle" tabindex="-1">常用 WiFi 管理</h2><p class="profile-help">選擇一組設定，即可載入網路、密碼與列印安排。</p></div><button type="button" id="closeProfiles">返回列印預覽</button></div>
                 <aside class="profile-warning" aria-labelledby="profileWarningTitle"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M10.3 4.4 2.6 18a2 2 0 0 0 1.7 3h15.4a2 2 0 0 0 1.7-3L13.7 4.4a2 2 0 0 0-3.4 0Z"/><path d="M12 9v5m0 3v1"/></svg><div><strong id="profileWarningTitle">紀錄只存在此瀏覽器，請自行備份</strong><p>清除 Cookie 與網站資料、重設或移除瀏覽器，可能一併刪除所有已儲存紀錄。請先匯出備份，並保存在安全的位置。</p></div></aside>
                 <div class="manager-toolbar"><button type="button" id="managerSaveProfile">儲存目前設定</button><button type="button" id="exportProfiles">匯出 CSV 完整備份</button><button type="button" id="importProfiles">匯入檔案</button></div>
@@ -321,11 +316,6 @@
             </section>
             <section class="preview-wrap" id="printWorkspace">
                 <div class="panel-chrome">
-                    <div class="traffic-lights" aria-hidden="true">
-                        <span class="traffic-dot traffic-close"></span>
-                        <span class="traffic-dot traffic-minimize"></span>
-                        <span class="traffic-dot traffic-zoom"></span>
-                    </div>
                     <div class="chrome-title">列印工作區</div>
                 </div>
                 <div class="preview-note">
@@ -461,7 +451,6 @@
             </section>
             <section class="print-settings-panel" aria-labelledby="printSettingsTitle">
                 <div class="panel-chrome">
-                    <div class="traffic-lights" aria-hidden="true"><span class="traffic-dot traffic-close"></span><span class="traffic-dot traffic-minimize"></span><span class="traffic-dot traffic-zoom"></span></div>
                     <div class="chrome-title" id="printSettingsTitle">列印設定</div>
                 </div>
                 <div class="print-options">
@@ -538,7 +527,7 @@
                 <p id="pngStatus" role="status" class="print-option-help"></p>
             </section>
             <section class="profile-inspector" id="profileInspector" aria-labelledby="inspectorTitle" hidden>
-                <div class="panel-chrome"><div class="traffic-lights" aria-hidden="true"><span class="traffic-dot traffic-close"></span><span class="traffic-dot traffic-minimize"></span><span class="traffic-dot traffic-zoom"></span></div><div class="chrome-title" id="inspectorTitle">設定詳細資料</div></div>
+                <div class="panel-chrome"><div class="chrome-title" id="inspectorTitle">設定詳細資料</div></div>
                 <div id="profileInspectorBody"></div>
             </section>
         </main>

@@ -1,5 +1,5 @@
 const CACHE_PREFIX = `wifi-studio:${self.registration.scope}:`;
-const CACHE = CACHE_PREFIX + 'v22';
+const CACHE = CACHE_PREFIX + 'v24';
 // Cache only application files. Local config.js may contain passwords.
 const FILES = [
     './', './index.html', './manifest.webmanifest',

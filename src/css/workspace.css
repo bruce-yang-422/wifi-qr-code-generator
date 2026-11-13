@@ -45,8 +45,6 @@
         padding: 5px 4px 12px;
         gap: 12px;
     }
-    .traffic-dot { width: 10px; height: 10px; }
-    .traffic-lights { gap: 6px; }
     .chrome-title { font-size: 12px; font-weight: 600; }
     .control-title { font-size: 18px; margin-bottom: 5px; }
     .control-sub { font-size: 12px; line-height: 1.5; margin-bottom: 10px; }
@@ -236,6 +234,7 @@
     .control-actions .btn-generate { grid-column: 1 / -1; }
 }
 @media screen and (min-width: 1181px) {
+    .app-shell { max-width: 1720px; }
     .workspace { grid-template-columns: minmax(280px, 320px) minmax(0, 1fr) 290px; }
 }
 @media screen and (min-width: 1600px) {
@@ -708,4 +707,37 @@
     .print-settings-panel .btn-print:hover { background:#0068df; box-shadow:0 1px 2px rgba(0,80,170,.12); transform:none; }
     .print-settings-panel .btn-print:active { background:#005ecb; transform:none; }
     .print-settings-panel .btn-print:focus-visible { outline:3px solid #007aff55; outline-offset:3px; }
+}
+
+/* WiFi Studio: quiet surfaces, a distinct section marker and restrained depth. */
+@media screen {
+    body {
+        background: radial-gradient(ellipse at 8% 0%, #e6eef8, transparent 48%), #f3f5f8;
+    }
+    .control-panel, .preview-wrap, .print-settings-panel, .profile-inspector {
+        border-color: #dfe5ee;
+        border-radius: 18px;
+        background: rgba(255, 255, 255, .94);
+        box-shadow: 0 4px 18px rgba(35, 53, 79, .045);
+    }
+    .panel-chrome { border-bottom-color: #e7ecf2; gap: 9px; }
+    .panel-chrome::before {
+        content: "";
+        width: 5px;
+        height: 17px;
+        flex: 0 0 5px;
+        border-radius: 3px;
+        background: #3974bc;
+    }
+    .chrome-title { color: #46566c; letter-spacing: .015em; }
+    .print-layout-toggle, .mode-toggle {
+        background: #edf1f6;
+        border-color: #dfe5ee;
+        box-shadow: none;
+    }
+    .print-layout-toggle input:checked + span {
+        box-shadow: 0 1px 3px rgba(35, 53, 79, .12), 0 0 0 1px rgba(35, 53, 79, .06);
+    }
+    .settings-disclosure { background: #f6f8fb; border-color: #e3e9f1; }
+    .language-picker summary, .pwa-install-button { box-shadow: none; }
 }

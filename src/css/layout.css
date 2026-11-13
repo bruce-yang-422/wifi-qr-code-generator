@@ -36,31 +36,6 @@
     border-bottom: 1px solid rgba(148, 163, 184, 0.16);
 }
 
-.traffic-lights {
-    display: flex;
-    gap: 8px;
-    flex-shrink: 0;
-}
-
-.traffic-dot {
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-    box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.08);
-}
-
-.traffic-close {
-    background: var(--red-dot);
-}
-
-.traffic-minimize {
-    background: var(--yellow-dot);
-}
-
-.traffic-zoom {
-    background: var(--green-dot);
-}
-
 .chrome-title {
     font-size: 0.84rem;
     font-weight: 600;
