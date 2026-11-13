@@ -44,6 +44,7 @@ coverage/
 # Generated QR exports
 exports/
 *-WiFi-*.png
+WiFi-*.png
 *.pdf
 
 # Archives

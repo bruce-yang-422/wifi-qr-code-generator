@@ -1,0 +1,16 @@
+{
+  "id": "./",
+  "name": "WiFi QR Code 產生器",
+  "short_name": "WiFi Studio",
+  "description": "產生、列印與分享 WiFi QR Code。",
+  "lang": "zh-TW",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f2f2f7",
+  "theme_color": "#f2f2f7",
+  "icons": [
+    { "src": "src/assets/pwa-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "src/assets/pwa-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" }
+  ]
+}

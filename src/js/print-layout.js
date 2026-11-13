@@ -85,26 +85,26 @@ function planPrintGroups(active, separateEach, separateMlo, separateGuest) {
         const doubled = layout === 'a5';
         const paper = layout === 'single-a5' ? 'A5' : 'A4';
         document.getElementById('paperHelp').textContent = doubled
-            ? '每張橫向 A4 左右放相同內容各一份，裁開後得到兩張 A5；中央附裁切線。'
-            : `每張直式 ${paper} 放一份內容。`;
+            ? t('每張橫向 A4 左右放相同內容各一份，裁開後得到兩張 A5；中央附裁切線。')
+            : t('每張直式 {paper} 放一份內容。', { paper });
         for (const [id, index] of [['mloLayout', 2], ['guestLayout', 3]]) {
             const available = active.includes(index);
             const control = document.getElementById(id);
             control.querySelectorAll('input').forEach(input => { input.disabled = separateEach || !available; });
             control.classList.toggle('is-unavailable', separateEach || !available);
-            control.title = !available ? '請先啟用此網路' : separateEach ? '目前所有網路皆獨立列印' : '';
+            control.title = !available ? t('請先啟用此網路') : separateEach ? t('目前所有網路皆獨立列印') : '';
         }
         document.getElementById('groupHelp').textContent = separateEach
-            ? '目前每個啟用的網路各自獨立列印，包含 MLO 與訪客網路。'
-            : '開啟：獨立一張；關閉：隨其他網路合併。未啟用的網路不列印。';
+            ? t('目前每個啟用的網路各自獨立列印，包含 MLO 與訪客網路。')
+            : t('開啟：獨立一張；關閉：隨其他網路合併。未啟用的網路不列印。');
         document.getElementById('printSummaryTitle').textContent = groups.length
-            ? `預計 ${groups.length} 張 ${paper}${doubled ? `，裁開共 ${groups.length * 2} 張 A5` : ''}`
-            : '尚未啟用任何網路';
+            ? t('預計 {count} 張 {paper}', { count: groups.length, paper }) + (doubled ? t('，裁開共 {count} 張 A5', { count: groups.length * 2 }) : '')
+            : t('尚未啟用任何網路');
         const list = document.getElementById('printSummaryPages');
         list.replaceChildren();
         groups.forEach(indices => {
             const item = document.createElement('li');
-            item.textContent = indices.map(i => cards[i].querySelector('.band-tag').textContent).join(' ＋ ') + (doubled ? '（相同內容兩份）' : '');
+            item.textContent = indices.map(i => cards[i].querySelector('.band-tag').textContent).join(' ＋ ') + (doubled ? t('（相同內容兩份）') : '');
             list.append(item);
         });
     }
@@ -146,5 +146,6 @@ function planPrintGroups(active, separateEach, separateMlo, separateGuest) {
     // QR libraries may finish image rendering after the DOM mutation.
     source.addEventListener('load', syncCopy, true);
     window.addEventListener('beforeprint', syncCopy);
+    window.addEventListener('languagechange', syncCopy);
     syncCopy();
 })();

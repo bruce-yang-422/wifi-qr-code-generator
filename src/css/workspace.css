@@ -300,3 +300,50 @@
     .png-download:focus-visible { outline: 2px solid #007aff; outline-offset: 2px; }
     #pngStatus { margin-top: 8px; }
 }
+@media screen {
+    #installApp { margin-left: auto; padding: 7px 14px; border: 1px solid var(--border); border-radius: 999px; background: rgba(255,255,255,.75); color: var(--accent-dark); font: inherit; font-size: 12px; cursor: pointer; }
+    #installApp:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+}
+@media print { #installApp { display: none; } }
+
+@media screen {
+    .hero .language-picker { position: relative; margin-left: auto; z-index: 20; flex-shrink: 0; align-self: center; }
+    .language-picker summary { display: flex; align-items: center; gap: 8px; padding: 8px 12px; border: 1px solid rgba(60,60,67,.14); border-radius: 999px; background: rgba(255,255,255,.8); color: #3a3a3c; font-size: 12px; font-weight: 500; cursor: pointer; box-shadow: 0 1px 3px #00000005; list-style: none; }
+    .language-picker summary::-webkit-details-marker { display: none; }
+    .language-picker summary { line-height: 20px; }
+    .language-picker summary > svg { display: block; flex-shrink: 0; }
+    .language-chevron { color: #636366; margin-left: 4px; transition: transform 160ms ease; }
+    .language-picker[open] .language-chevron { transform: rotate(180deg); }
+    .language-picker[open] summary { background: #fff; border-color: rgba(0,122,255,.3); }
+    .language-menu { position: absolute; top: calc(100% + 8px); right: 0; width: 218px; max-width: calc(100vw - 32px); padding: 6px; border: 1px solid rgba(255,255,255,.9); border-radius: 16px; background: rgba(250,250,252,.96); backdrop-filter: blur(24px); box-shadow: 0 12px 40px #1d263329, 0 0 0 1px #00000008; }
+    .language-menu button { display: flex; align-items: center; justify-content: space-between; width: 100%; border: 0; border-radius: 9px; background: transparent; color: #3a3a3c; padding: 10px 12px; font: inherit; font-size: 13px; text-align: left; cursor: pointer; }
+    .language-menu button[aria-checked='true'] { color: #007aff; background: #e8f1ff; font-weight: 600; }
+    .language-menu button[aria-checked='true']::after { content: '✓'; font-weight: 600; }
+    .language-menu button:hover { background: #e9e9ef; }
+    .language-menu button:focus-visible, .language-picker summary:focus-visible { outline: 2px solid #007aff; outline-offset: 1px; }
+    #installApp { margin-left: 0; }
+}
+@media print { .language-picker { display: none !important; } }
+@media screen and (max-width: 760px) {
+    .hero .language-picker { margin-left: auto; margin-top: 6px; }
+    .language-picker summary { min-height: 40px; }
+    .language-menu button { min-height: 44px; }
+}
+@media (prefers-reduced-motion: reduce) { .language-picker * { transition: none; } }
+
+@media screen {
+    .hero .language-picker,
+    .hero #installApp { align-self: center; margin-top: 0; }
+    .hero .language-picker summary,
+    .hero #installApp {
+        box-sizing: border-box;
+        height: 40px;
+        min-height: 40px;
+        padding: 0 14px;
+        border-radius: 999px;
+        font-size: 12px;
+        font-weight: 500;
+        line-height: 20px;
+    }
+    .hero #installApp:not([hidden]) { display: inline-flex; align-items: center; justify-content: center; }
+}

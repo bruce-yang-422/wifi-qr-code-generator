@@ -1,111 +1,123 @@
 # WiFi QR Code Generator
 
+**English** | [繁體中文](README.zh-TW.md)
+
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 [![GitHub Pages](https://img.shields.io/badge/demo-GitHub%20Pages-blue?logo=github)](https://bruce-yang-422.github.io/wifi-qr-code-generator/)
 ![HTML5](https://img.shields.io/badge/HTML5-E34F26?logo=html5&logoColor=white)
 ![CSS3](https://img.shields.io/badge/CSS3-1572B6?logo=css3&logoColor=white)
 ![JavaScript](https://img.shields.io/badge/JavaScript-Vanilla-F7DF1E?logo=javascript&logoColor=black)
 
-> 一個純前端、零相依建置的 WiFi QR Code 產生器，支援 2.4 GHz／5 GHz／MLO／訪客網路，並可直接輸出 A4／A5 列印版面或 PDF。
+> A client-side, zero-build WiFi QR code generator for 2.4 GHz, 5 GHz, MLO and guest networks. Export A4/A5 print layouts, PDFs and 3:4 PNG images for sharing on phones, with PWA offline support.
 
-**[🌐 線上試用](https://bruce-yang-422.github.io/wifi-qr-code-generator/)** · **[🐛 回報問題](https://github.com/bruce-yang-422/wifi-qr-code-generator/issues)** · **[💡 功能建議](https://github.com/bruce-yang-422/wifi-qr-code-generator/issues/new)**
+**[🌐 Live Demo](https://bruce-yang-422.github.io/wifi-qr-code-generator/)** · **[🐛 Report a Bug](https://github.com/bruce-yang-422/wifi-qr-code-generator/issues)** · **[💡 Request a Feature](https://github.com/bruce-yang-422/wifi-qr-code-generator/issues/new)**
 
 ---
 
-## 目錄
+## Table of Contents
 
-- [簡介](#簡介)
-- [功能特色](#功能特色)
-- [快速開始](#快速開始)
-- [使用說明](#使用說明)
-- [設定檔 `config.js`](#設定檔-configjs)
-- [列印版面](#列印版面)
-- [專案結構](#專案結構)
-- [技術堆疊](#技術堆疊)
-- [隱私與安全性](#隱私與安全性)
-- [瀏覽器支援](#瀏覽器支援)
-- [貢獻](#貢獻)
-- [授權](#授權)
+- [About](#about)
+- [Features](#features)
+- [Getting Started](#getting-started)
+- [Usage](#usage)
+- [Configuration (`config.js`)](#configuration-configjs)
+- [Print Layouts](#print-layouts)
+- [PNG Share Images](#png-share-images)
+- [PWA and Offline Use](#pwa-and-offline-use)
+- [Languages](#languages)
+- [Project Structure](#project-structure)
+- [Tech Stack](#tech-stack)
+- [Privacy and Security](#privacy-and-security)
+- [Browser Support](#browser-support)
+- [Contributing](#contributing)
+- [License](#license)
 
-## 簡介
+## About
 
-在辦公室、店面、會議室或民宿張貼 WiFi 連線資訊時，常需要同時提供多個頻段或訪客網路的 QR Code。本工具讓你在瀏覽器中填入 SSID 與密碼，即時預覽並產生可掃描的 QR Code，直接列印或另存 PDF。
+Offices, shops, meeting rooms and guesthouses often need to post WiFi details for several bands or a separate guest network. This tool lets you enter SSIDs and passwords in the browser, preview the result live, and print or save scannable QR codes as a PDF.
 
-所有資料只在本機瀏覽器處理，**不經過任何伺服器**。
+QR codes are generated locally in your browser; the app never uploads your SSIDs or passwords. On desktop, the workspace uses an Apple-style three-column layout: network settings on the left, the paper preview in the middle, and print and download options on the right. The page expands naturally and scrolls as a whole.
 
-## 功能特色
+> [!NOTE]
+> The interface is available in 8 languages (see [Languages](#languages)). Button names in this README refer to the English UI.
 
-| 類別 | 說明 |
+## Features
+
+| Category | Description |
 | --- | --- |
-| 📶 **多網路支援** | 2.4 GHz、5 GHz、MLO（Wi-Fi 7 多鏈路）、訪客網路，各自可獨立開關 |
-| 🔀 **智慧混合 (Band Steering)** | 2.4／5 GHz 合併為單一 SSID 與密碼，只產生一個 QR Code |
-| 🔑 **彈性密碼模式** | 內部網路可共用同一密碼或分開設定；訪客網路使用獨立密碼 |
-| 📝 **自訂標題與備註** | 可加入 WiFi 標題及說明文字（開放時間、使用範圍等） |
-| 👀 **即時預覽** | 輸入內容即時反映在右側列印預覽 |
-| 🖨️ **多種列印版面** | A4 單張、獨立 A5、A4 橫向印兩份 A5（含裁切線） |
-| 🗂️ **分頁排列** | 內部網路可合併或逐一分頁；MLO 與訪客網路可獨立成頁 |
-| 💾 **自動記憶** | 輸入內容與開關狀態保存在 `localStorage`，下次開啟自動復原 |
-| ⚙️ **本機設定檔** | 透過 `config.js` 預填 SSID 與密碼 |
-| 📱 **響應式設計** | 支援桌面、平板與手機版面 |
-| 🚀 **零建置** | 不需 Node.js 或打包工具，直接開啟 `index.html` 即可使用 |
+| 📶 **Multiple networks** | 2.4 GHz, 5 GHz, MLO (Wi-Fi 7 Multi-Link Operation) and guest networks, each toggled independently |
+| 🔀 **Band Steering** | Merge 2.4 and 5 GHz into a single SSID and password, producing one QR code |
+| 🔑 **Flexible passwords** | Internal networks can share one password or use separate ones; the guest network has its own |
+| 📝 **Custom title and notes** | Add a WiFi title and notes (opening hours, coverage area, usage rules, etc.) |
+| 👀 **Live preview** | Changes appear instantly in the print preview |
+| 🌐 **8 languages** | Traditional Chinese, Simplified Chinese, English, Japanese, Korean, French, German and Spanish |
+| 🖨️ **Print layouts** | Single A4, standalone A5, or two A5 copies on landscape A4 (with a cut line) |
+| 🗂️ **Page grouping** | Print internal networks together or one per page; MLO and guest can each get their own page |
+| 💾 **Auto-save** | Network details, title, notes and network toggles are saved to `localStorage`; print arrangement and error correction level are not |
+| 🖼️ **PNG sharing** | Download a 1200 × 1600 (3:4) image per network, ready to share via LINE or other messaging apps |
+| 🎚️ **Error correction** | Switch between L / M / Q / H (default H); the center icon is hidden in the preview below H |
+| 📲 **PWA** | An unobtrusive install button on supported browsers; core features work offline once cached |
+| ⚙️ **Local config file** | Prefill SSIDs and passwords with `config.js` |
+| 📱 **Responsive** | Works on desktop, tablet and mobile |
+| 🚀 **Zero build** | No Node.js or bundler needed; just open `index.html` |
 
-## 快速開始
+## Getting Started
 
-### 線上使用
+### Online
 
-直接前往 **<https://bruce-yang-422.github.io/wifi-qr-code-generator/>**。
+Visit **<https://bruce-yang-422.github.io/wifi-qr-code-generator/>**.
 
-### 本機執行
+### Run Locally
 
 ```bash
 git clone https://github.com/bruce-yang-422/wifi-qr-code-generator.git
 cd wifi-qr-code-generator
 ```
 
-接著以瀏覽器開啟 `index.html` 即可。
+Then open `index.html` in your browser.
 
-若想透過本機伺服器執行（可選）：
+To serve it locally instead (optional):
 
 ```bash
 # Python 3
 python -m http.server 8080
 
-# 或 Node.js
+# or Node.js
 npx serve .
 ```
 
-然後開啟 <http://localhost:8080>。
+Then open <http://localhost:8080>. The PWA requires HTTPS or localhost; opening the file directly will not register the Service Worker.
 
-## 使用說明
+## Usage
 
-1. **（選填）** 輸入 WiFi 標題與說明備註。
-2. 開啟需要的網路（2.4 GHz／5 GHz／MLO／訪客），並填入 SSID。
-3. **（選填）** 啟用「智慧混合」，讓 2.4／5 GHz 共用同一組 SSID 與密碼。
-4. 選擇密碼模式：**共用密碼** 或 **分開設定**。
-5. 點選 **「產生 QR Code」**。
-6. 於右側選擇紙張與排列方式，點選 **「🖨️ 列印 / 儲存為 PDF」**。
+1. **(Optional)** Enter a WiFi title and notes.
+2. Enable the networks you need (2.4 GHz / 5 GHz / MLO / Guest) and enter their SSIDs.
+3. **(Optional)** Turn on Band Steering so 2.4 and 5 GHz share one SSID and password.
+4. Choose a password mode: **Shared** or **Separate**.
+5. Each network's QR code updates on its own as soon as its fields are complete; an incomplete network does not clear the others. You can also click **Generate QR Code** to validate all fields.
+6. In the right panel, choose the paper size, page-separation toggles and error correction level, review the print summary, then print or download PNGs. Any incomplete network must be completed or turned off before printing.
 
 > [!TIP]
-> 需要清除瀏覽器中保存的資料時，點選控制面板底部的 **「🗑️ 清除記憶」**。
+> To clear the data saved in your browser, click **🗑️ Clear Memory** at the bottom of the control panel.
 
-### QR Code 格式
+### QR Code Format
 
-產生的 QR Code 遵循標準 WiFi 網路設定格式，iOS 11+ 與 Android 10+ 的相機皆可直接掃描連線：
+QR codes use the following WiFi configuration format, which phone cameras and scanner apps that support it can recognize. Whether a device can connect directly depends on the device, OS and network setup.
 
 ```text
-WIFI:T:WPA;S:<SSID>;P:<密碼>;H:false;;
+WIFI:T:WPA;S:<SSID>;P:<password>;H:false;;
 ```
 
-SSID 與密碼中的特殊字元（`\`、`;`、`,`、`:`）會自動跳脫。
+Special characters in the SSID and password (`\`, `;`, `,`, `:`) are escaped automatically.
 
-## 設定檔 `config.js`
+## Configuration (`config.js`)
 
-若需要經常產生相同網路的 QR Code，可在專案根目錄建立 `config.js` 預先填入資料。此檔案已列入 `.gitignore`，**不會被提交至版本控制**。
+If you regularly generate QR codes for the same networks, create a `config.js` file in the project root to prefill them. The file is listed in `.gitignore` and **will not be committed**.
 
 ```js
-// config.js — 僅供本機使用，請勿提交至 Git
+// config.js — local use only, do not commit to Git
 window.WIFI_CONFIG = Object.freeze({
-    bandSteering: false,           // true：2.4 / 5 GHz 智慧混合
+    bandSteering: false,           // true: merge 2.4 / 5 GHz
     net24: Object.freeze({
         ssid: "MyWiFi",
         password: "your-password"
@@ -125,105 +137,141 @@ window.WIFI_CONFIG = Object.freeze({
 });
 ```
 
-### 設定項目
+### Options
 
-| 鍵值 | 型別 | 說明 |
+| Key | Type | Description |
 | --- | --- | --- |
-| `bandSteering` | `boolean` | 是否啟用智慧混合，預設 `false` |
-| `net24` | `{ ssid, password }` | 2.4 GHz 網路 |
-| `net5` | `{ ssid, password }` | 5 GHz 網路 |
-| `mlo` | `{ ssid, password }` | MLO 網路 |
-| `guestNet` | `{ ssid, password }` | 訪客網路 |
+| `bandSteering` | `boolean` | Enable Band Steering; defaults to `false` |
+| `net24` | `{ ssid, password }` | 2.4 GHz network |
+| `net5` | `{ ssid, password }` | 5 GHz network |
+| `mlo` | `{ ssid, password }` | MLO network |
+| `guestNet` | `{ ssid, password }` | Guest network |
 
-所有欄位皆為選填。
+All fields are optional.
 
-### 載入規則
+### Loading Rules
 
-- **載入優先順序**：`localStorage` → `config.js` → 空白。若瀏覽器已有保存的資料，會優先使用。
-- 若 2.4 GHz／5 GHz／MLO 的密碼相同，自動以「共用密碼」模式載入；任兩組不同則切換為「分開設定」。
-- 若 `config.js` 不存在，則以手動輸入模式啟動，不影響使用。
+- **Priority:** `localStorage` → `config.js` → empty. Data already saved in the browser takes precedence.
+- If the 2.4 GHz, 5 GHz and MLO passwords are identical, the app loads in **Shared** password mode; if any two differ, it switches to **Separate**.
+- If `config.js` does not exist, the app starts in manual-entry mode and works normally.
 
-## 列印版面
+## Print Layouts
 
-| 選項 | 說明 |
+| Option | Description |
 | --- | --- |
-| **A4 單張** | 每張 A4 直式放置一份內容 |
-| **獨立 A5** | 以 A5 紙張輸出 |
-| **A4 印兩份 A5** | A4 橫向，左右各一份 A5，中央附裁切線 |
+| **Single A4** | One copy per portrait A4 sheet |
+| **Standalone A5** | Output on A5 paper |
+| **Two A5 on A4** | Landscape A4 with two A5 copies side by side and a center cut line |
 
-| 排列 | 選項 |
-| --- | --- |
-| **內部網路** | 合併列印／每個網路獨立 |
-| **MLO** | 隨內部網路合併／獨立一張 |
-| **訪客網路** | 單獨一張／隨其他網路合併 |
+Every page-separation toggle works the same way: **on = its own page, off = merged with the other networks**.
 
-> [!NOTE]
-> 列印時建議在瀏覽器列印對話框中關閉「頁首與頁尾」，並將邊界設為「無」或「預設」以獲得最佳效果。
+| Toggle | Default | Behavior |
+| --- | --- | --- |
+| Separate all networks | Off | Each enabled network gets its own page; the MLO and guest toggles are disabled while this is on |
+| Separate MLO | Off | Lets you hand out the MLO network to specific devices or people |
+| Separate guest network | On | Guest network is printed on a separate page from internal networks by default |
 
-## 專案結構
+The two-A5 layout prints two identical copies on one landscape A4 sheet, which you cut into two A5 sheets. The summary on the right lists the actual number of sheets and the networks on each. Print arrangement does not change any access settings on your router.
+
+When printing, turn off the browser's headers and footers, select the matching paper size, set scale to 100%, and keep your printer's printable margins in mind.
+
+## PNG Share Images
+
+Choose a network under **Share Image** on the right to download it. Only networks that are enabled and have both an SSID and a password can be downloaded; this is independent of the print grouping settings.
+
+- **Size:** 1200 × 1600, 3:4 portrait.
+- **Style:** iPhone-style rounded card with icon, title, notes, SSID, QR code and password.
+- **Text:** SSID and password use JetBrains Mono; long text wraps or shrinks automatically.
+- **QR code:** Uses the current error correction level with a four-module white quiet zone; the PNG does not overlay the center icon.
+- **File name:** `WiFi-<title>-<SSID>-<band>.png`. Empty parts, duplicate parts and invalid characters are skipped, e.g. `WiFi-MeetingRoom-Office-5G.png`.
+
+Images contain the network password, so share them only with people who should have access.
+
+## PWA and Offline Use
+
+`manifest.webmanifest` defines the app name, 192/512 icons and standalone display mode; `sw.js` caches the core app files.
+
+- After the first online visit and once the Service Worker has finished caching, you can generate, preview, print and export PNGs offline.
+- The **Install** button in the header appears only when the browser fires `beforeinstallprompt` and the app is not already running standalone. The app never shows an install prompt on its own.
+- Browsers without this event do not show the button; use the browser's own "Add to Home Screen" feature if available.
+- The QR code library is bundled with the project and does not rely on a CDN. Google Fonts still require a network connection; offline, system fallback fonts may be used.
+- `config.js` is not cached by the Service Worker. Offline, the app uses saved data or manual input.
+- After changing any cached file, bump the cache version in `sw.js`. The new Service Worker usually takes over after old tabs are closed.
+
+## Languages
+
+The interface supports Traditional Chinese, Simplified Chinese, English, Japanese, Korean, French, German and Spanish. On first visit it follows browser language preferences, with English as the fallback. The language menu remembers manual choices locally. Print hints, summaries and PNG labels follow the selected language; user-entered SSIDs, passwords, titles and notes are preserved.
+
+## Project Structure
 
 ```text
 wifi-qr-code-generator/
-├── index.html              # 主頁面
-├── src/assets/wifi-qr-logo.ico  # 瀏覽器圖示
-├── src/assets/wifi-qr-logo.png  # 頁面 Logo 與 Apple 觸控圖示
-├── config.js               # 本機設定檔（已被 .gitignore 排除）
+├── index.html              # Main page
+├── manifest.webmanifest    # PWA name, icons and launch settings
+├── sw.js                   # Offline cache
+├── config.js               # Local config (excluded by .gitignore)
 ├── LICENSE
-├── README.md
+├── README.md               # English documentation (primary)
+├── README.zh-TW.md         # Traditional Chinese documentation
 └── src/
+    ├── assets/             # Logo, ICO and PWA icons
+    ├── vendor/             # Bundled qrcodejs and its license
     ├── css/
-    │   ├── base.css        # 全域變數、字型與配色
-    │   ├── layout.css      # 主要版面配置
-    │   ├── control.css     # 表單與控制項
-    │   ├── workspace.css   # 工作區與預覽區
-    │   ├── print-page.css  # 列印頁面樣式
-    │   └── responsive.css  # 響應式斷點
+    │   ├── base.css        # Global variables, fonts and colors
+    │   ├── layout.css      # Main layout
+    │   ├── control.css     # Forms and controls
+    │   ├── workspace.css   # Workspace and preview area
+    │   ├── print-page.css  # Print page styles
+    │   └── responsive.css  # Responsive breakpoints
     └── js/
-        ├── main.js         # 進入點與事件綁定
-        ├── elements.js     # DOM 元素參照
-        ├── state.js        # 狀態管理、localStorage、config.js 載入
-        ├── validate.js     # 輸入驗證
-        ├── ui.js           # 畫面更新
-        ├── qr.js           # QR Code 產生
-        └── print-layout.js # 列印版面分頁與預覽縮放
+        ├── main.js         # Entry point and event binding
+        ├── i18n.js         # UI translations and language detection
+        ├── elements.js     # DOM element references
+        ├── state.js        # State, localStorage and config.js loading
+        ├── validate.js     # Input validation
+        ├── ui.js           # UI updates
+        ├── qr.js           # QR code generation
+        ├── print-layout.js # Print grouping, summary and preview scaling
+        ├── download.js     # 3:4 PNG rendering and file naming
+        └── pwa.js          # Install button and Service Worker registration
 ```
 
-## 技術堆疊
+## Tech Stack
 
-- **HTML5／CSS3／Vanilla JavaScript**：無框架、無建置流程
-- **[qrcodejs](https://github.com/davidshimjs/qrcodejs)**：QR Code 產生（透過 cdnjs 載入）
-- **[Google Fonts](https://fonts.google.com/)**：Outfit、Noto Sans TC、JetBrains Mono
+- **HTML5 / CSS3 / Vanilla JavaScript** — no framework, no build step
+- **[qrcodejs](https://github.com/davidshimjs/qrcodejs)** — QR code generation (bundled at `src/vendor/qrcode.min.js`; license in `src/vendor/qrcode.LICENSE`)
+- **[Google Fonts](https://fonts.google.com/)** — Outfit, Noto Sans TC, JetBrains Mono
 
-## 隱私與安全性
+## Privacy and Security
 
-- 🔒 SSID 與密碼僅在本機瀏覽器處理，**不會傳送至任何伺服器**。
-- 💾 `localStorage` 資料僅存於目前的瀏覽器，不會同步至雲端。
-- 🙈 `config.js` 與匯出的 PNG／PDF 已列入 `.gitignore`，避免密碼誤提交。
-- ⚠️ 在公用電腦上使用後，請點選 **「清除記憶」** 移除保存的資料。
+- 🔒 SSIDs and passwords are processed only in your browser and are **never sent to any server**.
+- 💾 `localStorage` data stays in the current browser and is not synced to the cloud.
+- 🙈 `config.js`, PDFs, `exports/` and some legacy PNG file name patterns are listed in `.gitignore`. New `WiFi-*.png` files saved to the project root are **not** ignored automatically; download them outside the project or into `exports/`.
+- ⚠️ On shared computers, click **Clear Memory** after use to remove saved data.
 
 > [!WARNING]
-> `localStorage` 中的密碼以明文保存。請勿在不信任的裝置上使用自動記憶功能。
+> Passwords are stored in plain text in `localStorage`. Do not use auto-save on untrusted devices.
 
-## 瀏覽器支援
+## Browser Support
 
-| Chrome | Edge | Firefox | Safari |
-| :---: | :---: | :---: | :---: |
-| ✅ 最新版 | ✅ 最新版 | ✅ 最新版 | ✅ 最新版 |
+Use a recent version of Chrome, Edge, Firefox or Safari. Core features rely on Canvas, web fonts and browser printing; PWA installation and standalone mode vary by browser and platform.
 
-## 貢獻
+JavaScript syntax, the manifest, icon sizes and the cache list have been checked. Real-world installation, offline behavior and printing on different devices still need verification.
 
-歡迎提交 Issue 與 Pull Request！
+## Contributing
 
-1. Fork 本專案
-2. 建立功能分支：`git checkout -b feat/your-feature`
-3. 提交變更：`git commit -m "feat: add your feature"`
-4. 推送分支：`git push origin feat/your-feature`
-5. 開啟 Pull Request
+Issues and pull requests are welcome!
 
-Commit 訊息請遵循 [Conventional Commits](https://www.conventionalcommits.org/zh-hant/) 規範（例如 `feat:`、`fix:`、`docs:`、`refactor:`、`chore:`）。
+1. Fork the repository
+2. Create a feature branch: `git checkout -b feat/your-feature`
+3. Commit your changes: `git commit -m "feat: add your feature"`
+4. Push the branch: `git push origin feat/your-feature`
+5. Open a pull request
 
-## 授權
+Please follow [Conventional Commits](https://www.conventionalcommits.org/) for commit messages (e.g. `feat:`, `fix:`, `docs:`, `refactor:`, `chore:`).
 
-本專案以 [MIT License](LICENSE) 授權釋出。
+## License
+
+Distributed under the [MIT License](LICENSE).
 
 Copyright © 2026 Bruce Yang

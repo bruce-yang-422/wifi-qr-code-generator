@@ -117,7 +117,7 @@ function init() {
     elements.generateButton.addEventListener('click', handleGenerate);
     elements.printButton.addEventListener('click', handlePrint);
     elements.clearMemoryButton.addEventListener('click', () => {
-        if (confirm('確定要清除所有記憶的輸入嗎？此操作無法復原。')) {
+        if (confirm(t('確定要清除所有記憶的輸入嗎？此操作無法復原。'))) {
             clearStoredState();
             location.reload();
         }

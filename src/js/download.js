@@ -21,7 +21,7 @@ function wifiPngFilename(title, ssid, band) {
         const state = getState();
         const enabled = getEnabledNetworks();
         return definitions.map(([key, label]) => ({
-            key, label: key === '24' && isBandSteering() ? '2.4 / 5 GHz' : label,
+            key, label: key === '24' && isBandSteering() ? '2.4 / 5 GHz' : t(label),
             ssid: state['ssid' + key], password: state['password' + key],
             enabled: enabled['enabled' + key] && !(key === '5' && isBandSteering())
         })).filter(network => network.enabled);
@@ -32,9 +32,9 @@ function wifiPngFilename(title, ssid, band) {
             const button = document.createElement('button');
             button.type = 'button';
             button.className = 'png-download';
-            button.textContent = `下載 ${network.label} PNG`;
+            button.textContent = t('下載 {band} PNG', { band: network.label });
             button.disabled = !network.ssid || !network.password;
-            if (button.disabled) button.title = '請先填寫此網路的 SSID 與密碼';
+            if (button.disabled) button.title = t('請填寫此網路的 SSID 與密碼');
             button.addEventListener('click', () => download(network.key, button));
             list.append(button);
         });
@@ -43,7 +43,7 @@ function wifiPngFilename(title, ssid, band) {
         const network = networks().find(item => item.key === key);
         if (!network?.ssid || !network.password) return;
         button.disabled = true;
-        status.textContent = '正在準備圖片…';
+        status.textContent = t('正在準備圖片…');
         try {
             await Promise.all([
                 document.fonts.load('600 40px "JetBrains Mono"'),
@@ -113,7 +113,7 @@ function wifiPngFilename(title, ssid, band) {
             ctx.restore();
             const state = getState();
             text(state.wifiTitle || 'WiFi Access', 280, 60, sans, '#1d1d1f', 1);
-            text('掃描連線', 344, 32, sans, '#667085');
+            text(t('掃描連線'), 344, 32, sans, '#667085');
             const networkTop = state.wifiNote ? 550 : 420;
             if (state.wifiNote) text(state.wifiNote, 400, 32, sans, '#6e6e73', 4);
             ctx.fillStyle = '#eef5ff'; ctx.beginPath(); ctx.roundRect(440, networkTop, 320, 54, 27); ctx.fill();
@@ -145,9 +145,9 @@ function wifiPngFilename(title, ssid, band) {
                     if (model.isDark(row, col)) ctx.fillRect(left + (col + 4) * cell, qrTop + (row + 4) * cell, cell, cell);
                 }
             }
-            text('開啟相機掃描，即可加入網路', 1345, 32, sans, '#667085');
+            text(t('開啟相機掃描，即可加入網路'), 1345, 32, sans, '#667085');
             ctx.fillStyle = '#f2f2f7'; ctx.beginPath(); ctx.roundRect(150, 1375, 900, 157, 24); ctx.fill();
-            text('連線密碼', 1416, 28, sans, '#667085');
+            text(t('連線密碼'), 1416, 28, sans, '#667085');
             text(network.password, 1472, 48, mono, '#1d1d1f', 2);
             const blob = await new Promise(resolve => canvas.toBlob(resolve, 'image/png'));
             if (!blob) throw new Error('PNG export failed');
@@ -160,9 +160,9 @@ function wifiPngFilename(title, ssid, band) {
             link.click();
             link.remove();
             setTimeout(() => URL.revokeObjectURL(url), 60000);
-            status.textContent = `已下載：${link.download}`;
+            status.textContent = t('已下載：{file}', { file: link.download });
         } catch (error) {
-            status.textContent = '圖片下載失敗，請縮短網路資料後重試。';
+            status.textContent = t('圖片下載失敗，請縮短網路資料後重試。');
             console.error('PNG export failed:', error);
         } finally {
             update();
@@ -170,5 +170,6 @@ function wifiPngFilename(title, ssid, band) {
     }
     document.querySelector('.control-panel').addEventListener('input', update);
     document.querySelector('.control-panel').addEventListener('change', update);
+    window.addEventListener('languagechange', () => { status.textContent = ''; update(); });
     update();
 })();

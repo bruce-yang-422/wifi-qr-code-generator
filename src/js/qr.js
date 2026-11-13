@@ -38,7 +38,7 @@ function resetQrPlaceholders() {
     [elements.frame24, elements.frame5, elements.frameMlo, elements.frameGuest].forEach((frame) => {
         frame.classList.remove('has-qr');
     });
-    const msg = '請填寫此網路的 SSID 與密碼';
+    const msg = t('請填寫此網路的 SSID 與密碼');
     setPlaceholder(elements.qr24,    msg);
     setPlaceholder(elements.qr5,     msg);
     setPlaceholder(elements.qrMlo,   msg);

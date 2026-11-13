@@ -8,14 +8,14 @@ function updateCardVisibility() {
     // Band steering ON → merge 5 GHz into the 2.4 GHz card
     const show5separate = !bs && enabled5raw;
     const label24       = bs && enabled24 ? '2.4 / 5 GHz' : '2.4 GHz';
-    document.querySelector('label[for="ssid24Input"]').textContent = bs ? '2.4／5 GHz 共用 SSID' : '2.4 GHz SSID';
+    document.querySelector('label[for="ssid24Input"]').textContent = bs ? t('2.4／5 GHz 共用 SSID') : '2.4 GHz SSID';
 
     elements.bandTag24.textContent  = label24;
     elements.quickLabel24.textContent = label24;
     elements.pbgTag24.textContent   = label24;
     elements.pbgDesc24.textContent  = bs
-        ? '選擇此網路即可，裝置會自動切換頻段'
-        : '適合一般上網與較遠距離使用';
+        ? t('選擇此網路即可，裝置會自動切換頻段')
+        : t('適合一般上網與較遠距離使用');
 
     elements.net5Group.classList.toggle('hidden', bs);
 
@@ -70,10 +70,10 @@ function updatePreviewText() {
     } = getState();
     const { enabled24, enabled5, enabledMlo, enabledGuest } = getEnabledNetworks();
 
-    const display24    = ssid24    || '未填寫 SSID';
-    const display5     = ssid5     || '未填寫 SSID';
-    const displayMlo   = ssidMlo   || '未填寫 SSID';
-    const displayGuest = ssidGuest || '未填寫 SSID';
+    const display24    = ssid24    || t('未填寫 SSID');
+    const display5     = ssid5     || t('未填寫 SSID');
+    const displayMlo   = ssidMlo   || t('未填寫 SSID');
+    const displayGuest = ssidGuest || t('未填寫 SSID');
 
     const footerParts = [
         enabled24    && ssid24,
@@ -99,16 +99,16 @@ function updatePreviewText() {
     elements.footerText.textContent = footerParts.length
         ? footerParts.join(' / ')
         : 'WiFi Network Sheet';
-    document.title = 'WiFi QR Code 產生器';
+    document.title = t('WiFi QR Code 產生器') + ' | A4 / A5 · PNG';
 
     syncModeVisibility();
     updateCardVisibility();
 
-    const hintSuffix = mode === 'separate' ? '（獨立密碼）' : '';
-    elements.hint24.textContent    = ssid24    && enabled24    ? `掃描加入 ${ssid24}${hintSuffix}`    : '等待產生 2.4 GHz QR Code';
-    elements.hint5.textContent     = ssid5     && enabled5     ? `掃描加入 ${ssid5}${hintSuffix}`     : '等待產生 5 GHz QR Code';
-    elements.hintMlo.textContent   = ssidMlo   && enabledMlo   ? `掃描加入 ${ssidMlo}${hintSuffix}`   : '等待產生 MLO QR Code';
-    elements.hintGuest.textContent = ssidGuest && enabledGuest ? `掃描加入 ${ssidGuest}（訪客）`       : '等待產生訪客 QR Code';
+    const hintSuffix = mode === 'separate' ? t('（獨立密碼）') : '';
+    elements.hint24.textContent    = ssid24    && enabled24    ? t('掃描加入 {ssid}', { ssid: ssid24 }) + hintSuffix    : t('等待產生 {band} QR Code', { band: '2.4 GHz' });
+    elements.hint5.textContent     = ssid5     && enabled5     ? t('掃描加入 {ssid}', { ssid: ssid5 }) + hintSuffix     : t('等待產生 {band} QR Code', { band: '5 GHz' });
+    elements.hintMlo.textContent   = ssidMlo   && enabledMlo   ? t('掃描加入 {ssid}', { ssid: ssidMlo }) + hintSuffix   : t('等待產生 {band} QR Code', { band: 'MLO' });
+    elements.hintGuest.textContent = ssidGuest && enabledGuest ? t('掃描加入 {ssid}', { ssid: ssidGuest })       : t('等待產生 {band} QR Code', { band: t('訪客') });
 }
 
 function setPlaceholder(target, message) {
