@@ -8,13 +8,14 @@ function updateCardVisibility() {
     // Band steering ON → merge 5 GHz into the 2.4 GHz card
     const show5separate = !bs && enabled5raw;
     const label24       = bs && enabled24 ? '2.4 / 5 GHz' : '2.4 GHz';
+    document.querySelector('label[for="ssid24Input"]').textContent = bs ? '2.4／5 GHz 共用 SSID' : '2.4 GHz SSID';
 
     elements.bandTag24.textContent  = label24;
     elements.quickLabel24.textContent = label24;
     elements.pbgTag24.textContent   = label24;
     elements.pbgDesc24.textContent  = bs
-        ? '智慧混合，自動選最佳頻段'
-        : '穿牆力強、覆蓋廣，速度較慢';
+        ? '選擇此網路即可，裝置會自動切換頻段'
+        : '適合一般上網與較遠距離使用';
 
     elements.net5Group.classList.toggle('hidden', bs);
 
@@ -31,7 +32,6 @@ function updateCardVisibility() {
     elements.pbg24.classList.toggle('hidden', !enabled24);
     elements.pbg5.classList.toggle('hidden', !show5separate);
     elements.pbgMlo.classList.toggle('hidden', !enabledMlo);
-    elements.pbgGuest.classList.toggle('hidden', !enabledGuest);
 
     const count = [enabled24, show5separate, enabledMlo, enabledGuest].filter(Boolean).length;
     elements.wifiCards.dataset.count = Math.max(count, 1);
@@ -58,6 +58,12 @@ function syncModeVisibility() {
 }
 
 function updatePreviewText() {
+    const custom = getState();
+    for (const key of ['wifiTitle', 'wifiNote']) {
+        const target = document.getElementById(key);
+        target.textContent = custom[key];
+        target.hidden = !custom[key];
+    }
     const {
         ssid24, ssid5, ssidMlo, ssidGuest,
         mode, password24, password5, passwordMlo, passwordGuest

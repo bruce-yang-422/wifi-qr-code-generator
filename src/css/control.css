@@ -192,6 +192,65 @@
     box-shadow: 0 6px 14px rgba(15, 23, 42, 0.08);
 }
 
+.input-group textarea {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1px solid var(--border-strong);
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.85);
+    color: var(--text);
+    font: inherit;
+    line-height: 1.6;
+    resize: vertical;
+}
+.input-group textarea:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+}
+
+.print-layout-toggle {
+    display: inline-flex;
+    max-width: 100%;
+    padding: 4px;
+    gap: 3px;
+    border: 1px solid rgba(120, 130, 145, 0.18);
+    border-radius: 999px;
+    background: rgba(118, 118, 128, 0.12);
+    box-shadow: inset 0 1px 2px rgba(15, 23, 42, 0.06);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+.print-layout-toggle label { position: relative; cursor: pointer; }
+.print-layout-toggle input {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+}
+.print-layout-toggle span {
+    display: block;
+    padding: 8px 14px;
+    border-radius: 999px;
+    color: var(--text-muted);
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 1.4;
+    text-align: center;
+    transition: background 180ms ease, box-shadow 180ms ease, color 180ms ease;
+}
+.print-layout-toggle input:checked + span {
+    background: #fff;
+    color: var(--text);
+    box-shadow: 0 2px 5px rgba(15, 23, 42, 0.15), 0 0 0 1px rgba(0, 0, 0, 0.03);
+}
+.print-layout-toggle input:focus-visible + span {
+    outline: 3px solid var(--accent);
+    outline-offset: 2px;
+}
+@media (prefers-reduced-motion: reduce) {
+    .print-layout-toggle span { transition: none; }
+}
+
 /* ─── Band Steering ─────────────────────────────────────────────────────── */
 
 .band-steering-group {
@@ -337,3 +396,27 @@
     font-size: 0.8rem;
     text-align: center;
 }
+
+.settings-disclosure {
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    background: rgba(255,255,255,.5);
+    padding: 12px;
+    margin: 12px 0;
+}
+.settings-disclosure summary { cursor: pointer; font-size: 13px; font-weight: 600; color: var(--text); }
+.settings-disclosure summary span { color: var(--text-muted); font-weight: 400; margin-left: 6px; }
+.settings-disclosure-content { padding-top: 14px; }
+.settings-disclosure-content .input-group:last-child { margin-bottom: 0; }
+.settings-section-title {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 12px;
+    justify-content: space-between;
+    border-top: 1px solid var(--border);
+    padding-top: 14px;
+    margin: 18px 0 12px;
+    font-size: 14px;
+    font-weight: 700;
+}
+.settings-section-title span { font-size: 11px; font-weight: 400; color: var(--text-muted); align-self: center; }

@@ -2,10 +2,6 @@
 
 function refreshGeneratedState() {
     if (!hasGenerated) return;
-    if (!allRequiredFilled()) {
-        resetQrPlaceholders();
-        return;
-    }
     renderQrCodes();
 }
 
@@ -50,10 +46,10 @@ function handleModeChange(event) {
 }
 
 function handleGenerate() {
-    if (!ensureRequiredValues()) return;
     hasGenerated = true;
     renderQrCodes();
     updatePreviewText();
+    if (!ensureRequiredValues()) return;
     elements.printPage.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
@@ -69,7 +65,7 @@ function handlePrint() {
 function bindInputEvents(input) {
     input.addEventListener('input', handleInputChange);
     input.addEventListener('keydown', (event) => {
-        if (event.key === 'Enter') handleGenerate();
+        if (event.key === 'Enter' && input.tagName !== 'TEXTAREA') handleGenerate();
     });
 }
 
@@ -77,6 +73,8 @@ function bindInputEvents(input) {
 
 function applyInitialValues() {
     const v = getInitialValues();
+    document.getElementById('wifiTitleInput').value = v.wifiTitle || '';
+    document.getElementById('wifiNoteInput').value = v.wifiNote || '';
 
     elements.ssid24Input.value        = v.ssid24;
     elements.ssid5Input.value         = v.ssid5;
@@ -98,12 +96,8 @@ function applyInitialValues() {
 
     updatePreviewText();
 
-    if (allRequiredFilled()) {
-        hasGenerated = true;
-        renderQrCodes();
-        return;
-    }
-    resetQrPlaceholders();
+    hasGenerated = true;
+    renderQrCodes();
 }
 
 function init() {
@@ -140,6 +134,8 @@ function init() {
 
     // Text inputs
     [
+        document.getElementById('wifiTitleInput'),
+        document.getElementById('wifiNoteInput'),
         elements.ssid24Input,
         elements.ssid5Input,
         elements.ssidMloInput,

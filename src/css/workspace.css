@@ -1,0 +1,302 @@
+/* Screen-only workspace. Printed pages retain their physical dimensions. */
+@media screen {
+    .print-settings-panel .correction-toggle { flex-wrap: nowrap; margin-bottom: 10px; }
+    .correction-toggle small { display: block; margin-top: 3px; font-size: 10px; font-weight: 400; color: var(--text-muted); }
+}
+@media screen {
+    :root {
+        --accent: #007aff;
+        --accent-dark: #0062cc;
+        --text: #1d1d1f;
+        --text-muted: #6e6e73;
+        --border: rgba(60, 60, 67, .12);
+        --border-strong: rgba(60, 60, 67, .2);
+    }
+    body {
+        padding: 16px;
+        background: radial-gradient(ellipse at 10% 0%, #e0eaff, transparent 55%),
+            radial-gradient(ellipse at 95% 100%, #e6e4f4, transparent 60%), #f2f3f7;
+    }
+    .app-shell { max-width: 1640px; }
+    .hero {
+        display: flex;
+        align-items: baseline;
+        text-align: left;
+        flex-wrap: wrap;
+        gap: 8px 16px;
+        padding: 0 6px;
+        margin-bottom: 14px;
+    }
+    .hero .eyebrow { display: none; }
+    .hero h1 { font-size: 24px; line-height: 1.4; letter-spacing: -.04em; margin: 0; }
+    .hero p { font-size: 13px; margin: 0; max-width: none; }
+    .workspace { grid-template-columns: 350px minmax(0, 1fr); gap: 14px; }
+    .control-panel, .preview-wrap {
+        border-radius: 20px;
+        border: 1px solid rgba(255, 255, 255, .9);
+        background: rgba(255, 255, 255, .72);
+        box-shadow: 0 8px 32px rgba(31, 38, 60, .07), 0 1px 3px rgba(31, 38, 60, .04);
+        backdrop-filter: blur(24px) saturate(140%);
+    }
+    .control-panel { padding: 12px; }
+    .preview-wrap { padding: 12px; }
+    .panel-chrome {
+        margin: 0 0 12px;
+        padding: 5px 4px 12px;
+        gap: 12px;
+    }
+    .traffic-dot { width: 10px; height: 10px; }
+    .traffic-lights { gap: 6px; }
+    .chrome-title { font-size: 12px; font-weight: 600; }
+    .control-title { font-size: 18px; margin-bottom: 5px; }
+    .control-sub { font-size: 12px; line-height: 1.5; margin-bottom: 10px; }
+    .control-scroll { padding-right: 5px; scrollbar-width: thin; }
+    .settings-disclosure { margin: 10px 0; padding: 10px; border-radius: 12px; background: rgba(255,255,255,.65); }
+    .settings-disclosure summary { font-size: 12px; }
+    .settings-section-title { padding-top: 10px; margin: 14px 0 10px; font-size: 13px; }
+    .settings-disclosure > .settings-section-title { border: 0; padding: 0; margin: 0 0 8px; }
+    .input-group { margin-bottom: 10px; }
+    .input-group > label, .network-header > label:first-child {
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: normal;
+        text-transform: none;
+    }
+    .input-group > label, .network-header { margin-bottom: 5px; }
+    .control-scroll input[type='text'], .control-scroll input[type='password'], .control-scroll textarea {
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Microsoft JhengHei', sans-serif;
+        font-size: 13px;
+        padding: 9px 11px;
+        border-radius: 10px;
+        background: rgba(255,255,255,.9);
+        border: 1px solid var(--border);
+        box-shadow: 0 1px 2px rgba(0,0,0,.02);
+    }
+    .control-scroll input:focus, .control-scroll textarea:focus {
+        border-color: var(--accent);
+        outline: 3px solid rgba(0,122,255,.12);
+        outline-offset: 0;
+    }
+    .band-steering-group {
+        padding: 10px;
+        border-radius: 12px;
+        background: rgba(0,122,255,.045);
+        margin: 4px 0 12px;
+    }
+    .band-steering-desc { font-size: 11px; }
+    .password-mode-toggle { gap: 2px; padding: 3px; border-radius: 10px; background: rgba(118,118,128,.1); }
+    .mode-option span { font-size: 12px; padding: 7px 8px; border-radius: 8px; background: transparent; }
+    .mode-option input:checked + span { background: #fff; box-shadow: 0 1px 4px #00000016; }
+    .quick-preview { gap: 6px; margin: 0; }
+    .quick-chip { border-radius: 9px; padding: 8px; box-shadow: none; background: #f5f5f7; }
+    .quick-chip strong { font-size: 10px; letter-spacing: normal; }
+    .quick-chip span { font-size: 12px; margin-top: 3px; }
+    .control-actions {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 7px;
+        padding-top: 10px;
+    }
+    .control-actions .btn-generate, .control-actions .btn-print {
+        padding: 11px 6px;
+        border-radius: 11px;
+        margin: 0;
+        font-size: 12px;
+        box-shadow: 0 2px 6px rgba(0,122,255,.12);
+    }
+    .control-actions .btn-generate { background: #e8f1ff; color: #0062cc; box-shadow: none; }
+    .control-actions .btn-print { background: #007aff; }
+    .control-actions .btn-clear-memory {
+        grid-column: 1 / -1;
+        padding: 5px;
+        margin: 0;
+        font-size: 11px;
+        background: transparent;
+        border: 0;
+        box-shadow: none;
+    }
+    .control-actions .security-note { grid-column: 1 / -1; font-size: 10px; line-height: 1.5; margin: 0; }
+    .preview-wrap > .preview-note { padding: 0 4px; margin-bottom: 10px; gap: 10px; }
+    .preview-wrap > .preview-note strong { font-size: 14px; }
+    .preview-wrap > .preview-note span { font-size: 12px; }
+    .print-options { border-radius: 14px; padding: 12px; margin-bottom: 12px; }
+    .print-options .preview-note { margin-bottom: 8px; align-items: center; }
+    .print-options .preview-note > span { font-size: 12px; }
+    .print-layout-toggle { padding: 3px; gap: 2px; }
+    .print-layout-toggle span { font-size: 11px; padding: 6px 10px; }
+    .print-option-help { font-size: 11px; margin-bottom: 10px; }
+    .print-summary { font-size: 12px; padding-top: 9px; }
+    .print-summary ol { display: flex; flex-wrap: wrap; gap: 4px 24px; margin: 5px 0 0; }
+    .preview-stage { border-radius: 12px; background: #e9ecf2; border: 1px solid #dfe3eb; box-shadow: inset 0 1px 4px #00000005; }
+    .print-page { border-radius: 2px; }
+    .print-options .print-layout-toggle { max-width: 100%; }
+    .preview-wrap {
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+    }
+    .preview-wrap > .panel-chrome,
+    .preview-wrap > .preview-note { flex-shrink: 0; }
+    .preview-wrap > .print-options {
+        flex-shrink: 0;
+        max-height: 38dvh;
+        overflow-y: auto;
+        scrollbar-width: thin;
+    }
+    .preview-scroll {
+        flex: 1;
+        min-height: 0;
+        overflow: auto;
+        overscroll-behavior: contain;
+        scrollbar-gutter: stable;
+        scrollbar-width: thin;
+        border: 1px solid #dfe3eb;
+        border-radius: 12px;
+        background: #e9ecf2;
+    }
+    .preview-scroll:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+    .preview-scroll .preview-stage {
+        border: 0;
+        border-radius: 0;
+        box-shadow: none;
+    }
+}
+@media screen and (min-width: 1181px) {
+    .app-shell { height: calc(100dvh - 32px); }
+    .control-panel > .panel-chrome { padding: 5px 4px 12px; margin-bottom: 10px; }
+    .preview-wrap { overflow: hidden; }
+}
+@media screen and (min-width: 1600px) {
+    .workspace { grid-template-columns: 380px minmax(0, 1fr); }
+}
+@media screen and (max-width: 1180px) {
+    .workspace { grid-template-columns: 320px minmax(0, 1fr); align-items: start; }
+    .control-panel { position: sticky; top: 16px; max-height: calc(100dvh - 32px); display: flex; flex-direction: column; overflow: hidden; }
+    .control-scroll { min-height: 0; overflow-y: auto; }
+    .control-panel > .panel-chrome, .control-actions { flex-shrink: 0; }
+    .print-options .preview-note { flex-direction: column; align-items: flex-start; }
+    .preview-wrap { height: calc(100dvh - 32px); position: sticky; top: 16px; }
+}
+@media screen and (max-width: 760px) {
+    body { padding: 12px; }
+    .hero { gap: 2px; margin-bottom: 12px; }
+    .hero h1 { font-size: 21px; }
+    .hero p { width: 100%; font-size: 12px; }
+    .workspace { grid-template-columns: minmax(0, 1fr); gap: 12px; }
+    .control-panel { position: static; max-height: none; }
+    .control-scroll { overflow: visible; }
+    .control-panel, .preview-wrap { border-radius: 16px; }
+    .preview-wrap { height: auto; position: static; }
+    .preview-scroll { flex: none; max-height: 75dvh; }
+    .preview-wrap > .print-options { max-height: none; overflow: visible; }
+    .preview-wrap > .preview-note { align-items: flex-start; }
+    .password-mode-toggle { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .quick-preview { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media print {
+    .preview-scroll { display: contents; }
+}
+
+/* Natural page flow: one page scrollbar, three desktop columns. */
+@media screen {
+    .app-shell { height: auto; display: block; max-width: 1920px; }
+    .workspace { height: auto; min-height: 0; align-items: start; }
+    .control-panel, .preview-wrap, .print-settings-panel {
+        position: static;
+        height: auto;
+        max-height: none;
+        overflow: visible;
+        min-width: 0;
+    }
+    .control-panel { display: block; }
+    .control-scroll { overflow: visible; padding-right: 0; scrollbar-gutter: auto; }
+    .preview-scroll {
+        flex: none;
+        min-height: 0;
+        max-height: none;
+        overflow: hidden;
+        scrollbar-gutter: auto;
+        overscroll-behavior: auto;
+    }
+    .print-settings-panel {
+        padding: 12px;
+        border-radius: 20px;
+        border: 1px solid rgba(255,255,255,.9);
+        background: rgba(255,255,255,.72);
+        box-shadow: 0 8px 32px rgba(31,38,60,.07);
+        backdrop-filter: blur(24px) saturate(140%);
+    }
+    .print-settings-panel .print-options { padding: 0; border: 0; background: transparent; }
+    .print-settings-panel .preview-note { flex-direction: column; align-items: flex-start; gap: 8px; margin: 0 0 12px; }
+    .print-settings-panel .print-layout-toggle { display: flex; width: 100%; flex-wrap: wrap; border-radius: 14px; }
+    .print-settings-panel .print-layout-toggle label { flex: 1; }
+    .print-settings-panel .print-layout-toggle span { padding: 8px 6px; border-radius: 11px; }
+    .print-settings-panel .print-summary ol { display: block; }
+    .print-settings-panel .btn-print { font-size: 13px; padding: 12px; border-radius: 12px; }
+    .control-actions .btn-generate { grid-column: 1 / -1; }
+}
+@media screen and (min-width: 1181px) {
+    .workspace { grid-template-columns: minmax(280px, 320px) minmax(0, 1fr) 290px; }
+}
+@media screen and (min-width: 1600px) {
+    .workspace { grid-template-columns: 350px minmax(0, 1fr) 320px; }
+}
+@media screen and (min-width: 761px) and (max-width: 1180px) {
+    .workspace { grid-template-columns: 310px minmax(0, 1fr); }
+    .control-panel { grid-column: 1; grid-row: 1; }
+    .print-settings-panel { grid-column: 1; grid-row: 2; }
+    .preview-wrap { grid-column: 2; grid-row: 1 / span 2; }
+}
+@media screen and (max-width: 760px) {
+    .control-panel { order: 0; }
+    .print-settings-panel { order: 1; }
+    .preview-wrap { order: 2; }
+}
+@media print {
+    .print-settings-panel { display: none !important; }
+}
+@media screen {
+    .print-switch-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        padding: 12px 0;
+        border-bottom: 1px solid var(--border);
+    }
+    .print-switch-row > label:first-child { font-size: 12px; font-weight: 500; cursor: pointer; }
+    .print-switch-row.is-unavailable { opacity: .45; }
+    .print-switch-row input:focus-visible + .switch-track { outline: 3px solid rgba(0,122,255,.4); outline-offset: 3px; }
+    .print-switch-row input:disabled + .switch-track { cursor: default; }
+    .print-switch-row + .print-option-help { margin-top: 10px; }
+}
+
+@media screen {
+    .correction-list {
+        margin-bottom: 12px;
+        border: 1px solid rgba(60,60,67,.12);
+        border-radius: 13px;
+        overflow: hidden;
+        background: rgba(255,255,255,.8);
+    }
+    .correction-list label { display: block; position: relative; cursor: pointer; }
+    .correction-list label + label { border-top: 1px solid rgba(60,60,67,.08); }
+    .correction-list input { position: absolute; width: 1px; height: 1px; opacity: 0; }
+    .correction-list label > span { display: flex; align-items: center; gap: 11px; padding: 10px 12px; transition: background .15s ease; }
+    .correction-list b { width: 26px; text-align: center; font-size: 13px; font-weight: 600; color: #6e6e73; }
+    .correction-list label > span > span { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; flex: 1; font-size: 12px; }
+    .correction-list small { font-size: 11px; color: #86868b; }
+    .correction-list i { width: 14px; color: #007aff; font-style: normal; font-size: 15px; font-weight: 600; }
+    .correction-list input:checked + span { background: rgba(0,122,255,.045); }
+    .correction-list input:checked + span b { color: #007aff; }
+    .correction-list input:checked + span i::after { content: '✓'; }
+    .correction-list label:hover > span { background: rgba(0,0,0,.025); }
+    .correction-list input:focus-visible + span { outline: 2px solid #007aff; outline-offset: -2px; }
+}
+@media screen {
+    #pngDownloads { display: grid; gap: 6px; }
+    .png-download { width: 100%; padding: 10px; border: 1px solid var(--border); border-radius: 10px; background: #fff; color: #0062cc; font: inherit; font-size: 12px; cursor: pointer; }
+    .png-download:disabled { opacity: .45; cursor: default; }
+    .png-download:focus-visible { outline: 2px solid #007aff; outline-offset: 2px; }
+    #pngStatus { margin-top: 8px; }
+}

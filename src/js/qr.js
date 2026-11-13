@@ -16,12 +16,15 @@ function renderQr(target, frame, ssid, password) {
         height: 140,
         colorDark: '#2c2420',
         colorLight: '#ffffff',
-        correctLevel: QRCode.CorrectLevel.H
+        correctLevel: QRCode.CorrectLevel[document.querySelector('input[name="qrCorrection"]:checked').value]
     });
     frame.classList.add('has-qr');
 }
 
 function renderQrCodes() {
+    document.body.classList.toggle('qr-no-overlay', document.querySelector('input[name="qrCorrection"]:checked').value !== 'H');
+    // Remove stale codes, then render each complete network independently.
+    resetQrPlaceholders();
     const { ssid24, ssid5, ssidMlo, ssidGuest, password24, password5, passwordMlo, passwordGuest } = getState();
     const { enabled24, enabled5, enabledMlo, enabledGuest } = getEnabledNetworks();
 
@@ -35,7 +38,7 @@ function resetQrPlaceholders() {
     [elements.frame24, elements.frame5, elements.frameMlo, elements.frameGuest].forEach((frame) => {
         frame.classList.remove('has-qr');
     });
-    const msg = '輸入 SSID 與密碼後，按下產生 QR Code';
+    const msg = '請填寫此網路的 SSID 與密碼';
     setPlaceholder(elements.qr24,    msg);
     setPlaceholder(elements.qr5,     msg);
     setPlaceholder(elements.qrMlo,   msg);

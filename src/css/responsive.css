@@ -157,3 +157,346 @@
         gap: 3mm;
     }
 }
+
+/* A4 landscape sheet containing two portrait A5 copies. */
+.print-copy { display: none; }
+.print-page, .print-page * {
+    font-family: Arial, 'Microsoft JhengHei', 'PingFang TC', sans-serif;
+}
+.print-page .card-pw-value { letter-spacing: normal; font-weight: 600; }
+.two-a5 .preview-stage {
+    --preview-scale: var(--a5-preview-scale, 0.48) !important;
+    height: calc(210mm * var(--preview-scale) + 24px);
+}
+.two-a5 .print-sheet {
+    position: absolute;
+    top: 12px;
+    left: 50%;
+    width: 297mm;
+    height: 210mm;
+    background: white;
+    transform: translateX(-50%) scale(var(--preview-scale));
+    transform-origin: top center;
+}
+.two-a5 .print-sheet::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 4mm;
+    bottom: 4mm;
+    border-left: 1px dashed #555;
+}
+.two-a5 .print-sheet .print-page {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 148.5mm;
+    height: 210mm;
+    min-height: 210mm;
+    padding: 10mm 11mm 14mm;
+    border-radius: 0;
+    box-shadow: none;
+    transform: none;
+    transform-origin: top left;
+}
+.two-a5 .print-sheet .print-copy { left: 148.5mm; }
+/* Preserve the paper layout even when the viewport is narrow. */
+.print-sheet .wifi-cards { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 3mm; }
+.print-sheet .wifi-cards[data-count='1'] { grid-template-columns: 1fr; max-width: 260px; }
+.print-sheet .wifi-cards[data-count='2'],
+.print-sheet .wifi-cards[data-count='4'] { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.two-a5 .wifi-cards,
+.two-a5 .wifi-cards[data-count] {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    max-width: none;
+    gap: 5mm 3mm;
+}
+.two-a5 .wifi-cards[data-count='1'] {
+    grid-template-columns: 1fr;
+    width: 100%;
+}
+.two-a5 .wifi-card { padding: 5mm 2mm 3mm; }
+.two-a5 .ssid-name { min-height: 0; margin-bottom: 2mm; font-size: 17px; }
+.two-a5 .qr-code { width: 30mm; height: 30mm; }
+.two-a5 .qr-code canvas,
+.two-a5 .qr-code img { width: 100% !important; height: 100% !important; }
+.two-a5 .qr-frame { padding: 2mm; margin-bottom: 2mm; }
+.two-a5 .card-pw-value { font-size: 16px; }
+.two-a5 .card-pw-section { margin-top: 2mm; padding-top: 2mm; }
+.two-a5 .print-band-guide { margin: 3mm 0 0; }
+.two-a5 .print-footer { bottom: 6mm; }
+.two-a5 .wifi-cards[data-count='1'] .wifi-card { padding: 10mm 5mm 8mm; }
+.two-a5 .wifi-cards[data-count='1'] .qr-code { width: 58mm; height: 58mm; }
+.two-a5 .wifi-cards[data-count='1'] .ssid-name { font-size: 24px; margin-bottom: 5mm; }
+.two-a5 .wifi-cards[data-count='1'] .card-pw-value { font-size: 24px; }
+.two-a5 .wifi-cards[data-count='1'] .scan-hint { font-size: 12px; }
+@media screen and (min-width: 1181px) {
+    .two-a5 .preview-stage { --preview-scale: 0.48; }
+}
+@media screen and (max-width: 1180px) {
+    .two-a5 .preview-stage { --preview-scale: 0.6; }
+}
+@media screen and (max-width: 780px) {
+    .two-a5 .preview-stage { --preview-scale: 0.28; }
+}
+@media print {
+    body.two-a5, .two-a5 .app-shell, .two-a5 .preview-stage {
+        width: 297mm;
+        height: 210mm;
+    }
+    .two-a5 .print-sheet {
+        position: relative;
+        top: 0;
+        left: 0;
+        transform: none;
+        break-inside: avoid;
+    }
+}
+
+/* Give the A4 sheet a full-height layout, shared by preview and print. */
+body:not(.two-a5) .print-sheet .print-page {
+    height: 297mm;
+    display: flex;
+    flex-direction: column;
+    padding: 12mm 16mm;
+}
+body:not(.two-a5) .print-header { flex-shrink: 0; }
+body:not(.two-a5) .print-sheet .wifi-cards {
+    flex: 1;
+    min-height: 0;
+    width: 100%;
+    max-width: none;
+    gap: 5mm;
+    margin-bottom: 5mm;
+}
+body:not(.two-a5) .wifi-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 7mm 3mm 5mm;
+}
+body:not(.two-a5) .ssid-name { width: 100%; min-height: 0; font-size: 20px; }
+body:not(.two-a5) .qr-code { width: 38mm; height: 38mm; }
+body:not(.two-a5) .qr-code canvas,
+body:not(.two-a5) .qr-code img { width: 100% !important; height: 100% !important; }
+body:not(.two-a5) .qr-frame { padding: 2mm; }
+body:not(.two-a5) .card-pw-section { width: 100%; }
+body:not(.two-a5) .card-pw-value { font-size: 20px; }
+body:not(.two-a5) .scan-hint { font-size: 12px; }
+body:not(.two-a5) .print-band-guide { margin: 0; flex-shrink: 0; }
+body:not(.two-a5) .print-footer {
+    position: static;
+    margin-top: 5mm;
+    flex-shrink: 0;
+}
+body:not(.two-a5) .wifi-cards[data-count='1'] .qr-code { width: 80mm; height: 80mm; }
+body:not(.two-a5) .wifi-cards[data-count='1'] .ssid-name,
+body:not(.two-a5) .wifi-cards[data-count='1'] .card-pw-value { font-size: 28px; }
+body:not(.two-a5) .wifi-cards[data-count='2'] .qr-code { width: 55mm; height: 55mm; }
+body:not(.two-a5) .wifi-cards[data-count='4'] .qr-code { width: 32mm; height: 32mm; }
+body:not(.two-a5) .wifi-cards[data-count='4'] .wifi-card { padding: 4mm 3mm 3mm; }
+body:not(.two-a5) .wifi-cards[data-count='4'] .qr-frame { margin-bottom: 2mm; }
+body:not(.two-a5) .wifi-cards[data-count='4'] .card-pw-section { margin-top: 2mm; padding-top: 2mm; }
+
+/* Include the paper's top and bottom inset in the preview viewport. */
+@media screen {
+    body:not(.two-a5) .preview-stage {
+        height: calc(297mm * var(--preview-scale) + 24px);
+    }
+}
+body:not(.two-a5) .print-page .custom-wifi-heading h3 {
+    font-size: 28px;
+    line-height: 1.35;
+}
+body:not(.two-a5) .print-page .custom-wifi-heading p {
+    font-size: 18px;
+    line-height: 1.5;
+    color: #475467;
+}
+body:not(.two-a5) .print-page .ssid-label,
+body:not(.two-a5) .print-page .card-pw-label {
+    font-size: 13px;
+    letter-spacing: 0.06em;
+}
+body:not(.two-a5) .print-page .band-tag { font-size: 14px; }
+body:not(.two-a5) .print-page .scan-hint { font-size: 15px; }
+body:not(.two-a5) .print-page .pbg-title { font-size: 12px; color: #667085; }
+body:not(.two-a5) .print-page .pbg-tag { font-size: 11px; }
+body:not(.two-a5) .print-page .pbg-desc { font-size: 13px; color: #475467; }
+body:not(.two-a5) .print-page .print-footer { font-size: 12px; color: #667085; }
+body:not(.two-a5) .wifi-cards[data-count='1'] .wifi-card {
+    justify-content: center;
+    gap: 3mm;
+    padding: 8mm;
+}
+body:not(.two-a5) .wifi-cards[data-count='1'] .ssid-name { margin-bottom: 2mm; }
+body:not(.two-a5) .wifi-cards[data-count='1'] .card-pw-section {
+    max-width: 110mm;
+    margin-top: 3mm;
+    padding-top: 4mm;
+}
+body:not(.two-a5) .wifi-cards[data-count='1'] .card-pw-value { font-size: 30px; }
+
+/* Keep two rows of networks inside each A5 page. */
+.two-a5 .print-sheet .print-page {
+    display: flex;
+    flex-direction: column;
+    padding: 8mm 10mm;
+}
+.two-a5 .print-header { margin-bottom: 3mm; padding-top: 0; flex-shrink: 0; }
+.two-a5 .print-header h2 { font-size: 24px; }
+.two-a5 .print-wifi-icon { width: 40px; height: 40px; }
+.two-a5 .custom-wifi-heading h3 { font-size: 19px; margin-bottom: 1mm; }
+.two-a5 .custom-wifi-heading p { font-size: 13px; line-height: 1.4; }
+.two-a5 .divider { margin: 2mm auto 4mm; flex-shrink: 0; }
+.two-a5 .print-sheet .wifi-cards {
+    flex: 1;
+    min-height: 0;
+    margin-bottom: 3mm;
+    gap: 4mm 3mm;
+}
+.two-a5 .wifi-card { padding: 3mm 2mm 2mm; }
+.two-a5 .ssid-label { margin-top: 1mm; font-size: 10px; }
+.two-a5 .ssid-name { font-size: 16px; margin-bottom: 2mm; }
+.two-a5 .qr-frame { margin-bottom: 1mm; padding: 2mm; }
+.two-a5 .scan-hint { font-size: 10px; min-height: 0; }
+.two-a5 .card-pw-label { font-size: 10px; letter-spacing: normal; }
+.two-a5 .card-pw-value { font-size: 16px; }
+.two-a5 .print-footer {
+    position: static;
+    flex-shrink: 0;
+    margin-top: 2mm;
+    font-size: 10px;
+    color: #667085;
+}
+.two-a5 .print-band-guide { flex-shrink: 0; margin-top: 0; padding-top: 2mm; }
+.two-a5 .pbg-title { margin-bottom: 1mm; color: #667085; }
+.two-a5 .pbg-grid { gap: 1mm 3mm; }
+.two-a5 .pbg-desc { color: #475467; }
+.two-a5 .wifi-cards[data-count='3'] .qr-code,
+.two-a5 .wifi-cards[data-count='4'] .qr-code { width: 24mm; height: 24mm; }
+.two-a5 .wifi-cards[data-count='3'] .wifi-icon-overlay,
+.two-a5 .wifi-cards[data-count='4'] .wifi-icon-overlay { width: 26px; height: 26px; }
+.two-a5 .wifi-cards[data-count='3'] .wifi-icon-overlay svg,
+.two-a5 .wifi-cards[data-count='4'] .wifi-icon-overlay svg { width: 18px; height: 18px; }
+.two-a5 .wifi-cards[data-count='3'] .card-pw-section,
+.two-a5 .wifi-cards[data-count='4'] .card-pw-section { margin-top: 1mm; padding-top: 1mm; }
+
+.separate-networks .source-sheet { display: none; }
+@media screen {
+    .separate-networks .preview-stage {
+        height: calc((297mm * var(--preview-scale) + 24px) * var(--sheet-count, 1)) !important;
+    }
+    .separate-networks.two-a5 .preview-stage {
+        height: calc((210mm * var(--preview-scale) + 24px) * var(--sheet-count, 1)) !important;
+    }
+    .separate-networks:not(.two-a5) .network-sheet .print-page {
+        top: calc(12px + var(--sheet-index) * (297mm * var(--preview-scale) + 24px));
+    }
+    .separate-networks.two-a5 .network-sheet {
+        top: calc(12px + var(--sheet-index) * (210mm * var(--preview-scale) + 24px));
+    }
+}
+@media print {
+    .separate-networks .preview-stage,
+    .separate-networks .app-shell,
+    body.separate-networks { height: auto; }
+    .separate-networks .network-sheet {
+        position: relative;
+        break-after: page;
+        break-inside: avoid;
+    }
+    .separate-networks .network-sheet:last-child { break-after: auto; }
+}
+
+/* Distinguish password characters while keeping all other text sans-serif. */
+.print-page .ssid-name,
+.print-page .card-pw-value,
+.print-page .pw-value,
+.print-page .pw-value-split {
+    font-family: 'JetBrains Mono', Consolas, 'Noto Sans TC', monospace;
+    font-variant-numeric: slashed-zero tabular-nums;
+    font-feature-settings: 'zero' 1, 'liga' 0;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+}
+
+/* Standalone ISO A5 uses the same content layout without duplication. */
+.single-a5 .print-sheet { width: 148mm; }
+.single-a5 .print-sheet::after { display: none; }
+.single-a5 .print-sheet .print-page { width: 148mm; }
+#printLayout { flex-wrap: wrap; }
+@media print {
+    body.single-a5,
+    .single-a5 .app-shell,
+    .single-a5 .preview-stage { width: 148mm; height: 210mm; }
+    body.single-a5.separate-networks,
+    .single-a5.separate-networks .app-shell,
+    .single-a5.separate-networks .preview-stage { height: auto; }
+}
+
+/* Fit desktop controls to the available viewport, independent of pixel density. */
+@media screen and (min-width: 1181px) {
+    body { padding: 16px 22px; }
+    .app-shell {
+        height: calc(100vh - 32px);
+        height: calc(100dvh - 32px);
+        display: grid;
+        grid-template-rows: auto minmax(0, 1fr);
+    }
+    .hero { margin-bottom: 16px; }
+    .hero h1 { font-size: clamp(30px, 3vw, 48px); margin-bottom: 6px; }
+    .hero .eyebrow { padding: 5px 12px; margin-bottom: 8px; }
+    .hero p { font-size: 14px; }
+    .workspace { min-height: 0; height: 100%; align-items: stretch; }
+    .control-panel {
+        position: static;
+        min-height: 0;
+        padding: 14px 18px;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+    }
+    .control-panel > .panel-chrome { flex-shrink: 0; margin-bottom: 10px; padding-bottom: 10px; }
+    .control-scroll {
+        flex: 1;
+        min-height: 0;
+        overflow-y: auto;
+        scrollbar-gutter: stable;
+        padding: 2px 6px 4px 2px;
+    }
+    .control-scroll:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+    .control-title { font-size: 20px; }
+    .control-sub { font-size: 12px; line-height: 1.5; margin-bottom: 12px; }
+    .input-group { margin-bottom: 10px; }
+    .input-group > label, .network-header { margin-bottom: 5px; }
+    .control-scroll input[type='text'],
+    .control-scroll input[type='password'] { padding: 9px 12px; }
+    .control-scroll textarea { min-height: 76px; height: 90px; padding: 8px 12px; }
+    .control-scroll .mode-option span { padding: 8px 10px; }
+    .control-actions { flex-shrink: 0; padding-top: 10px; border-top: 1px solid var(--border); }
+    .control-actions .btn-generate,
+    .control-actions .btn-print,
+    .control-actions .btn-clear-memory { padding: 10px 14px; margin-top: 0; margin-bottom: 7px; }
+    .control-actions .security-note { font-size: 11px; line-height: 1.5; margin-top: 4px; }
+    .preview-wrap { min-height: 0; overflow-y: auto; }
+}
+
+.print-options {
+    margin-bottom: 16px;
+    padding: 16px;
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    background: rgba(255,255,255,.6);
+}
+.print-options .preview-note { flex-wrap: wrap; padding: 0; gap: 8px; margin-bottom: 10px; }
+.print-options .preview-note > span { font-size: 13px; font-weight: 600; color: var(--text); }
+.print-option-help { font-size: 12px; line-height: 1.6; color: var(--text-muted); margin: 0 0 14px; }
+.print-summary { border-top: 1px solid var(--border); padding-top: 12px; font-size: 13px; }
+.print-summary strong { color: var(--accent-dark); }
+.print-summary ol { padding-left: 22px; margin-top: 6px; line-height: 1.8; color: var(--text-muted); }
+.print-layout-toggle.is-unavailable { opacity: .5; }
+.print-layout-toggle input:disabled + span { cursor: default; }
+@media print { .print-options { display: none !important; } }

@@ -101,7 +101,6 @@ const elements = {
     pbg24:              document.getElementById('pbg24'),
     pbg5:               document.getElementById('pbg5'),
     pbgMlo:             document.getElementById('pbgMlo'),
-    pbgGuest:           document.getElementById('pbgGuest'),
     pbgTag24:           document.getElementById('pbgTag24'),
     pbgDesc24:          document.getElementById('pbgDesc24')
 };

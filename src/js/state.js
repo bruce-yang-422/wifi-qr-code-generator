@@ -65,6 +65,8 @@ function getInitialValues() {
     const stored = loadStateFromStorage();
     if (stored) {
         return {
+            wifiTitle: stored.wifiTitle || '',
+            wifiNote: stored.wifiNote || '',
             ssid24:         stored.ssid24 || '',
             ssid5:          stored.ssid5 || '',
             ssidMlo:        stored.ssidMlo || '',
@@ -125,6 +127,8 @@ function getPasswordsByMode() {
 function getState() {
     const ssid24 = elements.ssid24Input.value.trim();
     return {
+        wifiTitle: document.getElementById('wifiTitleInput').value.trim(),
+        wifiNote: document.getElementById('wifiNoteInput').value.trim(),
         ssid24,
         ssid5:     isBandSteering() ? ssid24 : elements.ssid5Input.value.trim(),
         ssidMlo:   elements.ssidMloInput.value.trim(),
